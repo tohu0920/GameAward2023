@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4808306268669477621}
   - component: {fileID: 5880286873341159432}
   - component: {fileID: 7933276470889239046}
-  - component: {fileID: 8375909204585043303}
+  - component: {fileID: 347736709956087710}
   m_Layer: 0
   m_Name: Object2
   m_TagString: Untagged
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5b3049ec9d6977c4cab61ca869c8ac12, type: 2}
+  - {fileID: 2100000, guid: a222bde78cb1e3246b6ca9b751993697, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,7 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
---- !u!114 &8375909204585043303
+--- !u!114 &347736709956087710
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1567643822525311290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe28a1367754c6848b71f8463b9c9cb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
