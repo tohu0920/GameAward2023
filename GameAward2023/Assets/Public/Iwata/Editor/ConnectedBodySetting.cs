@@ -31,6 +31,13 @@ public class ConnectedBodySetting : EditorWindow
 
     private void Export()
     {
-        
+        GameObject[] tagObjects;
+        tagObjects = GameObject.FindGameObjectsWithTag("Jank");
+        for(int i = 0; i < tagObjects.Length; i++)
+        {
+            if (tagObjects[i].transform.parent == null) continue;
+
+            tagObjects[i].GetComponent<FixedJoint>().connectedBody = tagObjects[i].transform.parent.GetComponent<Rigidbody>();
+        }
     }
 }
