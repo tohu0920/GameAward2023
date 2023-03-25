@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7798854772446950174}
   m_Layer: 0
   m_Name: booster2
-  m_TagString: Untagged
+  m_TagString: Jank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

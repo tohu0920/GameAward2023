@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &121956161
+--- !u!1001 &10555539
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1390522401645934434, guid: 6ca9ab40d5b91cc42ab5b8f22269994f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1390522401645934434, guid: 6ca9ab40d5b91cc42ab5b8f22269994f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -189,7 +189,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8554338817691665229, guid: 513d9959b3faae544b4b1c53f57b496d, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8554338817691665229, guid: 513d9959b3faae544b4b1c53f57b496d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -242,6 +242,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8554338817691665229, guid: 513d9959b3faae544b4b1c53f57b496d, type: 3}
   m_PrefabInstance: {fileID: 489818704}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &489818708 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8554338817691665230, guid: 513d9959b3faae544b4b1c53f57b496d, type: 3}
+  m_PrefabInstance: {fileID: 489818704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &533101697
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &533101698
 AudioListener:
   m_ObjectHideFlags: 0
@@ -427,6 +432,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 489818705}
     m_Modifications:
+    - target: {fileID: 4947372661326547195, guid: 063bdbccc9db5a44ab5c1548e8be04c2, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 489818708}
     - target: {fileID: 7179383116903996585, guid: 063bdbccc9db5a44ab5c1548e8be04c2, type: 3}
       propertyPath: m_Name
       value: booster1
@@ -496,9 +505,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 489818705}
     m_Modifications:
+    - target: {fileID: 4947372661326547195, guid: 063bdbccc9db5a44ab5c1548e8be04c2, type: 3}
+      propertyPath: m_ConnectedBody
+      value: 
+      objectReference: {fileID: 489818708}
     - target: {fileID: 7179383116903996585, guid: 063bdbccc9db5a44ab5c1548e8be04c2, type: 3}
       propertyPath: m_Name
-      value: booster1 (1)
+      value: booster1
       objectReference: {fileID: 0}
     - target: {fileID: 7559743069584590355, guid: 063bdbccc9db5a44ab5c1548e8be04c2, type: 3}
       propertyPath: m_RootOrder
