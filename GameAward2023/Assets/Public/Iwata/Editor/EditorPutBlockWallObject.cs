@@ -15,9 +15,8 @@ public class EditorPutBlockWallObject : Editor
         //元のInspector部分の下にボタンを表示
         if (GUILayout.Button("Block更新"))
         {
-            serializedObject.Update();
-
-            serializedObject.FindProperty("_textComponent");
+            var hoge = target as PutBlockWallObject;
+            hoge.Export();
         }
     }
 }

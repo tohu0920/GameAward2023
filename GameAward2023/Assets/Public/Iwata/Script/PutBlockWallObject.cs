@@ -7,10 +7,14 @@ public class PutBlockWallObject : MonoBehaviour
     public GameObject BlockWallObject;
     public Vector3 Size = Vector3.one;
 
-    //public void Export()
-    void Start()
+    public void Export()
     {
         Vector3 pos = this.transform.position;
+
+        foreach(Transform child in this.transform)
+        {
+            DestroyImmediate(child.gameObject);
+        }
 
         for(int z = 0; z < Size.z; z++)
         {
@@ -28,11 +32,5 @@ public class PutBlockWallObject : MonoBehaviour
             pos.y = this.transform.position.y;
             pos.z += BlockWallObject.transform.localScale.z;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
