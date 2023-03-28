@@ -23,7 +23,7 @@ public class FadeImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && BlindFadeImage.color.a == 0.0f)
         {
             isFade = true;
         }
