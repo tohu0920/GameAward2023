@@ -13,8 +13,9 @@ public class ChangeBGM : MonoBehaviour
     public float fadeOutDuration = 1.0f; // フェード時間
 
     private AudioSource audioSource;
-    private bool isFadeIn = false;
-    private bool isFadeOut = false;
+
+    public bool isFadeIn = false;
+    public bool isFadeOut = false;
 
 
     // Start is called before the first frame update
@@ -26,7 +27,7 @@ public class ChangeBGM : MonoBehaviour
         audioSource.clip = F1Title;
 
         //初期音量をゼロにする
-        audioSource.volume = 0.0f;
+        audioSource.volume = 0.1f;
 
         //音楽の再生
         StartCoroutine(PlayBGM());
@@ -58,7 +59,7 @@ public class ChangeBGM : MonoBehaviour
         if (isFadeIn == true)
         {
             float volume = audioSource.volume;
-            audioSource.clip = nextBGM;
+            audioSource.clip = nextBGM;      
             audioSource.Play();
 
             volume += Time.deltaTime / fadeInDuration;
@@ -82,8 +83,8 @@ public class ChangeBGM : MonoBehaviour
             {
                 isFadeOut = false;
                 isFadeIn = true;
+                audioSource.Stop();
             }
-            audioSource.Stop();
         }
     }
 
