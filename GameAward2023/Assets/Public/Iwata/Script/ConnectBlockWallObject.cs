@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ConnectBlockWallObject : MonoBehaviour
 {
+    public float Endure = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,8 @@ public class ConnectBlockWallObject : MonoBehaviour
         Physics.Raycast(ray, out hit, length);
         hoge[1].connectedBody = hit.rigidbody;
 
-        hoge[0].breakForce = hoge[1].breakForce = 10;
-        hoge[0].breakTorque = hoge[1].breakTorque = 10;
+        hoge[0].breakForce = hoge[1].breakForce = Endure;
+        hoge[0].breakTorque = hoge[1].breakTorque = Endure;
     }
 
     // Update is called once per frame
