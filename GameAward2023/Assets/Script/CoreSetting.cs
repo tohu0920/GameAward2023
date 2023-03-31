@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CoreSetting : MonoBehaviour
 {
-	[SerializeReference] GameObject m_junk;
-
 	const float ROTATION	 = 90.0f;   // ‰ñ“]Šp“x
 	const float DAMPING_RATE = 0.5f;   // ‰ñ“]Œ¸Š—¦
 
@@ -258,8 +256,8 @@ public class CoreSetting : MonoBehaviour
 		//--- FixedJoint‚ğİ’è
 		FixedJoint fixedJoint = junk.AddComponent<FixedJoint>();
 		fixedJoint.connectedBody = hit.rigidbody;
-		fixedJoint.breakForce = 900.0f;
-		fixedJoint.breakTorque = 900.0f;
+		fixedJoint.breakForce = 2000.0f;
+		fixedJoint.breakTorque = 2000.0f;
 
 		Rigidbody junkRigidbody = junk.GetComponent<Rigidbody>();
 		junkRigidbody.constraints = RigidbodyConstraints.FreezeAll; // À•WEŠp“x‚ğŒÅ’è‚·‚é
