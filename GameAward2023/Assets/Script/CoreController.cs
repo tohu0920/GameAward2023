@@ -29,6 +29,8 @@ public class CoreController : MonoBehaviour
 
 	public void StartCore()
 	{
+		if (m_coreSetting.IsRotate()) return;
+
 		m_coreSetting.CoreReady();	// コアセッティング内の設定をステージ用に
 
 		foreach(Transform child in this.transform)
@@ -39,6 +41,8 @@ public class CoreController : MonoBehaviour
 			// 全てのパーツをスタートさせる
 			child.GetComponent<JunkController>().StartJunk();
 		}
+
+		m_coreSetting.enabled = false;	// コアのセッティングを無効化
 
 		m_isStart = true;
 	}

@@ -55,8 +55,6 @@ public class PlayerController : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.JoystickButton2) && !m_gameSceneController.IsStart)
 		{
 			//--- 各オブジェクトのスタート処理
-			m_coreController.CoreSetting.CoreReady();
-
 			m_coreController.StartCore();
 			m_gameSceneController.StartStage();
 		}

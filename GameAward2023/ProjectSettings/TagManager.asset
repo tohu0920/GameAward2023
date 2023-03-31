@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Jank
   - Junk
+  - Wall
   layers:
   - Default
   - TransparentFX
