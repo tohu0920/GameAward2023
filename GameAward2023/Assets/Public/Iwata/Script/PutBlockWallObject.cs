@@ -11,12 +11,13 @@ public class PutBlockWallObject : MonoBehaviour
     {
         Vector3 pos = this.transform.position;
 
-        foreach(Transform child in this.transform)
+        while (transform.childCount > 0)
         {
+            Transform child = transform.GetChild(0);
             DestroyImmediate(child.gameObject);
         }
 
-        for(int z = 0; z < Size.z; z++)
+        for (int z = 0; z < Size.z; z++)
         {
             for(int y = 0; y < Size.y; y++)
             {
