@@ -29,9 +29,7 @@ public class AttackScript : MonoBehaviour
             // ベクトルを適用
             collision.gameObject.GetComponent<Rigidbody>().AddForce(vForce, ForceMode.Impulse);
 
-            FixedJoint joint = collision.gameObject.GetComponent<FixedJoint>();
-            if (joint != null)
-                joint.breakForce *= 0.1f;
+            collision.gameObject.GetComponentInChildren<FixedJoint>().breakForce *= 0.1f;
         }
     }
 }
