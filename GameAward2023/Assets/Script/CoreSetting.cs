@@ -78,10 +78,19 @@ public class CoreSetting : MonoBehaviour
 			Ray ray = new Ray(child.position, Vector3.back);
 			RaycastHit hit;
 
-			// 組み立てられない面はスルー
-			if (Physics.Raycast(ray, out hit, 10.0f)) continue;
+            // 組み立てられない面はスルー
+            // 手前に物があったらスキップ
+            //if (Physics.Raycast(ray, out hit, 10.0f)) continue;
 
-			attachFaces.Add(child);	// 面を格納
+            //iwata:ヒットのトランスフォームのタグがJanKだったらスルーする
+            //前方に物があるか確認
+            Physics.Raycast(ray, out hit, 10.0f);
+            if()
+            {
+
+            }
+
+            attachFaces.Add(child);	// 面を格納
 		}
 
 		//--- ソート
@@ -247,6 +256,7 @@ public class CoreSetting : MonoBehaviour
 		if (!Physics.Raycast(ray, out hit, 1.0f)) return;
 
 		//--- ガラクタの場合、組み立てられる面かを判定する
+        //iwata:ここコアとミニコアをPlayerタグつけてPlayerを判定する
 		if (hit.transform.tag == "Junk")
 		{
 			JunkSetting junkSetting = hit.transform.GetComponent<JunkSetting>();
