@@ -22,12 +22,16 @@ public class AttackScript : MonoBehaviour
     {
         if (collision.transform.tag == "Wall")
         {
-            //--- 反発するベクトルを計算
+            // ベクトルを計算
             Vector3 vForce = collision.contacts[0].point - this.transform.position;
             vForce = vForce.normalized * m_crashRate;
 
-            // 反発するベクトルを適用
+            // ベクトルを適用
             collision.gameObject.GetComponent<Rigidbody>().AddForce(vForce, ForceMode.Impulse);
+
+            FixedJoint joint = collision.gameObject.GetComponent<FixedJoint>();
+            if (joint != null)
+                joint.breakForce *= 0.1f;
         }
     }
 }
