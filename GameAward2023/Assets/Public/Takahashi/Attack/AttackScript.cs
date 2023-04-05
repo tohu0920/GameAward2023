@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackScript : MonoBehaviour
 {
-    [SerializeReference] float m_crashRate;
+    [SerializeReference] float m_crashRate = 80.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +22,19 @@ public class AttackScript : MonoBehaviour
     {
         if (collision.transform.tag == "Wall")
         {
+            Debug.Log("当たった！");
             // ベクトルを計算
-            Vector3 vForce = collision.contacts[0].point - this.transform.position;
-            vForce = vForce.normalized * m_crashRate;
+            Vector3 vForce = (collision.contacts[0].point - this.transform.position).normalized;
 
             // ベクトルを適用
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(vForce, ForceMode.Impulse);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(vForce * m_crashRate, ForceMode.Impulse);
 
-            collision.gameObject.GetComponentInChildren<FixedJoint>().breakForce *= 0.1f;
+ //           FixedJoint jointP = collision.gameObject.GetComponent<FixedJoint>();
+ //           FixedJoint jointC = collision.gameObject.GetComponentInChildren<FixedJoint>();
+ //           if (jointP != null)
+ //               jointP.breakForce *= 0.1f;
+ //           if (jointC != null)
+ //               jointC.breakForce *= 0.1f;
         }
     }
 }
