@@ -80,15 +80,7 @@ public class CoreSetting : MonoBehaviour
 
             // 組み立てられない面はスルー
             // 手前に物があったらスキップ
-            //if (Physics.Raycast(ray, out hit, 10.0f)) continue;
-
-            //iwata:ヒットのトランスフォームのタグがJanKだったらスルーする
-            //前方に物があるか確認
-            Physics.Raycast(ray, out hit, 10.0f);
-            if()
-            {
-
-            }
+            if (Physics.Raycast(ray, out hit, 10.0f)) continue;
 
             attachFaces.Add(child);	// 面を格納
 		}
@@ -257,7 +249,7 @@ public class CoreSetting : MonoBehaviour
 
 		//--- ガラクタの場合、組み立てられる面かを判定する
         //iwata:ここコアとミニコアをPlayerタグつけてPlayerを判定する
-		if (hit.transform.tag == "Junk")
+		if (hit.transform.tag == "Player")
 		{
 			JunkSetting junkSetting = hit.transform.GetComponent<JunkSetting>();
 			if (!junkSetting.CanAttach(-direction))	return;
@@ -318,6 +310,8 @@ public class CoreSetting : MonoBehaviour
 	/// </summary>
 	public bool AttachJunk(GameObject junk)
 	{
+        if (junk.tag == "Junk" && m_attachFaces[m_selectFaceNum].tag == "Junk") return false;
+
 		//--- 組み立てられない面であればキャンセル
 		if(m_attachFaces[m_selectFaceNum].transform.tag == "Junk")
 		{
