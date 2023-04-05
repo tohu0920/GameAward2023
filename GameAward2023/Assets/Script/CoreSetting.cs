@@ -15,6 +15,9 @@ public class CoreSetting : MonoBehaviour
 	int m_rotateFrameCnt;           // 回転フレームのカウント]
 	bool m_isDepath;		// 面情報を取得し直すフラグ
 
+    [SerializeReference] AudioClip m_RotSound;
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_isDepath = false;
 
-	}
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -222,7 +226,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_rotateY += ROTATION * direction;	// 角度を設定
 		m_rotateFrameCnt = 1;	// 最初のカウント
-	}
+        audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
 
 	/// <summary>
 	/// コアのX軸回転開始
@@ -233,7 +238,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_rotateX -= ROTATION * direction;  // 角度を設定
 		m_rotateFrameCnt = 1;   // 最初のカウント
-	}
+        audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
 
 	/// <summary>
 	/// FixedJointを追加
