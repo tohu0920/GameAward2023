@@ -13,7 +13,20 @@ public class JointJank_iwata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(this.gameObject.GetComponent<FixedJoint>())
+        {
+            Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+
+            // オブジェクトに加えられる力とトルクを取得する
+            Vector3 force = rb.mass * rb.velocity;
+            //Vector3 torque = rb.inertiaTensor * rb.angularVelocity;
+
+            // 取得した力とトルクをログに出力する
+            Debug.Log("Force on object: " + force);
+            //Debug.Log("Torque on object: " + torque);
+
+            //Debug.Log(this.transform.position);
+        }
     }
 
     public void JointJanktoCore(Transform trans)

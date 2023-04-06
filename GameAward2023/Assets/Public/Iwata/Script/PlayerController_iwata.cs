@@ -80,15 +80,37 @@ public class PlayerController_iwata : MonoBehaviour
                     }
                 }
 
+                //Xƒ{ƒ^ƒ“
                 if (Input.GetKeyDown(KeyCode.JoystickButton2))
                 {
-                    Debug.Log("a");
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
+                }
+                break;
+
+            case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
+                if (Input.GetKey(KeyCode.Joystick1Button4))
+                {
+                    Core.GetComponent<RotationCore>().RotL();
+                }
+                if (Input.GetKey(KeyCode.Joystick1Button5))
+                {
+                    Core.GetComponent<RotationCore>().RotR();
+                }
+                if (Input.GetKey(KeyCode.Joystick1Button1))
+                {
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
+                }
+                if (Input.GetKeyDown(KeyCode.JoystickButton2))
+                {
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY;
                 }
 
-                    break;
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
                 break;
             case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
+                if (Input.GetKeyDown(KeyCode.JoystickButton2))
+                {
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
+                }
                 break;
         }
         

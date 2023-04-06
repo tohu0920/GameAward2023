@@ -250,4 +250,44 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "ŠO‚¹‚È‚¢");
         }
     }
+
+    public void JointToRot()
+    {
+        UndoSizeCore();
+        this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
+        //foreach (Transform child in this.transform)
+        //{
+        //    child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotationY;
+        //}
+    }
+
+    public void RotToJoint()
+    {
+        m_isDepath = true;
+        this.transform.position = new Vector3(-4.0f, 11.0f, -38.0f);
+        this.transform.rotation = Quaternion.identity;
+        foreach (Transform child in this.transform)
+        {
+            child.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+    }
+
+    public void RotToPlay()
+    {
+        foreach (Transform child in this.transform)
+        {
+            child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeAll;
+        }
+    }
+
+    public void PlayToRot()
+    {
+        m_isDepath = true;
+        this.transform.position = new Vector3(-4.0f, 11.0f, -38.0f);
+        this.transform.rotation = Quaternion.identity;
+        foreach (Transform child in this.transform)
+        {
+            child.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        }
+    }
 }
