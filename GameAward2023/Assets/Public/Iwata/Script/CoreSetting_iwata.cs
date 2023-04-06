@@ -10,11 +10,11 @@ public class CoreSetting_iwata : MonoBehaviour
     const float ORIZIN_SiZE = 1.00f;   //選択外のCoreの大きさ
 
     List<Transform> m_attachFaces;	// 組み立てられる面
-    int m_CurrentSelectFaceNum;     // 選択面の番号
+    int m_SelectFaceNum;     // 選択面の番号
     int m_timeToRotate;             // 回転時間
     float m_rotateY, m_rotateX;     // 角度
     float m_lateY, m_lateX;         // 遅延角度
-    int m_rotateFrameCnt;           // 回転フレームのカウント
+    public int m_rotateFrameCnt;           // 回転フレームのカウント
     bool m_isDepath;        // 面情報を取得し直すフラグ
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
@@ -24,18 +24,22 @@ public class CoreSetting_iwata : MonoBehaviour
     void Start()
     {
         m_attachFaces = GetAttachFace();	// 組み立てられる面を取得
-        m_CurrentSelectFaceNum = 0;
+        m_SelectFaceNum = 0;
         m_rotateY = m_rotateX = 0.0f;
         m_lateY = m_lateX = 0.0f;
 
         // 回転時間を計算
         m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
 
-        ReSizeCore(m_attachFaces[m_CurrentSelectFaceNum], false);
+        //選ばれているCoreを大きくする
+        EnlargeSizeCore();
 
+        //再検索が必要な時に立てるFlagを設定
         m_isDepath = false;
 
         //audioSource = GetComponent<AudioSource>();
+
+
     }
 
     // Update is called once per frame
@@ -53,7 +57,7 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 
             // 選択中の面を大きく協調する
-            ReSizeCore(m_attachFaces[m_CurrentSelectFaceNum], false);
+            EnlargeSizeCore();
 
             m_isDepath = false;
         }
@@ -97,18 +101,67 @@ public class CoreSetting_iwata : MonoBehaviour
         return attachFaces;
     }
 
-    void ReSizeCore(Transform obj, bool flag)   //0:選択　1:選択外
+    void EnlargeSizeCore()
     {
-        if(flag)
-        {
-            obj.localScale = new Vector3(ENLARGE_SiZE, ENLARGE_SiZE, ENLARGE_SiZE);
-        }
-        else
-        {
-            obj.localScale = new Vector3(ORIZIN_SiZE, ORIZIN_SiZE, ORIZIN_SiZE);
-        }
+        m_attachFaces[m_SelectFaceNum].localScale = new Vector3(ENLARGE_SiZE, ENLARGE_SiZE, ENLARGE_SiZE);
     }
 
+    void UndoSizeCore()
+    {
+        m_attachFaces[m_SelectFaceNum].localScale = new Vector3(ORIZIN_SiZE, ORIZIN_SiZE, ORIZIN_SiZE);
+    }
+
+    public void ChangeFaceX(float axis)
+    {
+        UndoSizeCore();
+        Vector3 pos = m_attachFaces[m_SelectFaceNum].position;
+        pos.x += axis;
+        for(int i = 0; i < m_attachFaces.Count; i++)
+        {
+            //--- 現在の面と次の面のXY座標をVector2に格納
+            Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
+
+            // XY平面での距離が離れすぎていたらスルー
+            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
+
+            m_SelectFaceNum = i;
+            EnlargeSizeCore();
+            return;
+        }
+
+        m_rotateY += ROTATION * (int)axis;  // 角度を設定
+        m_rotateFrameCnt = 1;	// 最初のカウント
+        m_isDepath = true;
+        //audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
+
+    public void ChangeFaceY(float axis)
+    {
+        UndoSizeCore();
+        Vector3 pos = m_attachFaces[m_SelectFaceNum].position;
+        pos.y += axis;
+        for (int i = 0; i < m_attachFaces.Count; i++)
+        {
+            //--- 現在の面と次の面のXY座標をVector2に格納
+            Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
+
+            // XY平面での距離が離れすぎていたらスルー
+            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
+
+            m_SelectFaceNum = i;
+            EnlargeSizeCore();
+            return;
+        }
+
+        m_rotateX -= ROTATION * (int)axis;  // 角度を設定
+        m_rotateFrameCnt = 1;   // 最初のカウント
+        m_isDepath = true;
+        //audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
+
+    //Coreを回転される
     void RotateCore()
     {
         float lastY = m_lateY;
@@ -129,8 +182,8 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
-            m_CurrentSelectFaceNum = 0;    // 選択面の番号をリセット
-            m_attachFaces[m_CurrentSelectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
+            m_SelectFaceNum = 0;    // 選択面の番号をリセット
+            m_attachFaces[m_SelectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
         }
     }
 }
