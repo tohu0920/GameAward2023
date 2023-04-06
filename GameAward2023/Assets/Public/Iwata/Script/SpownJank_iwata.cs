@@ -10,7 +10,6 @@ public class SpownJank_iwata : MonoBehaviour
     void Start()
     {
         StartPos = transform.position;
-        Debug.Log(StartPos);
     }
 
     // Update is called once per frame
@@ -26,5 +25,11 @@ public class SpownJank_iwata : MonoBehaviour
         this.GetComponent<Rigidbody>().constraints &= RigidbodyConstraints.None;
         this.transform.position = StartPos;
         this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+    }
+
+    public void ReturnJank()
+    {
+        this.GetComponent<Rigidbody>().constraints &= RigidbodyConstraints.None;
+        this.transform.position = StartPos;
     }
 }

@@ -23,4 +23,9 @@ public class JankController : MonoBehaviour
         get { return selectJank; }
         set { selectJank = value; }
     }
+
+    public void ReturnJank()
+    {
+        selectJank.GetComponent<SpownJank_iwata>().ReturnJank();
+    }
 }

@@ -18,8 +18,6 @@ public class PreviewJank : MonoBehaviour
 
     public void AttachPreviewJank(GameObject obj)
     {
-        Debug.Log(obj.transform.name);
-
         Vector3 pos = this.transform.position;
         pos.z += this.transform.localScale.z / 2.0f;
         pos.z += obj.transform.localScale.z / 2.0f;
