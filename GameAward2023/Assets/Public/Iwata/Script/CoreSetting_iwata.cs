@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class CoreSetting_iwata : MonoBehaviour
 {
+    public struct AttachFace
+    {
+        public Transform Trans;
+        public bool isAttach;
+        public bool isRelease;
+    };
+    
     const float ROTATION = 90.0f;   // 回転角度
     const float DAMPING_RATE = 0.5f;   // 回転減衰率
     const float ENLARGE_SiZE = 1.25f;   //選択中のCoreの大きさ
     const float ORIZIN_SiZE = 1.00f;   //選択外のCoreの大きさ
 
-    List<Transform> m_attachFaces;	// 組み立てられる面
+    List<AttachFace> m_attachFaces;	// 組み立てられる面
+    List<Transform> hoge;
     int m_SelectFaceNum;     // 選択面の番号
     int m_timeToRotate;             // 回転時間
     float m_rotateY, m_rotateX;     // 角度
     float m_lateY, m_lateX;         // 遅延角度
-    public int m_rotateFrameCnt;           // 回転フレームのカウント
+    public int m_rotateFrameCnt;    // 回転フレームのカウント
     bool m_isDepath;        // 面情報を取得し直すフラグ
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
@@ -63,15 +71,16 @@ public class CoreSetting_iwata : MonoBehaviour
         }
     }
 
-    List<Transform> GetAttachFace()
+    List<AttachFace> GetAttachFace()
     {
         // 面の格納先を用意
-        List<Transform> attachFaces = new List<Transform>();
+        List<AttachFace> attachFaces = new List<AttachFace>();
+        AttachFace TempFace = new AttachFace();
 
         //--- 組み立てられる面を順番に格納
         foreach (Transform child in this.transform)
         {
-            if (child.tag != "Player") continue;
+            //if (child.tag != "Player") continue;
 
             // 手前に伸びるレイを用意
             Ray ray = new Ray(child.position, Vector3.back);
@@ -81,20 +90,43 @@ public class CoreSetting_iwata : MonoBehaviour
             // 手前に物があったらスキップ
             if (Physics.Raycast(ray, out hit, 10.0f)) continue;
 
-            attachFaces.Add(child); // 面を格納
+            //Transformの情報登録
+            TempFace.Trans = child;
+
+            //アタッチできる面かを判断するフラグを格納
+            if(!child.GetComponent<IsAttachFace_iwata>())
+            {
+                TempFace.isAttach = true;
+            }
+            else
+            {
+                TempFace.isAttach = child.GetComponent<IsAttachFace_iwata>().CanAttach(Vector3.back);
+            }
+
+            //取り外せる面かを判断するフラグを格納
+            if(child.name.Contains("Core_Child"))
+            {
+                TempFace.isRelease = false;
+            }
+            else
+            {
+                TempFace.isRelease = true;
+            }
+
+            attachFaces.Add(TempFace); // 面を格納
         }
 
         //--- ソート
         attachFaces.Sort((a, b) => {
-            if (Mathf.Abs(a.position.y - b.position.y) > 0.75f)
+            if (Mathf.Abs(a.Trans.position.y - b.Trans.position.y) > 0.75f)
             {
                 // Y座標が異なる場合はY座標で比較する
-                return b.position.y.CompareTo(a.position.y);
+                return b.Trans.position.y.CompareTo(a.Trans.position.y);
             }
             else
             {
                 // Y座標が同じ場合はX座標で比較する
-                return a.position.x.CompareTo(b.position.x);
+                return a.Trans.position.x.CompareTo(b.Trans.position.x);
             }
         });
 
@@ -103,23 +135,23 @@ public class CoreSetting_iwata : MonoBehaviour
 
     void EnlargeSizeCore()
     {
-        m_attachFaces[m_SelectFaceNum].localScale = new Vector3(ENLARGE_SiZE, ENLARGE_SiZE, ENLARGE_SiZE);
+        m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(ENLARGE_SiZE, ENLARGE_SiZE, ENLARGE_SiZE);
     }
 
     void UndoSizeCore()
     {
-        m_attachFaces[m_SelectFaceNum].localScale = new Vector3(ORIZIN_SiZE, ORIZIN_SiZE, ORIZIN_SiZE);
+        m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(ORIZIN_SiZE, ORIZIN_SiZE, ORIZIN_SiZE);
     }
 
     public void ChangeFaceX(float axis)
     {
         UndoSizeCore();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].position;
+        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.x += axis;
         for(int i = 0; i < m_attachFaces.Count; i++)
         {
             //--- 現在の面と次の面のXY座標をVector2に格納
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
             // XY平面での距離が離れすぎていたらスルー
@@ -139,12 +171,12 @@ public class CoreSetting_iwata : MonoBehaviour
     public void ChangeFaceY(float axis)
     {
         UndoSizeCore();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].position;
+        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.y += axis;
         for (int i = 0; i < m_attachFaces.Count; i++)
         {
             //--- 現在の面と次の面のXY座標をVector2に格納
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
             // XY平面での距離が離れすぎていたらスルー
@@ -183,7 +215,39 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
             m_SelectFaceNum = 0;    // 選択面の番号をリセット
-            m_attachFaces[m_SelectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
+            m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
+        }
+    }
+
+    public bool AttachCore(GameObject obj)
+    {
+        if(m_attachFaces[m_SelectFaceNum].isAttach)
+        {//組み立てる処理
+            UndoSizeCore();
+            obj.GetComponent<JointJank_iwata>().JointJanktoCore(m_attachFaces[m_SelectFaceNum].Trans);
+            m_isDepath = true;
+            return true;
+        }
+        else
+        {//組み立てられなかったときに鳴らすSE
+            Debug.Log("組めないよ！");
+            return false;
+        }
+    }
+
+    public void ReleaseCore()
+    {
+        if(m_attachFaces[m_SelectFaceNum].isRelease)
+        {
+            //外す処理
+            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "外した");
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
+            m_isDepath = true;
+        }
+        else
+        {
+            //外せなかったときに鳴らすSE
+            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "外せない");
         }
     }
 }
