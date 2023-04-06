@@ -17,7 +17,6 @@ public class ChangeBGM : MonoBehaviour
     public bool isFadeIn = false;
     public bool isFadeOut = false;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +30,8 @@ public class ChangeBGM : MonoBehaviour
 
         //âπäyÇÃçƒê∂
         StartCoroutine(PlayBGM());
+
+        
     }
 
     // Update is called once per frame
