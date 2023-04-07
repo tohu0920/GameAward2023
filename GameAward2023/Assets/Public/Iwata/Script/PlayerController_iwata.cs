@@ -44,6 +44,8 @@ public class PlayerController_iwata : MonoBehaviour
 
                         if (Physics.Raycast(ray, out hit))
                         {
+                            Debug.Log(hit.transform.tag);
+
                             // ガラクタではないならスルー
                             if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
