@@ -36,12 +36,11 @@ public class SelectBotton : MonoBehaviour
 
         if (SelectNum == -1)
         {
-            SelectNum = 3;       
+            SelectNum = 2;       
         }
-        if (SelectNum == 4)
+        if (SelectNum == 3)
         {
-            SelectNum = 3;
-            SelectNum = SelectNum % 3;
+            SelectNum = 0;
         }
 
 
@@ -98,7 +97,7 @@ public class SelectBotton : MonoBehaviour
 
     private void LoadSelectScene()
     {
-        SceneManager.LoadScene("StageSelect");        
+        SceneManager.LoadScene("StageSelectScene");        
     }
 }
 
