@@ -63,7 +63,12 @@ public class CoreSetting_iwata : MonoBehaviour
         if (m_isDepath)
         {
             m_attachFaces = GetAttachFace();    // ŽŸ‚Ì‘g‚Ý—§‚Ä‚ç‚ê‚é–Ê‚ðŽæ“¾
-
+            
+            if(m_SelectFaceNum > m_attachFaces.Count - 1)
+            {
+                m_SelectFaceNum = 0;
+            }
+            
             // ‘I‘ð’†‚Ì–Ê‚ð‘å‚«‚­‹¦’²‚·‚é
             EnlargeSizeCore();
 

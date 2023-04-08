@@ -87,6 +87,25 @@ public class PlayerController_iwata : MonoBehaviour
                 {
                     GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
+
+                //Lボタン
+                if(Input.GetKeyDown(KeyCode.JoystickButton4))
+                {
+                    if (Preview.activeSelf)
+                    {
+                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
+                    }
+                }
+
+                //Rボタン
+                if (Input.GetKeyDown(KeyCode.JoystickButton5))
+                {
+                    if (Preview.activeSelf)
+                    {
+                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+                    }
+                }
+
                 break;
 
             case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
