@@ -162,6 +162,7 @@ public class CoreSetting_iwata : MonoBehaviour
             return;
         }
 
+        UndoSizeCore();
         m_rotateY += ROTATION * (int)axis;  // 角度を設定
         m_rotateFrameCnt = 1;	// 最初のカウント
         m_isDepath = true;
@@ -182,6 +183,7 @@ public class CoreSetting_iwata : MonoBehaviour
             // XY平面での距離が離れすぎていたらスルー
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
 
+            UndoSizeCore();
             m_SelectFaceNum = i;
             EnlargeSizeCore();
             return;
