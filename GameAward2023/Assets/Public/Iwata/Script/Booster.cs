@@ -5,13 +5,14 @@ using UnityEngine;
 public class Booster : MonoBehaviour
 {
     [SerializeField] GameObject GSManager;
+    [SerializeField] GameObject EffectManager;
     [SerializeReference] float m_boostForceRate;
     [SerializeReference] float m_maxSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        EffectManager = GameObject.Find("EffectManager");
     }
 
     // Update is called once per frame
@@ -30,6 +31,8 @@ public class Booster : MonoBehaviour
 
             // 最大速度以下の時のみ処理する
             if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);	// ブースト処理
+
+            EffectManager.GetComponent<EffectManager_iwata>().PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);
         }
     }
 }
