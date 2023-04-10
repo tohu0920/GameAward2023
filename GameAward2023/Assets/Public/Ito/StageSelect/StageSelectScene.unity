@@ -1728,8 +1728,7 @@ MonoBehaviour:
   mainselectScreen: {fileID: 1460936945}
   subselsectScreen: {fileID: 1454782164}
   Empty: {fileID: 1665752346}
-  Scene: {fileID: 102900000, guid: 252819c7a53902a40aa037df9580e5b3, type: 3}
-  SelectNum: 0
+  Scene: {fileID: 102900000, guid: 0b3efa24e8681e142b042391734631f3, type: 3}
 --- !u!4 &984305345
 Transform:
   m_ObjectHideFlags: 0

@@ -5,13 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 252819c7a53902a40aa037df9580e5b3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TitleScene.unity
     guid: 353bc80ee9489854f9dfcfe8f7714081
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StageSelect.unity
     guid: 1d40d72adf96c02418e2027069a5e8d8
+  - enabled: 1
+    path: Assets/Public/Iwata/Scene/TitleTestScene.unity
+    guid: 22a8f6f95c543e74498a1488e3e40b3d
+  - enabled: 1
+    path: Assets/Public/Ito/StageSelect/StageSelectScene.unity
+    guid: 10dda49e032a0e948bd5457e3c559cbf
+  - enabled: 1
+    path: Assets/Public/Iwata/Scene/ConnectTestScene.unity
+    guid: 0b3efa24e8681e142b042391734631f3
   m_configObjects: {}
