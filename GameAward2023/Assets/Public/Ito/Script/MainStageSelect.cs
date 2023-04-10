@@ -46,7 +46,7 @@ public class MainStageSelect : MonoBehaviour
                     thirdScreen.SetActive(false);
                     forthScreen.SetActive(false);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     firstsubScreen.SetActive(true);
                     firstScreen.SetActive(false);
@@ -61,7 +61,7 @@ public class MainStageSelect : MonoBehaviour
                     thirdScreen.SetActive(false);
                     forthScreen.SetActive(false);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     secondsubScreen.SetActive(true);
                     secondScreen.SetActive(false);
@@ -75,7 +75,7 @@ public class MainStageSelect : MonoBehaviour
                     thirdScreen.SetActive(true);
                     forthScreen.SetActive(false);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     thirdsubScreen.SetActive(false);
                     thirdScreen.SetActive(false);
@@ -89,7 +89,7 @@ public class MainStageSelect : MonoBehaviour
                     thirdScreen.SetActive(false);
                     forthScreen.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     forthsubScreen.SetActive(true);
                     forthScreen.SetActive(false);

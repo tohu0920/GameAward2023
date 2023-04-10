@@ -119,11 +119,7 @@ public class OptionSelect : MonoBehaviour
                 SEText.color = new Color(0, 0, 0, 255);
                 BackImage.color = new Color(255, 255, 255, 255);
                 BackText.color = new Color(0, 0, 0, 255);
-                //if (Input.GetKeyDown("JoystickButton1"))
-                //{
-                //    Application.Quit();
-                //}
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
                 {
                     Application.Quit();
                 }
@@ -139,7 +135,7 @@ public class OptionSelect : MonoBehaviour
                 ReadMeImage.color = new Color(255, 256, 256, 255);
                 ReadMeText.color = new Color(0, 0, 0, 255);
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
                 {
                     GameScreen.SetActive(true);
                     OptionScreen.SetActive(false);

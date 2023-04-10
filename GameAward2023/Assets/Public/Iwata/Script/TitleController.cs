@@ -21,6 +21,8 @@ public class TitleController : MonoBehaviour
     private Text end;
 
     [SerializeField] SelectCursor_Title select;
+    [SerializeField] GameObject optionObj;
+
     
     // Start is called before the first frame update
     void Start()
@@ -93,7 +95,8 @@ public class TitleController : MonoBehaviour
                     SceneManager.LoadScene("StageSelectScene");
                     break;
                 case SelectCursor_Title.E_SELECT_CURSOR_TITLE_OPTION:
-                    
+                    optionObj.SetActive(true);
+                    this.gameObject.SetActive(false);
                     break;
                 case SelectCursor_Title.E_SELECT_CURSOR_TITLE_END:
                     Debug.Log("‚¨‚í‚è");
