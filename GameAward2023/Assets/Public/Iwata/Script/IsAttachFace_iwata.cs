@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class IsAttachFace_iwata : MonoBehaviour
 {
-    [SerializeReference] bool m_forward;
-    [SerializeReference] bool m_back;
-    [SerializeReference] bool m_right;
-    [SerializeReference] bool m_left;
-    [SerializeReference] bool m_up;
-    [SerializeReference] bool m_down;
+    [System.Serializable]
+    public struct AttachFlag
+    {
+        public bool m_forward;
+        public bool m_back;
+        public bool m_right;
+        public bool m_left;
+        public bool m_up;
+        public bool m_down;
+    }
+
+
+    //[SerializeReference] bool m_forward;
+    //[SerializeReference] bool m_back;
+    //[SerializeReference] bool m_right;
+    //[SerializeReference] bool m_left;
+    //[SerializeReference] bool m_up;
+    //[SerializeReference] bool m_down;
+
+    [SerializeField] AttachFlag m_canAttach;
+    [SerializeField] AttachFlag m_canRot;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +67,7 @@ public class IsAttachFace_iwata : MonoBehaviour
         //--- 組み立てられる面かを判定する
         for (int i = 0; i < attachVector.Count; i++)
         {
-            if (Vector3.Distance(attachVector[i], toFace) > 0.5f) continue;
+            if (Vector3.Distance(attachVector[i], Vector3.forward) > 0.5f) continue;
 
             return true;
         }
@@ -68,13 +83,27 @@ public class IsAttachFace_iwata : MonoBehaviour
     {
         //--- 組み立てられる面を全て洗い出す
         List<Vector3> attachVector = new List<Vector3>();
-        if (m_forward) attachVector.Add(this.transform.forward);
-        if (m_back) attachVector.Add(-this.transform.forward);
-        if (m_right) attachVector.Add(this.transform.right);
-        if (m_left) attachVector.Add(-this.transform.right);
-        if (m_up) attachVector.Add(this.transform.up);
-        if (m_down) attachVector.Add(-this.transform.up);
+        if (m_canAttach.m_forward) attachVector.Add(this.transform.forward);
+        if (m_canAttach.m_back) attachVector.Add(-this.transform.forward);
+        if (m_canAttach.m_right) attachVector.Add(this.transform.right);
+        if (m_canAttach.m_left) attachVector.Add(-this.transform.right);
+        if (m_canAttach.m_up) attachVector.Add(this.transform.up);
+        if (m_canAttach.m_down) attachVector.Add(-this.transform.up);
 
         return attachVector;
+    }
+
+    public List<Vector3> GetRotVector()
+    {
+        //--- 組み立てられる面を全て洗い出す
+        List<Vector3> rotVector = new List<Vector3>();
+        if (m_canRot.m_forward) rotVector.Add(this.transform.forward);
+        if (m_canRot.m_back) rotVector.Add(-this.transform.forward);
+        if (m_canRot.m_right) rotVector.Add(this.transform.right);
+        if (m_canRot.m_left) rotVector.Add(-this.transform.right);
+        if (m_canRot.m_up) rotVector.Add(this.transform.up);
+        if (m_canRot.m_down) rotVector.Add(-this.transform.up);
+
+        return rotVector;
     }
 }

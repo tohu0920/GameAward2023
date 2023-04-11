@@ -20,6 +20,10 @@ public class CursorController : MonoBehaviour
 		Vector2 pos = m_rectTransform.anchoredPosition;
 		pos.x += Input.GetAxisRaw("Horizontal_L") * 7.5f;
 		pos.y += Input.GetAxisRaw("Vertical_L") * 7.5f;
+        if (Input.GetKey(KeyCode.J)) pos.x -= 7.5f;
+        if (Input.GetKey(KeyCode.L)) pos.x += 7.5f;
+        if (Input.GetKey(KeyCode.I)) pos.y += 7.5f;
+        if (Input.GetKey(KeyCode.K)) pos.y -= 7.5f;
 
 		//--- ‰æ–ÊŠO‚Éo‚Ä‚¢‚­‚Ì‚ð–h‚®(¶‰æ–Ê‚Ì‚ÝˆÚ“®‰Â”\)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;

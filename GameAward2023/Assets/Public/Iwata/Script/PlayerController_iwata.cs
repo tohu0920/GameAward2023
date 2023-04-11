@@ -33,7 +33,7 @@ public class PlayerController_iwata : MonoBehaviour
                 }
 
                 //Aボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton0))
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     //--- プレビューが有効でない場合のみ選択可能
                     if (!Preview.activeSelf)
@@ -69,7 +69,7 @@ public class PlayerController_iwata : MonoBehaviour
                 }
 
                 //Bボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton1))
+                if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace))
                 {
                     if (!Preview.activeSelf)
                     {
@@ -83,33 +83,52 @@ public class PlayerController_iwata : MonoBehaviour
                 }
 
                 //Xボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton2))
+                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
                 {
                     GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
+
+                //Lボタン
+                if(Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (Preview.activeSelf)
+                    {
+                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
+                    }
+                }
+
+                //Rボタン
+                if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
+                {
+                    if (Preview.activeSelf)
+                    {
+                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+                    }
+                }
+
                 break;
 
             case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
-                if (Input.GetKey(KeyCode.Joystick1Button4))
+                if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
                 {
                     Core.GetComponent<RotationCore>().RotL();
                 }
-                if (Input.GetKey(KeyCode.Joystick1Button5))
+                if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
                 {
                     Core.GetComponent<RotationCore>().RotR();
                 }
-                if (Input.GetKey(KeyCode.Joystick1Button1))
+                if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
                 {
                     GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
                 }
-                if (Input.GetKeyDown(KeyCode.JoystickButton2))
+                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
                 {
                     GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY;
                 }
 
                 break;
             case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
-                if (Input.GetKeyDown(KeyCode.JoystickButton2))
+                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
                 {
                     GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
                 }
