@@ -23,6 +23,8 @@ public class TitleController : MonoBehaviour
     [SerializeField] SelectCursor_Title select;
     [SerializeField] GameObject optionObj;
 
+    [SerializeField] AudioManager AM;
+
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,7 @@ public class TitleController : MonoBehaviour
             {
                 select = SelectCursor_Title.E_SELECT_CURSOR_TITLE_PLAY;
             }
+            AM.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
         }
         else if(axisY > 0)
         {
@@ -59,6 +62,7 @@ public class TitleController : MonoBehaviour
             {
                 select = SelectCursor_Title.E_SELECT_CURSOR_TITLE_END;
             }
+            AM.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
         }
 
         if(update)

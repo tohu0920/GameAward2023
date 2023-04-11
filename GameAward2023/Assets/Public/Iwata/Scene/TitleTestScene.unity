@@ -652,6 +652,22 @@ PrefabInstance:
       propertyPath: GameScreen
       value: 
       objectReference: {fileID: 8105727082797852833}
+    - target: {fileID: 7188897003196644794, guid: 9f41c941479124b478d40f28fee34bbd, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188897003196644794, guid: 9f41c941479124b478d40f28fee34bbd, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188897003391387337, guid: 9f41c941479124b478d40f28fee34bbd, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188897003391387337, guid: 9f41c941479124b478d40f28fee34bbd, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f41c941479124b478d40f28fee34bbd, type: 3}
 --- !u!1001 &1002755140658347817
