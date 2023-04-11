@@ -103,9 +103,10 @@ public class SelectStage : MonoBehaviour
                 
                 if(unlockstage1Num >= 1)
                 {
-                    if(Input.GetKeyDown(KeyCode.Return))
+                    if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
+                        
                     }
                 }
 
@@ -126,7 +127,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 2)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -148,7 +149,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 3)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -170,7 +171,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 4)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -192,7 +193,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 5)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -215,7 +216,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 6)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -237,7 +238,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 7)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -259,7 +260,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 8)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -281,7 +282,7 @@ public class SelectStage : MonoBehaviour
 
                 if (unlockstage1Num >= 9)
                 {
-                    if (Input.GetKeyDown(KeyCode.Return))
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         SceneManager.LoadScene(Scene.name);
                     }
@@ -305,7 +306,7 @@ public class SelectStage : MonoBehaviour
 
             if (unlockstage1Num >= 10)
             {
-                if (Input.GetKeyDown(KeyCode.Return))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     SceneManager.LoadScene(Scene.name);
                 }
@@ -326,7 +327,7 @@ public class SelectStage : MonoBehaviour
             S9Image.color = new Color(255, 255, 255, 125);
             S10Image.color = new Color(255, 255, 255, 125);
            
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 mainselectScreen.SetActive(true);
                 subselsectScreen.SetActive(false);
