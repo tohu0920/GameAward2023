@@ -2,11 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class AudioManager : MonoBehaviour
 {
+    public enum BGMKind
+    {
+        E_BGM_KIND_TITLE = 0,
+        E_BGM_KIND_STAGE1,
+        E_BGM_KIND_MAX
+    }
+
     public static AudioManager instance;
 
-    [SerializeField] private AudioClip[] bgms;
+    [SerializeField] private AudioClip[] bgms = new AudioClip[(int)BGMKind.E_BGM_KIND_MAX];
     [SerializeField] private AudioClip[] ses;
     [SerializeField] private float bgmVolume = 0.5f;
     [SerializeField] private float seVolume = 0.5f;
@@ -33,11 +43,11 @@ public class AudioManager : MonoBehaviour
         seSource.volume = seVolume;
     }
 
-    public void PlayBGM(int index)
+    public void PlayBGM(BGMKind index)
     {
-        if (index < 0 || index >= bgms.Length) return;
+        if (index < 0 || (int)index >= bgms.Length) return;
 
-        bgmSource.clip = bgms[index];
+        bgmSource.clip = bgms[(int)index];
         bgmSource.Play();
     }
 
