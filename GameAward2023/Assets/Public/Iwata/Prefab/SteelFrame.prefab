@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3977416844818105653}
   - component: {fileID: 3977416844818105654}
   - component: {fileID: 3977416844818105655}
+  - component: {fileID: 2809229090964419068}
   m_Layer: 0
   m_Name: SteelFrame
   m_TagString: Jank
@@ -182,3 +183,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 5
+--- !u!114 &2809229090964419068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977416844818105648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695e5181648f30349b2dd773d1707808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_orizinSize: {x: 0, y: 0, z: 0}

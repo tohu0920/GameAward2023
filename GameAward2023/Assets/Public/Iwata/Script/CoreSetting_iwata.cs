@@ -40,14 +40,14 @@ public class CoreSetting_iwata : MonoBehaviour
         m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
 
         //選ばれているCoreを大きくする
-        EnlargeSizeCore();
+        //EnlargeSizeCore();
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
+
 
         //再検索が必要な時に立てるFlagを設定
         m_isDepath = false;
 
         //audioSource = GetComponent<AudioSource>();
-
-
     }
 
     // Update is called once per frame
@@ -68,9 +68,9 @@ public class CoreSetting_iwata : MonoBehaviour
             {
                 m_SelectFaceNum = 0;
             }
-            
+
             // 選択中の面を大きく協調する
-            EnlargeSizeCore();
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
 
             m_isDepath = false;
         }
@@ -138,19 +138,19 @@ public class CoreSetting_iwata : MonoBehaviour
         return attachFaces;
     }
 
-    void EnlargeSizeCore()
-    {
-        m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(ENLARGE_SiZE, ENLARGE_SiZE, ENLARGE_SiZE);
-    }
+    //void EnlargeSizeCore()
+    //{
+    //    m_attachFaces[m_SelectFaceNum].Trans.localScale *= ENLARGE_SiZE;
+    //}
 
-    void UndoSizeCore()
-    {
-        m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(ORIZIN_SiZE, ORIZIN_SiZE, ORIZIN_SiZE);
-    }
+    //void UndoSizeCore()
+    //{
+    //    m_attachFaces[m_SelectFaceNum].Trans.localScale = m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().OrizinSize;
+    //}
 
     public void ChangeFaceX(float axis)
     {
-        UndoSizeCore();
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.x += axis;
         for(int i = 0; i < m_attachFaces.Count; i++)
@@ -163,11 +163,11 @@ public class CoreSetting_iwata : MonoBehaviour
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
 
             m_SelectFaceNum = i;
-            EnlargeSizeCore();
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
             return;
         }
 
-        UndoSizeCore();
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         m_rotateY += ROTATION * (int)axis;  // 角度を設定
         m_rotateFrameCnt = 1;	// 最初のカウント
         m_isDepath = true;
@@ -176,7 +176,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void ChangeFaceY(float axis)
     {
-        UndoSizeCore();
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.y += axis;
         for (int i = 0; i < m_attachFaces.Count; i++)
@@ -188,9 +188,9 @@ public class CoreSetting_iwata : MonoBehaviour
             // XY平面での距離が離れすぎていたらスルー
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
 
-            UndoSizeCore();
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             m_SelectFaceNum = i;
-            EnlargeSizeCore();
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
             return;
         }
 
@@ -222,7 +222,7 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
             m_SelectFaceNum = 0;    // 選択面の番号をリセット
-            m_attachFaces[m_SelectFaceNum].Trans.localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();   // 現在の面を協調
         }
     }
 
@@ -230,7 +230,7 @@ public class CoreSetting_iwata : MonoBehaviour
     {
         if(m_attachFaces[m_SelectFaceNum].isAttach)
         {//組み立てる処理
-            UndoSizeCore();
+            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             obj.GetComponent<JointJank_iwata>().JointJanktoCore(m_attachFaces[m_SelectFaceNum].Trans);
             m_isDepath = true;
             return true;
@@ -260,7 +260,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void JointToRot()
     {
-        UndoSizeCore();
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
         //foreach (Transform child in this.transform)
         //{
