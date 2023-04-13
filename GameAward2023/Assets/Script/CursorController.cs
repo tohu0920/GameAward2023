@@ -38,6 +38,6 @@ public class CursorController : MonoBehaviour
 	{
 		// カメラ→カーソル(ワールド座標系)のレイを取得
 		Vector2 pos = m_rectTransform.anchoredPosition;
-		return Camera.main.ScreenPointToRay(new Vector3(pos.x + 640.0f, pos.y + 360.0f, 0.0f));
+		return Camera.main.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
 }
