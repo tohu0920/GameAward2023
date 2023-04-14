@@ -10,6 +10,17 @@ public class CoreSetting_iwata : MonoBehaviour
         public bool isAttach;
         public bool isRelease;
     };
+
+    public enum RotateFlag
+    {
+        E_ROTATE_FLAG_NULL = 0,
+        E_ROTATE_FLAG_X_P,
+        E_ROTATE_FLAG_X_M,
+        E_ROTATE_FLAG_Y_P,
+        E_ROTATE_FLAG_Y_M,
+
+        E_ROTATE_FLAG_Y_MAX
+    }
     
     const float ROTATION = 90.0f;   // 回転角度
     const float DAMPING_RATE = 0.5f;   // 回転減衰率
@@ -23,6 +34,7 @@ public class CoreSetting_iwata : MonoBehaviour
     float m_rotateY, m_rotateX;     // 角度
     float m_lateY, m_lateX;         // 遅延角度
     public int m_rotateFrameCnt;    // 回転フレームのカウント
+    RotateFlag m_rotFlag;           //どっちに回転しているか
     bool m_isDepath;        // 面情報を取得し直すフラグ
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
@@ -46,6 +58,8 @@ public class CoreSetting_iwata : MonoBehaviour
 
         //再検索が必要な時に立てるFlagを設定
         m_isDepath = false;
+
+        m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
 
         //audioSource = GetComponent<AudioSource>();
     }
@@ -159,6 +173,8 @@ public class CoreSetting_iwata : MonoBehaviour
             Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
+            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
+
             // XY平面での距離が離れすぎていたらスルー
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
 
@@ -170,6 +186,16 @@ public class CoreSetting_iwata : MonoBehaviour
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         m_rotateY += ROTATION * (int)axis;  // 角度を設定
         m_rotateFrameCnt = 1;	// 最初のカウント
+        if(axis < 0)
+        {
+            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_M;
+            Debug.Log("XM");
+        }
+        else
+        {
+            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_P;
+            Debug.Log("XP");
+        }
         m_isDepath = true;
         //audioSource.PlayOneShot(m_RotSound);    //SEの再生
     }
@@ -196,6 +222,16 @@ public class CoreSetting_iwata : MonoBehaviour
 
         m_rotateX -= ROTATION * (int)axis;  // 角度を設定
         m_rotateFrameCnt = 1;   // 最初のカウント
+        if (axis < 0)
+        {
+            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_M;
+            Debug.Log("YM");
+        }
+        else
+        {
+            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_P;
+            Debug.Log("YP");
+        }
         m_isDepath = true;
         //audioSource.PlayOneShot(m_RotSound);    //SEの再生
     }
@@ -221,7 +257,62 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
-            m_SelectFaceNum = 0;    // 選択面の番号をリセット
+
+            //-------------------回転したあと最初に選択される面をm_rotFlagで判別する
+            //m_SelectFaceNum = 0;    // 選択面の番号をリセット
+
+            float hogepos;
+            int nextnum = 0;
+
+            switch(m_rotFlag)
+            {
+                case RotateFlag.E_ROTATE_FLAG_X_P:
+                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
+                    for (int i = 0; i < m_attachFaces.Count; i++)
+                    {
+                        if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+
+                        if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
+                    }
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_X_M:
+                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
+                    for (int i = 0; i < m_attachFaces.Count; i++)
+                    {
+                        if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+
+                        if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
+                    }
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_Y_P:
+                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
+                    for (int i = 0; i < m_attachFaces.Count; i++)
+                    {
+                        if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+
+                        if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
+                    }
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_Y_M:
+                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
+                    for (int i = 0; i < m_attachFaces.Count; i++)
+                    {
+                        if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+
+                        if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
+                    }
+                    break;
+            }
+
+
+            m_SelectFaceNum = nextnum;
+
+            //---------------------
+
+            m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();   // 現在の面を協調
         }
     }
