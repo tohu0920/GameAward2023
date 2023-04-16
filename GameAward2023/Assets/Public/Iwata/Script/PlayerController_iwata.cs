@@ -24,8 +24,8 @@ public class PlayerController_iwata : MonoBehaviour
                 //è\éöÉ{É^Éì
                 if (Core.GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 {
-                    float axisX = AxisInput.GetAxisRawRepeat("Horizontal");
-                    float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical");
+                    float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
+                    float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
                     if (axisX != 0)
                         Core.GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
                     else if (axisY != 0)

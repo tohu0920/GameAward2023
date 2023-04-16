@@ -173,7 +173,7 @@ public class CoreSetting_iwata : MonoBehaviour
             Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
+            //Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
 
             // XY•½–Ê‚Å‚Ì‹——£‚ª—£‚ê‚·‚¬‚Ä‚¢‚½‚çƒXƒ‹[
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
@@ -263,6 +263,8 @@ public class CoreSetting_iwata : MonoBehaviour
 
             float hogepos;
             int nextnum = 0;
+            List<int> selectnum = new List<int>();
+
 
             switch(m_rotFlag)
             {
@@ -272,7 +274,13 @@ public class CoreSetting_iwata : MonoBehaviour
                     {
                         if (m_attachFaces[i].Trans.position.y != hogepos) continue;
 
+                        selectnum.Add(i);
+
                         if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
+                    }
+                    foreach(int child in selectnum)
+                    {
+                        Debug.Log(child);
                     }
                     break;
 
@@ -282,7 +290,13 @@ public class CoreSetting_iwata : MonoBehaviour
                     {
                         if (m_attachFaces[i].Trans.position.y != hogepos) continue;
 
+                        selectnum.Add(i);
+
                         if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
+                    }
+                    foreach (int child in selectnum)
+                    {
+                        Debug.Log(child);
                     }
                     break;
 
@@ -292,7 +306,13 @@ public class CoreSetting_iwata : MonoBehaviour
                     {
                         if (m_attachFaces[i].Trans.position.x != hogepos) continue;
 
+                        selectnum.Add(i);
+
                         if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
+                    }
+                    foreach (int child in selectnum)
+                    {
+                        Debug.Log(child);
                     }
                     break;
 
@@ -302,7 +322,13 @@ public class CoreSetting_iwata : MonoBehaviour
                     {
                         if (m_attachFaces[i].Trans.position.x != hogepos) continue;
 
+                        selectnum.Add(i);
+
                         if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
+                    }
+                    foreach (int child in selectnum)
+                    {
+                        Debug.Log(child);
                     }
                     break;
             }
