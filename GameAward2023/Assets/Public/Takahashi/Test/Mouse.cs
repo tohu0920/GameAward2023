@@ -18,7 +18,7 @@ public class Mouse : MonoBehaviour
     void Start()
     {
         //マウスポインター非表示
-        Cursor.visible = false;
+        //Cursor.visible = false;
 
         //HierarchyにあるCanvasオブジェクトを探してcanvasに入れる
         //canvas = GameObject.Find("Canvas").GetComponent<Canvas>();

@@ -58,3 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+GameAward2023/.vsconfig
+GameAward2023/Library/
+GameAward2023/Logs/
+GameAward2023/obj/
+GameAward2023/Temp/
+GameAward2023/UserSettings/

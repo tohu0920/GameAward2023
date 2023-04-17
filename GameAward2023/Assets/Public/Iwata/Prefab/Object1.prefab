@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8560888695006766102}
   m_Layer: 0
   m_Name: Object1
-  m_TagString: Untagged
+  m_TagString: Jank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -125,8 +125,8 @@ FixedJoint:
   m_GameObject: {fileID: 3253092830900695967}
   m_ConnectedBody: {fileID: 0}
   m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 800
-  m_BreakTorque: 800
+  m_BreakForce: 1200
+  m_BreakTorque: 1200
   m_EnableCollision: 0
   m_EnablePreprocessing: 1
   m_MassScale: 1
