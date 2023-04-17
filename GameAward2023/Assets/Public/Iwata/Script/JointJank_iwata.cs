@@ -23,7 +23,7 @@ public class JointJank_iwata : MonoBehaviour
         this.transform.parent = null;
 
         Transform CoreTrans = trans.parent;
-        CoreTrans.Rotate(-10.0f, 0.0f, 0.0f);
+        CoreTrans.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         this.transform.parent = CoreTrans;
 
         Transform ChildTrans = CoreTrans.Find(trans.name);
@@ -33,7 +33,7 @@ public class JointJank_iwata : MonoBehaviour
         pos.z -= this.transform.localScale.z / 2.0f;
         this.transform.position = pos;
 
-        CoreTrans.Rotate(10.0f, 0.0f, 0.0f);
+        CoreTrans.Rotate(10.0f, 0.0f, 0.0f, Space.World);
 
         //this.transform.parent = trans.parent;
 
