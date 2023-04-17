@@ -36,6 +36,7 @@ public class CoreSetting_iwata : MonoBehaviour
     public int m_rotateFrameCnt;    // 回転フレームのカウント
     RotateFlag m_rotFlag;           //どっちに回転しているか
     bool m_isDepath;        // 面情報を取得し直すフラグ
+    Vector3 RotVectorX;
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
     //AudioSource audioSource;    //再生するためのハンドル
@@ -60,6 +61,8 @@ public class CoreSetting_iwata : MonoBehaviour
         m_isDepath = false;
 
         m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
+
+        RotVectorX = this.transform.up;
 
         //audioSource = GetComponent<AudioSource>();
     }
@@ -247,7 +250,7 @@ public class CoreSetting_iwata : MonoBehaviour
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
         //--- 座標計算
-        this.transform.Rotate(Vector3.up, m_lateY - lastY, Space.World);
+        this.transform.Rotate(RotVectorX, m_lateY - lastY, Space.World);
         this.transform.Rotate(Vector3.right, m_lateX - lastX, Space.World);
 
         m_rotateFrameCnt++; // 回転フレームカウント
