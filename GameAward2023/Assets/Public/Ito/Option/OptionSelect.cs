@@ -57,7 +57,7 @@ public class OptionSelect : MonoBehaviour
     void Update()
     {    
         //‘I‘ð
-        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical");
+        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         if (SelectOptionNum == -1)
         {
