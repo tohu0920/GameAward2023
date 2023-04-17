@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public enum BGMKind
+    {
+        E_BGM_KIND_TITLE = 0,
+        E_BGM_KIND_STAGE1,
+        E_BGM_KIND_MAX
+    }
+    public enum SEKind
+    {
+        E_SE_KIND_SELECT = 0,
+        E_SE_KIND_HOGE,
+        E_SE_KIND_MAX
+    }
+
     public static AudioManager instance;
 
-    [SerializeField] private AudioClip[] bgms;
-    [SerializeField] private AudioClip[] ses;
-    [SerializeField] private float bgmVolume = 0.5f;
-    [SerializeField] private float seVolume = 0.5f;
+    [SerializeField] private AudioClip[] bgms = new AudioClip[(int)BGMKind.E_BGM_KIND_MAX];
+    [SerializeField] private AudioClip[] ses = new AudioClip[(int)SEKind.E_SE_KIND_MAX];
+    [SerializeField] private float bgmVolume = 1.0f;
+    [SerializeField] private float seVolume = 1.0f;
     private AudioSource bgmSource;
-    private AudioSource seSource;
+    private AudioSource[] seSource = new AudioSource[(int)SEKind.E_SE_KIND_MAX];
 
     private void Awake()
     {
@@ -29,15 +42,18 @@ public class AudioManager : MonoBehaviour
         bgmSource.loop = true;
         bgmSource.volume = bgmVolume;
 
-        seSource = gameObject.AddComponent<AudioSource>();
-        seSource.volume = seVolume;
+        for (int i = 0; i < ses.Length; i++)
+        {
+            if (ses[i] == null) continue;
+            seSource[i] = gameObject.AddComponent<AudioSource>();
+            seSource[i].volume = seVolume;
+            seSource[i].clip = ses[i];
+        }
     }
 
-    public void PlayBGM(int index)
+    public void PlayBGM(BGMKind index)
     {
-        if (index < 0 || index >= bgms.Length) return;
-
-        bgmSource.clip = bgms[index];
+        bgmSource.clip = bgms[(int)index];
         bgmSource.Play();
     }
 
@@ -46,22 +62,20 @@ public class AudioManager : MonoBehaviour
         bgmSource.Stop();
     }
 
-    public void PlaySE(int index)
+    public void PlaySE(SEKind index)
     {
-        if (index < 0 || index >= ses.Length) return;
-
-        seSource.PlayOneShot(ses[index]);
+        seSource[(int)index].Play();
     }
 
-    public void SetBGMVolume(float volume)
+    public float BGMvolume
     {
-        bgmVolume = volume;
-        bgmSource.volume = bgmVolume;
+        get { return bgmVolume; }
+        set { bgmVolume = value; bgmSource.volume = bgmVolume; }
     }
 
-    public void SetSEVolume(float volume)
+    public float SEvolume
     {
-        seVolume = volume;
-        seSource.volume = seVolume;
+        get { return seVolume; }
+        set { seVolume = value; for (int i = 0; i < ses.Length; i++) { seSource[i].volume = seVolume; } }
     }
 }
