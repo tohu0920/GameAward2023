@@ -270,9 +270,14 @@ public class CoreSetting_iwata : MonoBehaviour
             {
                 case RotateFlag.E_ROTATE_FLAG_X_P:
                     hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
+                    Debug.Log("target:" + hogepos);
                     for (int i = 0; i < m_attachFaces.Count; i++)
                     {
-                        if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos));
+
+                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+
+                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
 
                         selectnum.Add(i);
 
@@ -288,7 +293,8 @@ public class CoreSetting_iwata : MonoBehaviour
                     hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
                     for (int i = 0; i < m_attachFaces.Count; i++)
                     {
-                        if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
 
                         selectnum.Add(i);
 
@@ -304,7 +310,11 @@ public class CoreSetting_iwata : MonoBehaviour
                     hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
                     for (int i = 0; i < m_attachFaces.Count; i++)
                     {
-                        if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos));
+
+
+                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
 
                         selectnum.Add(i);
 
@@ -320,7 +330,8 @@ public class CoreSetting_iwata : MonoBehaviour
                     hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
                     for (int i = 0; i < m_attachFaces.Count; i++)
                     {
-                        if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
 
                         selectnum.Add(i);
 
