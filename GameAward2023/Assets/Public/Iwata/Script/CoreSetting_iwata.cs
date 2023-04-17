@@ -79,18 +79,23 @@ public class CoreSetting_iwata : MonoBehaviour
 
         if (m_isDepath)
         {
-            m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
-            
-            if(m_SelectFaceNum > m_attachFaces.Count - 1)
-            {
-                m_SelectFaceNum = 0;
-            }
-
-            // 選択中の面を大きく協調する
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-
-            m_isDepath = false;
+            ResetAttachFace();
         }
+    }
+
+    private void ResetAttachFace()
+    {
+        m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+
+        if (m_SelectFaceNum > m_attachFaces.Count - 1)
+        {
+            m_SelectFaceNum = 0;
+        }
+
+        // 選択中の面を大きく協調する
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
+
+        m_isDepath = false;
     }
 
     List<AttachFace> GetAttachFace()
@@ -176,7 +181,7 @@ public class CoreSetting_iwata : MonoBehaviour
             Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
-            //Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
+            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
 
             // XY平面での距離が離れすぎていたらスルー
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
@@ -258,97 +263,101 @@ public class CoreSetting_iwata : MonoBehaviour
         //--- 回転終了時の処理
         if (m_rotateFrameCnt > m_timeToRotate)
         {
+            Transform RotStack = m_attachFaces[m_SelectFaceNum].Trans;
+
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
+
+            m_SelectFaceNum = m_attachFaces.FindIndex(x => x.Trans == RotStack);
 
             //-------------------回転したあと最初に選択される面をm_rotFlagで判別する
             //m_SelectFaceNum = 0;    // 選択面の番号をリセット
 
-            float hogepos;
-            int nextnum = 0;
-            List<int> selectnum = new List<int>();
+            //float hogepos;
+            //int nextnum = 0;
+            //List<int> selectnum = new List<int>();
 
 
-            switch(m_rotFlag)
-            {
-                case RotateFlag.E_ROTATE_FLAG_X_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    Debug.Log("target:" + hogepos);
-                    for (int i = 0; i < m_attachFaces.Count; i++)
-                    {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos));
+            //switch(m_rotFlag)
+            //{
+            //    case RotateFlag.E_ROTATE_FLAG_X_P:
+            //        hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
+            //        Debug.Log("target:" + hogepos);
+            //        for (int i = 0; i < m_attachFaces.Count; i++)
+            //        {
+            //            Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos));
 
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+            //            //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
 
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
+            //            if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
 
-                        selectnum.Add(i);
+            //            selectnum.Add(i);
 
-                        if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
-                    }
-                    foreach(int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
-                    break;
+            //            if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
+            //        }
+            //        foreach(int child in selectnum)
+            //        {
+            //            Debug.Log(child);
+            //        }
+            //        break;
 
-                case RotateFlag.E_ROTATE_FLAG_X_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
-                    {
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
+            //    case RotateFlag.E_ROTATE_FLAG_X_M:
+            //        hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
+            //        for (int i = 0; i < m_attachFaces.Count; i++)
+            //        {
+            //            //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
+            //            if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
 
-                        selectnum.Add(i);
+            //            selectnum.Add(i);
 
-                        if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
-                    }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
-                    break;
+            //            if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
+            //        }
+            //        foreach (int child in selectnum)
+            //        {
+            //            Debug.Log(child);
+            //        }
+            //        break;
 
-                case RotateFlag.E_ROTATE_FLAG_Y_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
-                    {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos));
-
-
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
-                    }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
-                    break;
-
-                case RotateFlag.E_ROTATE_FLAG_Y_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
-                    {
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
-                    }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
-                    break;
-            }
+            //    case RotateFlag.E_ROTATE_FLAG_Y_P:
+            //        hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
+            //        for (int i = 0; i < m_attachFaces.Count; i++)
+            //        {
+            //            Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos));
 
 
-            m_SelectFaceNum = nextnum;
+            //            //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+            //            if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
+
+            //            selectnum.Add(i);
+
+            //            if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
+            //        }
+            //        foreach (int child in selectnum)
+            //        {
+            //            Debug.Log(child);
+            //        }
+            //        break;
+
+            //    case RotateFlag.E_ROTATE_FLAG_Y_M:
+            //        hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
+            //        for (int i = 0; i < m_attachFaces.Count; i++)
+            //        {
+            //            //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
+            //            if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
+
+            //            selectnum.Add(i);
+
+            //            if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
+            //        }
+            //        foreach (int child in selectnum)
+            //        {
+            //            Debug.Log(child);
+            //        }
+            //        break;
+            //}
+
+
+            //m_SelectFaceNum = nextnum;
 
             //---------------------
 

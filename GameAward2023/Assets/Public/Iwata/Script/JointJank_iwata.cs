@@ -21,37 +21,32 @@ public class JointJank_iwata : MonoBehaviour
        
         
         this.transform.parent = null;
-        this.transform.parent = trans.parent;
+
+        Transform CoreTrans = trans.parent;
+        CoreTrans.Rotate(-10.0f, 0.0f, 0.0f);
+        this.transform.parent = CoreTrans;
+
+        Transform ChildTrans = CoreTrans.Find(trans.name);
+        Vector3 pos = ChildTrans.transform.position;
+        Debug.Log(pos);
+        pos.z -= ChildTrans.localScale.z / 2.0f;
+        pos.z -= this.transform.localScale.z / 2.0f;
+        this.transform.position = pos;
+
+        CoreTrans.Rotate(10.0f, 0.0f, 0.0f);
+
+        //this.transform.parent = trans.parent;
+
+        //this.transform.rotation = this.transform.parent.transform.rotation;
+
+        //float targetheaf = trans.localScale.z / 2.0f;
+        //float thisheaf = this.transform.localScale.z / 2.0f;
 
         //Vector3 pos = trans.localPosition;
-        //pos.z -= trans.localScale.z / 2.0f;
-        //pos.z -= this.transform.localScale.z / 2.0f;
+
+        //pos.z = pos.z - targetheaf - thisheaf;
+
         //this.transform.localPosition = pos;
-
-        //Debug.Log(trans.name);
-
-
-        this.transform.rotation = this.transform.parent.transform.rotation;
-
-        float targetheaf = trans.localScale.z / 2.0f;
-        float thisheaf = this.transform.localScale.z / 2.0f;
-
-        //Debug.Log("target:" + targetheaf);
-        //Debug.Log("this:" + thisheaf);
-
-        Vector3 pos = trans.localPosition;
-
-        //Debug.Log("pos:" + pos);
-
-        pos.z = pos.z - targetheaf - thisheaf;
-
-        //Debug.Log(pos.z - targetheaf - thisheaf);
-
-        Debug.Log(pos);
-
-        this.transform.localPosition = pos;
-
-        //Debug.Log(this.transform.localPosition);
 
         FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();
         joint.connectedBody = trans.GetComponent<Rigidbody>();
