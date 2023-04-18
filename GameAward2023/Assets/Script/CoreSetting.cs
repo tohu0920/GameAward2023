@@ -15,6 +15,9 @@ public class CoreSetting : MonoBehaviour
 	int m_rotateFrameCnt;           // 回転フレームのカウント]
 	bool m_isDepath;		// 面情報を取得し直すフラグ
 
+    [SerializeReference] AudioClip m_RotSound;
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +34,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_isDepath = false;
 
-	}
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -78,10 +82,11 @@ public class CoreSetting : MonoBehaviour
 			Ray ray = new Ray(child.position, Vector3.back);
 			RaycastHit hit;
 
-			// 組み立てられない面はスルー
-			if (Physics.Raycast(ray, out hit, 10.0f)) continue;
+            // 組み立てられない面はスルー
+            // 手前に物があったらスキップ
+            if (Physics.Raycast(ray, out hit, 10.0f)) continue;
 
-			attachFaces.Add(child);	// 面を格納
+            attachFaces.Add(child);	// 面を格納
 		}
 
 		//--- ソート
@@ -221,7 +226,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_rotateY += ROTATION * direction;	// 角度を設定
 		m_rotateFrameCnt = 1;	// 最初のカウント
-	}
+        audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
 
 	/// <summary>
 	/// コアのX軸回転開始
@@ -232,7 +238,8 @@ public class CoreSetting : MonoBehaviour
 
 		m_rotateX -= ROTATION * direction;  // 角度を設定
 		m_rotateFrameCnt = 1;   // 最初のカウント
-	}
+        audioSource.PlayOneShot(m_RotSound);    //SEの再生
+    }
 
 	/// <summary>
 	/// FixedJointを追加
@@ -247,7 +254,8 @@ public class CoreSetting : MonoBehaviour
 		if (!Physics.Raycast(ray, out hit, 1.0f)) return;
 
 		//--- ガラクタの場合、組み立てられる面かを判定する
-		if (hit.transform.tag == "Junk")
+        //iwata:ここコアとミニコアをPlayerタグつけてPlayerを判定する
+		if (hit.transform.tag == "Player")
 		{
 			JunkSetting junkSetting = hit.transform.GetComponent<JunkSetting>();
 			if (!junkSetting.CanAttach(-direction))	return;
@@ -308,6 +316,8 @@ public class CoreSetting : MonoBehaviour
 	/// </summary>
 	public bool AttachJunk(GameObject junk)
 	{
+        if (junk.tag == "Junk" && m_attachFaces[m_selectFaceNum].tag == "Junk") return false;
+
 		//--- 組み立てられない面であればキャンセル
 		if(m_attachFaces[m_selectFaceNum].transform.tag == "Junk")
 		{
