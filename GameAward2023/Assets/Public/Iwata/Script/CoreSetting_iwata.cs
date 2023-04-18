@@ -36,6 +36,7 @@ public class CoreSetting_iwata : MonoBehaviour
     public int m_rotateFrameCnt;    // 回転フレームのカウント
     RotateFlag m_rotFlag;           //どっちに回転しているか
     bool m_isDepath;        // 面情報を取得し直すフラグ
+    public PlayerController_iwata PController;
     Vector3 RotVectorX;
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
@@ -407,7 +408,11 @@ public class CoreSetting_iwata : MonoBehaviour
     public void JointToRot()
     {
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
+        GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
+        Destroy(clone.GetComponent<CoreSetting_iwata>());
+        clone.AddComponent<RotationCore>();
+        PController.CoreClone = clone;
+        //this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
         //foreach (Transform child in this.transform)
         //{
         //    child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotationY;

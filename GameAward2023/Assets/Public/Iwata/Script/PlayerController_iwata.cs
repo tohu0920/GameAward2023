@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController_iwata : MonoBehaviour
 {
     public GameObject Core;
+    public GameObject CoreClone;
     public GameObject Preview;
     public GameObject Jank;
     public GameObject GSMana;
@@ -111,11 +112,11 @@ public class PlayerController_iwata : MonoBehaviour
             case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
                 if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
                 {
-                    Core.GetComponent<RotationCore>().RotL();
+                    CoreClone.GetComponent<RotationCore>().RotL();
                 }
                 if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
                 {
-                    Core.GetComponent<RotationCore>().RotR();
+                    CoreClone.GetComponent<RotationCore>().RotR();
                 }
                 if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
                 {
