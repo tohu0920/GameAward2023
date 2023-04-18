@@ -130,7 +130,7 @@ public class PlayerController_iwata : MonoBehaviour
             case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
                 if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
                 {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
                 break;
         }

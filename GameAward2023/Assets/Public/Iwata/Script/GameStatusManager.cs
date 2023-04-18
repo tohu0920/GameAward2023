@@ -73,6 +73,8 @@ public class GameStatusManager : MonoBehaviour
                             Camera.transform.Find("Main Camera").gameObject.SetActive(true);
                             Canvas.transform.Find("Cursor").gameObject.SetActive(true);
                             break;
+                        case eGameStatus.E_GAME_STATUS_ROT:
+                            break;
                     }
                     break;
 
