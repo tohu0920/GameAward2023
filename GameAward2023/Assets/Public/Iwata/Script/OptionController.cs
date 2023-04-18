@@ -57,7 +57,7 @@ public class OptionController : MonoBehaviour
         bool update = false;
         OptionSelect stack = select;
 
-        int axisY = AxisInput.GetAxisRawRepeat("Vertical");
+        int axisY = AxisInput.GetAxisRawRepeat("Vertical_PadX");
         if (axisY < 0)
         {
             update = true;
@@ -87,7 +87,7 @@ public class OptionController : MonoBehaviour
             }
         }
 
-        int axisX = AxisInput.GetAxisRawRepeat("Horizontal");
+        int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
 
         if(axisX != 0)
         {

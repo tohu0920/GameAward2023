@@ -18,8 +18,8 @@ public class CursorController : MonoBehaviour
     {
 		//--- à⁄ìÆèàóù
 		Vector2 pos = m_rectTransform.anchoredPosition;
-		pos.x += Input.GetAxisRaw("Horizontal_L") * 7.5f;
-		pos.y += Input.GetAxisRaw("Vertical_L") * 7.5f;
+		pos.x += Input.GetAxisRaw("Horizontal_R") * 7.5f;
+		pos.y += Input.GetAxisRaw("Vertical_R") * 7.5f;
         if (Input.GetKey(KeyCode.J)) pos.x -= 7.5f;
         if (Input.GetKey(KeyCode.L)) pos.x += 7.5f;
         if (Input.GetKey(KeyCode.I)) pos.y += 7.5f;

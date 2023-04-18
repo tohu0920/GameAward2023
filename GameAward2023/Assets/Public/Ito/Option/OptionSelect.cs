@@ -57,7 +57,7 @@ public class OptionSelect : MonoBehaviour
     void Update()
     {    
         //‘I‘ð
-        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical");
+        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         if (SelectOptionNum == -1)
         {
@@ -84,7 +84,7 @@ public class OptionSelect : MonoBehaviour
                 BackImage.color = new Color(255, 255, 255, 255);
                 BackText.color = new Color(0, 0, 0, 255);
               
-                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f;
+                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
 
                 // Slider‚Ì’l‚ðAudioSource‚Ì‰¹—Ê‚É”½‰f‚·‚é
                 //BGM.audioMixer.SetFloat("BGM", bgmSlider.value);
@@ -102,7 +102,7 @@ public class OptionSelect : MonoBehaviour
                 BackImage.color = new Color(255, 255, 255, 255);
                 BackText.color = new Color(0, 0, 0, 255);
 
-                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f;
+                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
 
                 // Slider‚Ì’l‚ðAudioSource‚Ì‰¹—Ê‚É”½‰f‚·‚é
                 //SESourse.volume = SESlider.value;

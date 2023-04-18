@@ -66,8 +66,8 @@ public class SelectStage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectNum += AxisInput.GetAxisRawRepeat("Horizontal");
-        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical") * 5;       
+        SelectNum += AxisInput.GetAxisRawRepeat("Horizontal_PadX");
+        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX") * 5;       
 
         if (SelectNum == -1)
         {
