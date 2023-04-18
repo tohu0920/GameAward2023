@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2321489457903293853}
   - component: {fileID: 2321489457903293854}
   - component: {fileID: 2321489457903293851}
+  - component: {fileID: -1921521781026118561}
   m_Layer: 0
   m_Name: jett
   m_TagString: Untagged
@@ -4825,5 +4826,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7746acc441ee9484fb515a1547301267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSystem: {fileID: 2321489457903293853}
-  lifeTime: 4
+--- !u!114 &-1921521781026118561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2321489457903293855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2b56d56bca6d449a513193d1b8a039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.5

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController_iwata : MonoBehaviour
 {
     public GameObject Core;
+    public GameObject CoreClone;
     public GameObject Preview;
     public GameObject Jank;
     public GameObject GSMana;
@@ -24,8 +25,8 @@ public class PlayerController_iwata : MonoBehaviour
                 //è\éöÉ{É^Éì
                 if (Core.GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 {
-                    float axisX = AxisInput.GetAxisRawRepeat("Horizontal");
-                    float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical");
+                    float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
+                    float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
                     if (axisX != 0)
                         Core.GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
                     else if (axisY != 0)
@@ -111,11 +112,11 @@ public class PlayerController_iwata : MonoBehaviour
             case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
                 if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
                 {
-                    Core.GetComponent<RotationCore>().RotL();
+                    CoreClone.GetComponent<RotationCore>().RotL();
                 }
                 if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
                 {
-                    Core.GetComponent<RotationCore>().RotR();
+                    CoreClone.GetComponent<RotationCore>().RotR();
                 }
                 if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
                 {
@@ -130,7 +131,7 @@ public class PlayerController_iwata : MonoBehaviour
             case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
                 if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
                 {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
+                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
                 break;
         }

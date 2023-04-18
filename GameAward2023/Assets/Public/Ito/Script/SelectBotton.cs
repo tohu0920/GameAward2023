@@ -32,7 +32,7 @@ public class SelectBotton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical");
+        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         if (SelectNum == -1)
         {

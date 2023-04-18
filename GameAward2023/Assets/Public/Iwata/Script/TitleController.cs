@@ -41,7 +41,7 @@ public class TitleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical");
+        float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
         bool update = false;
 
         if(axisY < 0)
