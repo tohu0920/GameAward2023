@@ -172,6 +172,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void ChangeFaceX(float axis)
     {
+        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.x += axis;
@@ -181,13 +182,14 @@ public class CoreSetting_iwata : MonoBehaviour
             Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
             Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
+            //Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
 
             // XYïΩñ Ç≈ÇÃãóó£Ç™ó£ÇÍÇ∑Ç¨ÇƒÇ¢ÇΩÇÁÉXÉãÅ[
             if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
 
             m_SelectFaceNum = i;
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
+            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
             return;
         }
 
@@ -205,11 +207,13 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log("XP");
         }
         m_isDepath = true;
+        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
         //audioSource.PlayOneShot(m_RotSound);    //SEÇÃçƒê∂
     }
 
     public void ChangeFaceY(float axis)
     {
+        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.y += axis;
@@ -225,6 +229,7 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             m_SelectFaceNum = i;
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
+            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
             return;
         }
 
@@ -241,6 +246,7 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log("YP");
         }
         m_isDepath = true;
+        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
         //audioSource.PlayOneShot(m_RotSound);    //SEÇÃçƒê∂
     }
 
