@@ -38,6 +38,7 @@ public class CoreSetting_iwata : MonoBehaviour
     bool m_isDepath;        // 面情報を取得し直すフラグ
     public PlayerController_iwata PController;
     Vector3 RotVectorX;
+    static int num = 0;
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
     //AudioSource audioSource;    //再生するためのハンドル
@@ -275,15 +276,9 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
 
-            //m_SelectFaceNum = m_attachFaces.FindIndex(x => x.Trans == RotStack);
-
-            //-------------------回転したあと最初に選択される面をm_rotFlagで判別する
-            //m_SelectFaceNum = 0;    // 選択面の番号をリセット
-
             float hogepos;
             int nextnum = 0;
             List<int> selectnum = new List<int>();
-
 
             switch (m_rotFlag)
             {
@@ -407,9 +402,14 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void JointToRot()
     {
+        
+
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+        Debug.Log(num);
+        num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
-        Destroy(clone.GetComponent<CoreSetting_iwata>());
+        //clone.transform.name += num;
+        //Destroy(clone.GetComponent<CoreSetting_iwata>());
         clone.AddComponent<RotationCore>();
         PController.CoreClone = clone;
         //this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
@@ -438,7 +438,7 @@ public class CoreSetting_iwata : MonoBehaviour
         }
     }
 
-    public void PlayToRot()
+    public void PlayToJoint()
     {
         m_isDepath = true;
         this.transform.position = new Vector3(-4.0f, 11.0f, -38.0f);
@@ -447,5 +447,11 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             child.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
+    }
+
+    public void PlayToRot()
+    {
+        Debug.Log("回転初期化");
+        this.transform.rotation = Quaternion.identity;
     }
 }

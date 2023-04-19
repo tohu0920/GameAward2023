@@ -20,7 +20,7 @@ public class GameStatusManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] static eGameStatus m_GameStatus;
+    [SerializeField] eGameStatus m_GameStatus;
     eGameStatus m_lastGameStatus;
 
     // Start is called before the first frame update
@@ -41,6 +41,7 @@ public class GameStatusManager : MonoBehaviour
                     switch (m_GameStatus)
                     {
                         case eGameStatus.E_GAME_STATUS_ROT:
+                            Debug.Log("çXêV");
                             Core.GetComponent<CoreSetting_iwata>().JointToRot();
                             Camera.transform.Find("Main Camera").gameObject.SetActive(false);
                             Camera.transform.Find("PlayCamera").gameObject.SetActive(true);
@@ -68,13 +69,13 @@ public class GameStatusManager : MonoBehaviour
                     switch (m_GameStatus)
                     {
                         case eGameStatus.E_GAME_STATUS_JOINT:
-                            Core.GetComponent<CoreSetting_iwata>().PlayToRot();
+                            Core.GetComponent<CoreSetting_iwata>().PlayToJoint();
                             Camera.transform.Find("PlayCamera").gameObject.SetActive(false);
                             Camera.transform.Find("Main Camera").gameObject.SetActive(true);
                             Canvas.transform.Find("Cursor").gameObject.SetActive(true);
                             break;
                         case eGameStatus.E_GAME_STATUS_ROT:
-
+                            Core.GetComponent<CoreSetting_iwata>().PlayToRot();
                             break;
                     }
                     break;
