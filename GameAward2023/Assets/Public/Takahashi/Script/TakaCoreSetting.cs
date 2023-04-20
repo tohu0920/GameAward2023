@@ -457,6 +457,8 @@ public class TakaCoreSetting : MonoBehaviour
     /// </summary>
     private void FindUnconnectedJunkToCore(GameObject selectJunk, HashSet<GameObject> unconnectedJunk)
     {
+        // 全てのガラクタを格納するリスト
+        HashSet<GameObject> allJunk = new HashSet<GameObject>();
         // 経路探索時にオブジェクトを格納する変数
         HashSet<GameObject> junkList = new HashSet<GameObject>();
         // 自身のFixedJoint
@@ -466,6 +468,15 @@ public class TakaCoreSetting : MonoBehaviour
         {
             GameObject connectedObj = fixedJoint.connectedBody.gameObject;
 
+            // ガラクタを格納
+            if (allJunk.Contains(connectedObj))
+                continue;
+            allJunk.Add(connectedObj);
+
+            // タグが"Core"のオブジェクトに隣接しているか調べる
+            if (connectedObj.tag == "Core")
+                continue;
+
             // 削除対象のガラクタならスキップ
             if (connectedObj == selectJunk)
                 continue;
@@ -473,14 +484,11 @@ public class TakaCoreSetting : MonoBehaviour
             // 経路上にあるオブジェクトを一旦格納する
             junkList.Add(connectedObj);
 
-            // タグが"Core"のオブジェクトに隣接しているか調べる
-            if (connectedObj.tag == "Core")
+            if (FindOtherJunk(selectJunk, connectedObj, junkList, allJunk))
             {
                 junkList.Clear();
                 continue;
             }
-
-            FindOtherJunk(selectJunk, connectedObj, junkList);
 
             // 最終的にlistに入っているガラクタを追加
             foreach (GameObject obj in junkList)
@@ -494,12 +502,17 @@ public class TakaCoreSetting : MonoBehaviour
     /// <summary>
     /// ガラクタを再帰的に探すための関数
     /// </summary>
-    private bool FindOtherJunk(GameObject selectJunk, GameObject junk, HashSet<GameObject> junkList)
+    private bool FindOtherJunk(GameObject selectJunk, GameObject junk, HashSet<GameObject> junkList, HashSet<GameObject> allJunk)
     {
         FixedJoint[] fixedJoints = junk.GetComponents<FixedJoint>();
         foreach (FixedJoint fixedJoint in fixedJoints)
         {
             GameObject connectedObj = fixedJoint.connectedBody.gameObject;
+
+            // ガラクタを格納
+            if (allJunk.Contains(connectedObj))
+                continue;
+            allJunk.Add(connectedObj);
 
             // 削除対象のガラクタ、もしくは探索済みの物もスキップ
             if (connectedObj == selectJunk || junkList.Contains(connectedObj))
@@ -512,11 +525,9 @@ public class TakaCoreSetting : MonoBehaviour
             // ↓最上段まで戻って削除対象から新たな方向へと探索を始める必要がある
             // タグが"Core"のオブジェクトに隣接しているか調べる
             if (connectedObj.tag == "Core")
-            {
-                junkList.Clear();
-                break;
-            }
-            if(FindOtherJunk(selectJunk, connectedObj, junkList)) return true;
+                return true;
+
+            if(FindOtherJunk(selectJunk, connectedObj, junkList, allJunk)) return true;
         }
         return false;
     }
