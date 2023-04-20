@@ -362,35 +362,15 @@ public class TakaCoreSetting : MonoBehaviour
         // ガラクタでない場合スルー
         if (m_attachFaces[m_selectFaceNum].transform.tag != "Junk") return;
 
-        // ガラクタの総数を取得する
-        HashSet<GameObject> connectedJunk = new HashSet<GameObject>();
-
-        FixedJoint[] myFixedJoints = m_attachFaces[m_selectFaceNum].GetComponents<FixedJoint>();
-        foreach (FixedJoint joint in myFixedJoints)
-        {
-            GameObject connectedObj = joint.connectedBody.gameObject;
-
-            // 繋がっているオブジェクトがガラクタで、リストに追加されていない場合、リストに追加する
-            if (connectedObj.tag == "Junk" && !connectedJunk.Contains(connectedObj))
-            {
-                connectedJunk.Add(connectedObj);
-
-                // 繋がっているオブジェクトの周りについても同じ操作を繰り返す
-                FindConnectedJunk(connectedObj, connectedJunk);
-            }
-        }
-        //        Debug.Log("ガラクタの数は : " + connectedJunk.Count);
-
-        // 選択したガラクタ
+        // CoreまでFixedJointで繋がれていないガラクタリスト
+        HashSet<GameObject> unconnectedJunks = new HashSet<GameObject>();
+        // 削除対象のガラクタ
         GameObject selectJunk = m_attachFaces[m_selectFaceNum].gameObject;
-        //      connectedJunk.Remove(m_attachFaces[m_selectFaceNum].gameObject);
-
         // CoreまでFixedJointで繋がれていないガラクタを取得
-        HashSet<GameObject> unconnectedJunk = new HashSet<GameObject>();
-        unconnectedJunk = FindUnconnectedJunkToCore(connectedJunk);
+        FindUnconnectedJunkToCore(selectJunk, unconnectedJunks);
 
         // unconnectedJunkのガラクタのFixedJointを削除する
-        foreach (GameObject junk in unconnectedJunk)
+        foreach (GameObject junk in unconnectedJunks)
         {
             FixedJoint[] unconnectedJoints = junk.GetComponents<FixedJoint>();
             for (int i = 0; i < unconnectedJoints.Length; i++)
@@ -398,7 +378,7 @@ public class TakaCoreSetting : MonoBehaviour
         }
 
         // ゴミ山に戻す
-        foreach (GameObject junk in unconnectedJunk)
+        foreach (GameObject junk in unconnectedJunks)
         {
             JunkController junkController = junk.GetComponent<JunkController>();
             if (junkController != null)
@@ -475,70 +455,59 @@ public class TakaCoreSetting : MonoBehaviour
     /// <summary>
     /// coreまでFixedJointで繋がっていないガラクタを返す
     /// </summary>
-    private HashSet<GameObject> FindUnconnectedJunkToCore(HashSet<GameObject> connectedJunk)
+    private void FindUnconnectedJunkToCore(GameObject selectJunk, HashSet<GameObject> unconnectedJunk)
     {
-        GameObject core = GameObject.FindGameObjectWithTag("Core");
-        // Coreまで繋がっていないガラクタを格納する変数
-        HashSet<GameObject> unconnectedJunk = new HashSet<GameObject>();
-        // 経路探索時に一時的にオブジェクトを格納する変数
-        HashSet<GameObject> tempList = new HashSet<GameObject>();
-        // connectedJunkリストに格納されたガラクタを1つずつ調べる
-        foreach (GameObject junk in connectedJunk)
+        // 経路探索時にオブジェクトを格納する変数
+        HashSet<GameObject> junkList = new HashSet<GameObject>();
+        // 自身のFixedJoint
+        FixedJoint[] fixedJoints = selectJunk.GetComponents<FixedJoint>();
+        // 周辺のガラクタを1つずつ調べる
+        foreach (FixedJoint fixedJoint in fixedJoints)
         {
-            bool isConnected = false;
-            FixedJoint[] joints = junk.GetComponents<FixedJoint>();
-            // そのガラクタにFixedJointがあるか調べる
-            foreach (FixedJoint joint in joints)
-            {
-                GameObject connectedObj = joint.connectedBody.gameObject;
-                // 経路上にあるオブジェクトを一旦全て格納する
-                tempList.Add(connectedObj);
-                // タグが"Core"のオブジェクトに隣接しているか調べる
-                if (connectedObj.tag == "Core")
-                {
-                    foreach (GameObject obj in tempList)
-                        unconnectedJunk.Add(obj);
-                    isConnected = true;
-                    break;
-                }
-                // FixedJointで繋がっているガラクタが直接Coreに繋がっているか調べる
-                if (connectedObj == core)
-                {
-                    foreach (GameObject obj in tempList)
-                        unconnectedJunk.Add(obj);
-                    isConnected = true;
-                    break;
-                }
-                // Coreに隣接するガラクタが無ければ、リストクリア
-                tempList.Clear();
-                FixedJoint[] connectedJoints = connectedObj.GetComponents<FixedJoint>();
-                foreach (FixedJoint connectedJoint in connectedJoints)
-                {
-                    // 経路上にあるオブジェクトを一旦全て格納する
-                    tempList.Add(connectedJoint.gameObject);
-                    if (connectedJoint.connectedBody.gameObject == core)
-                    {
-                        foreach (GameObject obj in tempList)
-                            unconnectedJunk.Add(obj);
-                        isConnected = true;
-                        break;
-                    }
-                    if (connectedObj.tag == "Core")
-                    {
-                        foreach (GameObject obj in tempList)
-                            unconnectedJunk.Add(obj);
-                        isConnected = true;
-                        break;
-                    }
-                }
-                // Coreに隣接するガラクタが無ければ、リストクリア
-                tempList.Clear();
-                if (isConnected)
-                    break;
-            }
-            if (!isConnected && !unconnectedJunk.Contains(junk))
-                unconnectedJunk.Add(junk);
+            GameObject connectedObj = fixedJoint.connectedBody.gameObject;
+
+            // 削除対象のガラクタならスキップ
+            if (connectedObj == selectJunk)
+                continue;
+
+            // 経路上にあるオブジェクトを一旦格納する
+            junkList.Add(connectedObj);
+
+            // タグが"Core"のオブジェクトに隣接しているか調べる
+            if (connectedObj.tag == "Core")
+                junkList.Clear();
+
+            FindOtherJunk(selectJunk, connectedObj, junkList);
+
+            // 最終的にlistに入っているガラクタを追加
+            foreach (GameObject obj in junkList)
+                unconnectedJunk.Add(obj);
         }
-        return unconnectedJunk;
+        // 最後に削除対象のガラクタを追加
+        unconnectedJunk.Add(selectJunk);
+    }
+
+    /// <summary>
+    /// ガラクタを再帰的に探すための関数
+    /// </summary>
+    private void FindOtherJunk(GameObject selectJunk, GameObject junk, HashSet<GameObject> junkList)
+    {
+        FixedJoint[] fixedJoints = junk.GetComponents<FixedJoint>();
+        foreach (FixedJoint fixedJoint in fixedJoints)
+        {
+            GameObject connectedObj = fixedJoint.connectedBody.gameObject;
+            // 削除対象のガラクタならスキップ
+            if (connectedObj == selectJunk)
+                continue;
+
+            // 経路上にあるオブジェクトを一旦格納する
+            junkList.Add(connectedObj);
+
+            // タグが"Core"のオブジェクトに隣接しているか調べる
+            if (connectedObj.tag == "Core")
+                junkList.Clear();
+
+            FindOtherJunk(selectJunk, connectedObj, junkList);
+        }
     }
 }
