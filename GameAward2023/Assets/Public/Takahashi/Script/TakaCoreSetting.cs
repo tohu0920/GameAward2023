@@ -475,7 +475,10 @@ public class TakaCoreSetting : MonoBehaviour
 
             // タグが"Core"のオブジェクトに隣接しているか調べる
             if (connectedObj.tag == "Core")
+            {
                 junkList.Clear();
+                continue;
+            }
 
             FindOtherJunk(selectJunk, connectedObj, junkList);
 
@@ -487,27 +490,34 @@ public class TakaCoreSetting : MonoBehaviour
         unconnectedJunk.Add(selectJunk);
     }
 
+
     /// <summary>
     /// ガラクタを再帰的に探すための関数
     /// </summary>
-    private void FindOtherJunk(GameObject selectJunk, GameObject junk, HashSet<GameObject> junkList)
+    private bool FindOtherJunk(GameObject selectJunk, GameObject junk, HashSet<GameObject> junkList)
     {
         FixedJoint[] fixedJoints = junk.GetComponents<FixedJoint>();
         foreach (FixedJoint fixedJoint in fixedJoints)
         {
             GameObject connectedObj = fixedJoint.connectedBody.gameObject;
-            // 削除対象のガラクタならスキップ
-            if (connectedObj == selectJunk)
+
+            // 削除対象のガラクタ、もしくは探索済みの物もスキップ
+            if (connectedObj == selectJunk || junkList.Contains(connectedObj))
                 continue;
 
             // 経路上にあるオブジェクトを一旦格納する
             junkList.Add(connectedObj);
 
+            // │Coreに隣接しているならそれ以上その方向へ探索する必要はない
+            // ↓最上段まで戻って削除対象から新たな方向へと探索を始める必要がある
             // タグが"Core"のオブジェクトに隣接しているか調べる
             if (connectedObj.tag == "Core")
+            {
                 junkList.Clear();
-
-            FindOtherJunk(selectJunk, connectedObj, junkList);
+                break;
+            }
+            if(FindOtherJunk(selectJunk, connectedObj, junkList)) return true;
         }
+        return false;
     }
 }
