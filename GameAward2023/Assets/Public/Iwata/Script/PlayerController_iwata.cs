@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerController_iwata : MonoBehaviour
 {
-    public GameObject Core;
-    public GameObject CoreClone;
-    public GameObject Preview;
-    public GameObject Jank;
-    public GameObject GSMana;
+    //public GameObject Core;
+    //public GameObject CoreClone;
+    //public GameObject Preview;
+    //public GameObject Jank;
+    //public GameObject GSMana;
+
+    [SerializeField] private GameManager GM;
 
     // Start is called before the first frame update
     void Start()
@@ -19,122 +21,139 @@ public class PlayerController_iwata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(GSMana.GetComponent<GameStatusManager>().GameStatus)
+        Dictionary<string, GameObject> objects = GM.Objects;
+
+        switch (GM.GameStatus)
         {
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT:
+            case GameManager.eGameStatus.E_GAME_STATUS_JOINT:
                 //十字ボタン
-                if (Core.GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
+                if (objects["Core"].GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 {
                     float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
                     float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
                     if (axisX != 0)
-                        Core.GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
+                        objects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
                     else if (axisY != 0)
-                        Core.GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
+                        objects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
                 }
 
-                //Aボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
-                {
-                    //--- プレビューが有効でない場合のみ選択可能
-                    if (!Preview.activeSelf)
-                    {
-                        // 判定用のレイを用意
-                        Ray ray = CursorController.GetCameraToRay();
-                        RaycastHit hit;
+                //float stick_RH = PadInput.GetAxisRaw("Horizontal_R");
+                //float stick_RV = PadInput.GetAxisRaw("Vertical_R");
+                //if(stick_RH != 0 || stick_RV != 0)
+                //{
+                //    objects["JointCanvas"].transform.Find("Cursor").GetComponent<CursorController>().MoveCursor(stick_RH, stick_RV);
+                //}
 
-                        if (Physics.Raycast(ray, out hit))
-                        {
-                            Debug.Log(hit.transform.tag);
+                ////Aボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
+                //{
+                //    //--- プレビューが有効でない場合のみ選択可能
+                //    if (!Preview.activeSelf)
+                //    {
+                //        // 判定用のレイを用意
+                //        Ray ray = CursorController.GetCameraToRay();
+                //        RaycastHit hit;
 
-                            // ガラクタではないならスルー
-                            if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
+                //        if (Physics.Raycast(ray, out hit))
+                //        {
+                //            Debug.Log(hit.transform.tag);
 
-                            // プレビューを有効化
-                            Preview.SetActive(true);
-                            Preview.transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
+                //            // ガラクタではないならスルー
+                //            if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
-                            Jank.GetComponent<JankController>().SelectJank = hit.collider.gameObject;
+                //            // プレビューを有効化
+                //            Preview.SetActive(true);
+                //            Preview.transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
 
-                            //m_seController.PlaySe("Select");
-                        }
-                    }
-                    else
-                    {
-                        bool AttachSuccess;
-                        AttachSuccess = Core.GetComponent<CoreSetting_iwata>().AttachCore(Jank.GetComponent<JankController>().SelectJank);
-                        
-                        if(AttachSuccess)
-                            Preview.SetActive(false);
-                    }
-                }
+                //            Jank.GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
-                //Bボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    if (!Preview.activeSelf)
-                    {
-                        Core.GetComponent<CoreSetting_iwata>().ReleaseCore();
-                    }
-                    else
-                    {
-                        Jank.GetComponent<JankController>().ReturnJank();
-                        Preview.SetActive(false);
-                    }
-                }
+                //            //m_seController.PlaySe("Select");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        bool AttachSuccess;
+                //        AttachSuccess = Core.GetComponent<CoreSetting_iwata>().AttachCore(Jank.GetComponent<JankController>().SelectJank);
 
-                //Xボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
-                }
+                //        if (AttachSuccess)
+                //            Preview.SetActive(false);
+                //    }
+                //}
 
-                //Lボタン
-                if(Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
-                {
-                    if (Preview.activeSelf)
-                    {
-                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
-                    }
-                }
+                ////Bボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace))
+                //{
+                //    if (!Preview.activeSelf)
+                //    {
+                //        Core.GetComponent<CoreSetting_iwata>().ReleaseCore();
+                //    }
+                //    else
+                //    {
+                //        Jank.GetComponent<JankController>().ReturnJank();
+                //        Preview.SetActive(false);
+                //    }
+                //}
 
-                //Rボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
-                {
-                    if (Preview.activeSelf)
-                    {
-                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-                    }
-                }
+                ////Xボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
+                //{
+                //    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
+                //}
+
+                ////Lボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
+                //{
+                //    if (Preview.activeSelf)
+                //    {
+                //        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
+                //    }
+                //}
+
+                ////Rボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
+                //{
+                //    if (Preview.activeSelf)
+                //    {
+                //        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+                //    }
+                //}
 
                 break;
-
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
-                if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
-                {
-                    CoreClone.GetComponent<RotationCore>().RotL();
-                }
-                if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
-                {
-                    CoreClone.GetComponent<RotationCore>().RotR();
-                }
-                if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
-                }
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY;
-                }
-
+            case GameManager.eGameStatus.E_GAME_STATUS_ROT:
                 break;
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
-                }
+            case GameManager.eGameStatus.E_GAME_STATUS_PLAY:
                 break;
         }
+
+        //switch(GSMana.GetComponent<GameStatusManager>().GameStatus)
+        //{
+
+        //    case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
+        //        if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
+        //        {
+        //            CoreClone.GetComponent<RotationCore>().RotL();
+        //        }
+        //        if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
+        //        {
+        //            CoreClone.GetComponent<RotationCore>().RotR();
+        //        }
+        //        if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
+        //        {
+        //            GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
+        //        }
+        //        if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
+        //        {
+        //            GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY;
+        //        }
+
+        //        break;
+        //    case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
+        //        if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
+        //        {
+        //            GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
+        //        }
+        //        break;
+        //}
         
     }
 }

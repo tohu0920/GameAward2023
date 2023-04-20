@@ -37,6 +37,7 @@ public class CoreSetting_iwata : MonoBehaviour
     RotateFlag m_rotFlag;           //‚Ç‚Á‚¿‚É‰ñ“]‚µ‚Ä‚¢‚é‚©
     bool m_isDepath;        // –Êî•ñ‚ğæ“¾‚µ’¼‚·ƒtƒ‰ƒO
     public PlayerController_iwata PController;
+    public GameStatusManager GMManager;
     Vector3 RotVectorX;
     static int num = 0;
 
@@ -402,8 +403,6 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void JointToRot()
     {
-        
-
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Debug.Log(num);
         num++;
@@ -411,7 +410,9 @@ public class CoreSetting_iwata : MonoBehaviour
         //clone.transform.name += num;
         //Destroy(clone.GetComponent<CoreSetting_iwata>());
         clone.AddComponent<RotationCore>();
-        PController.CoreClone = clone;
+        clone.AddComponent<CloneCoreMove>();
+        //PController.CoreClone = clone;
+        GMManager.CloneCore = clone;
         //this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
         //foreach (Transform child in this.transform)
         //{
