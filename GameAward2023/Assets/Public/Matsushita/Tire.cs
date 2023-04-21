@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tire : junkBase
+public class Tire : JunkBase
 {
     [SerializeReference] float m_bounceRate;
     [SerializeField] private float explosionForce = 100f; // ”š”­—Í
