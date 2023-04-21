@@ -6,15 +6,12 @@ using UnityEngine.Audio;
 
 public class OptionSelect : MonoBehaviour
 {
-    private Image BGMImage;
-    private Text BGMText;
-    private Image SEImage;
-    private Text SEText;
-    private Image ReadMeImage;
-    private Text ReadMeText;
-    private Image BackImage;
-    private Text BackText;
-
+    private GameObject BGMImage1;
+    private GameObject BGMImage2;    
+    private GameObject SEImage1;
+    private GameObject SEImage2;    
+    private GameObject ReadMeImage1;
+    private GameObject ReadMeImage2;            
 
     [SerializeReference] GameObject GameScreen;
     [SerializeReference] GameObject OptionScreen;
@@ -23,29 +20,24 @@ public class OptionSelect : MonoBehaviour
     [SerializeReference] AudioMixerSnapshot BGM;
     
 
-    public Slider bgmSlider;         // SliderÇäiî[Ç∑ÇÈïœêî
-    public Slider SESlider;          // SEÇäiî[Ç∑ÇÈïœêî
-    public AudioSource BGMSource;    // BGMÇçƒê∂Ç∑ÇÈAudioSourceÇäiî[Ç∑ÇÈïœêî
-    public AudioSource SESourse;     // SEçƒê∂Ç∑ÇÈAudioSourceÇäiî[Ç∑ÇÈïœêî
+    public Slider bgmSlider;         // Slider„ÇíÊ†ºÁ¥ç„Åô„ÇãÂ§âÊï∞
+    public Slider SESlider;          // SE„ÇíÊ†ºÁ¥ç„Åô„ÇãÂ§âÊï∞
+    public AudioSource BGMSource;    // BGM„ÇíÂÜçÁîü„Åô„ÇãAudioSource„ÇíÊ†ºÁ¥ç„Åô„ÇãÂ§âÊï∞
+    public AudioSource SESourse;     // SEÂÜçÁîü„Åô„ÇãAudioSource„ÇíÊ†ºÁ¥ç„Åô„ÇãÂ§âÊï∞
 
     //public AudioMixerSnapshot BGM;
 
-    private int SelectOptionNum; 
+    public int SelectOptionNum; 
 
     // Start is called before the first frame update
     void Start()
     {
-        BGMImage = GameObject.Find("BGMImage").GetComponent<Image>();
-        BGMText = GameObject.Find("BGM").GetComponent<Text>();
-        SEImage = GameObject.Find("SEImage").GetComponent<Image>();
-        SEText = GameObject.Find("SE").GetComponent<Text>();
-        ReadMeImage = GameObject.Find("ReadMeImage").GetComponent<Image>();
-        ReadMeText = GameObject.Find("ReadMe").GetComponent<Text>();
-        BackImage = GameObject.Find("BackImage").GetComponent<Image>();
-        BackText = GameObject.Find("Back").GetComponent<Text>();
-
-        BGMImage.color = new Color(0, 0, 0, 255);
-        BGMText.color = new Color(255, 255, 255, 255);
+        BGMImage1 = GameObject.Find("BGMImage1");       //ÂÖâ„Å£„Å¶„ÅÑ„Çã
+        BGMImage2 = GameObject.Find("BGMImage2");       //ÂÖâ„Å£„Å¶„ÅÑ„Å™„ÅÑ
+        SEImage1 = GameObject.Find("SEImage1");         //ÂÖâ„Å£„Å¶„ÅÑ„Å™„ÅÑ
+        SEImage2 = GameObject.Find("SEImage2");         //ÂÖâ„Å£„Å¶„ÅÑ„Çã
+        ReadMeImage1 = GameObject.Find("ReadMeImage1"); //ÂÖâ„Å£„Å¶„ÅÑ„Å™„ÅÑ
+        ReadMeImage2 = GameObject.Find("ReadMeImage2"); //ÂÖâ„Å£„Å¶„ÅÑ„Çã
 
         bgmSlider.value = 5.0f;
         SESlider.value = 5.0f;
@@ -56,106 +48,106 @@ public class OptionSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {    
-        //ëIë
+        //ÈÅ∏Êäû
         SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         if (SelectOptionNum == -1)
         {
-            SelectOptionNum = 3;
+            SelectOptionNum = 2;
         }
-        if (SelectOptionNum == 4)
+        if (SelectOptionNum == 3)
         {
-            SelectOptionNum = 3;
-            SelectOptionNum = SelectOptionNum % 3;
+            SelectOptionNum = 0;
         }
 
 
         switch (SelectOptionNum)
         {
             case 0:
-                //êFïœçX
-                BGMImage.color = new Color(0, 0, 0, 255);
-                BGMText.color = new Color(255, 256, 256, 255);
+                //Èü≥Èáè„Åå„Å≤„Åã„Å£„Å¶„ÅÑ„Çã
+                ChangeActive();               
 
-                SEImage.color = new Color(255, 255, 255, 255);
-                SEText.color = new Color(0, 0, 0, 255);
-                ReadMeImage.color = new Color(255, 256, 256, 255);
-                ReadMeText.color = new Color(0, 0, 0, 255);
-                BackImage.color = new Color(255, 255, 255, 255);
-                BackText.color = new Color(0, 0, 0, 255);
-              
-                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
-
-                // SliderÇÃílÇAudioSourceÇÃâπó Ç…îΩâfÇ∑ÇÈ
-                //BGM.audioMixer.SetFloat("BGM", bgmSlider.value);
-
+                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f; 
                 break;
 
             case 1:
-                SEImage.color = new Color(0, 0, 0, 255);
-                SEText.color = new Color(255, 255, 255, 255);
+                //ÂäπÊûúÈü≥„ÅåÂÖâ„Å£„Å¶„ÅÑ„Çã
+                ChangeActive();
 
-                BGMImage.color = new Color(255, 255, 255, 255);
-                BGMText.color = new Color(0, 0, 0, 255);
-                ReadMeImage.color = new Color(255, 256, 256, 255);
-                ReadMeText.color = new Color(0, 0, 0, 255);
-                BackImage.color = new Color(255, 255, 255, 255);
-                BackText.color = new Color(0, 0, 0, 255);
-
-                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
-
-                // SliderÇÃílÇAudioSourceÇÃâπó Ç…îΩâfÇ∑ÇÈ
-                //SESourse.volume = SESlider.value;
-
+                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f;              
                 break;
 
             case 2:
-                ReadMeImage.color = new Color(0, 0, 0, 255);
-                ReadMeText.color = new Color(255, 255, 255, 255);
+                //Êìç‰ΩúË™¨Êòé„ÅåÂÖâ„Å£„Å¶„ÅÑ„Çã
+                ChangeActive();
+               
+                //if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+                //{
 
-                BGMImage.color = new Color(255, 255, 255, 255);
-                BGMText.color = new Color(0, 0, 0, 255);
-                SEImage.color = new Color(255, 255, 255, 255);
-                SEText.color = new Color(0, 0, 0, 255);
-                BackImage.color = new Color(255, 255, 255, 255);
-                BackText.color = new Color(0, 0, 0, 255);
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
-                {
-                    Application.Quit();
-                }
-                break;
-            case 3:
-                BackImage.color = new Color(0, 0, 0, 255);
-                BackText.color = new Color(255, 255, 255, 255);
-
-                BGMImage.color = new Color(255, 255, 255, 255);
-                BGMText.color = new Color(0, 0, 0, 255);
-                SEImage.color = new Color(255, 255, 255, 255);
-                SEText.color = new Color(0, 0, 0, 255);
-                ReadMeImage.color = new Color(255, 256, 256, 255);
-                ReadMeText.color = new Color(0, 0, 0, 255);
-
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
-                {
-                    GameScreen.SetActive(true);
-                    OptionScreen.SetActive(false);
-                    kari.SetActive(true);
-                }
-                break;                
+                //}
+                break;              
         }
 
-        
-        
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        {
+            GameScreen.SetActive(true);
+            OptionScreen.SetActive(false);
+            kari.SetActive(true);
+        }
     }
 
+    /// <summary>
+    /// BGM„ÅÆÈü≥Èáè„ÅÆË®≠ÂÆöÈñ¢Êï∞
+    /// </summary>
+    /// <param name="volume"></param>
     public void SetBGM(float volume)
     {
         BGM.audioMixer.SetFloat("BGM", volume);
         Debug.Log(volume);
     }
 
+    /// <summary>
+    /// SE„ÅÆÈü≥ÈáèË®≠ÂÆö
+    /// </summary>
+    /// <param name="volume"></param>
     public void SetSE(float volume)
     {
         BGM.audioMixer.SetFloat("SE", volume);
+    }
+
+    /// <summary>
+    /// /// „Ç§„É°„Éº„Ç∏„Ç¢„ÇØ„ÉÜ„Ç£„Éñ„ÉªÈùû„Ç¢„ÇØ„ÉÜ„Ç£„ÉñÂ§âÊõ¥Èñ¢Êï∞
+    /// </summary>
+    public void ChangeActive()
+    {
+        switch(SelectOptionNum)
+        {
+            case 0:
+                BGMImage1.SetActive(true);
+                BGMImage2.SetActive(false);
+                SEImage1.SetActive(true);
+                SEImage2.SetActive(false);
+                ReadMeImage1.SetActive(true);
+                ReadMeImage2.SetActive(false);
+                break;
+
+            case 1:
+                BGMImage1.SetActive(false);
+                BGMImage2.SetActive(true);
+                SEImage1.SetActive(false);
+                SEImage2.SetActive(true);
+                ReadMeImage1.SetActive(true);
+                ReadMeImage2.SetActive(false);
+                break;
+
+            case 2:
+                BGMImage1.SetActive(false);
+                BGMImage2.SetActive(true);
+                SEImage1.SetActive(true);
+                SEImage2.SetActive(false);
+                ReadMeImage1.SetActive(false);
+                ReadMeImage2.SetActive(true);
+                break;
+        }
     }
 }
