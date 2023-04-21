@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Booster : Metal
 {
+
     [SerializeReference] float m_boostForceRate;
     [SerializeReference] float m_maxSpeed;
 
@@ -38,6 +39,5 @@ public class Booster : Metal
     /// </summary>
     public override void HitCapacitor()
     {
-
     }
 }
