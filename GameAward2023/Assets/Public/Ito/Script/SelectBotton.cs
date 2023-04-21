@@ -33,11 +33,10 @@ public class SelectBotton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //\šƒL[‚Ì‘I‘ğ
-        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical");
+        SelectNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
-        //‘I‘ğ‚Ìƒ‹[ƒv
-        if (SelectNum == -1) //‚Qs‚Å‚Ü‚Æ‚ß‚é (if•¶g‚í‚¸‚É)
+        //é¸æŠã®ãƒ«ãƒ¼ãƒ—
+        if (SelectNum == -1) //ï¼’è¡Œã§ã¾ã¨ã‚ã‚‹ (ifæ–‡ä½¿ã‚ãšã«)
         {
             SelectNum = 2;       
         }
@@ -46,13 +45,13 @@ public class SelectBotton : MonoBehaviour
             SelectNum = 0;
         }
 
-        //ƒ‰ƒCƒ“‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğ‚Ü‚Æ‚ß‚é(swtichg‚í‚¸‚É)‰üs‚ ‚è
+        //ãƒ©ã‚¤ãƒ³ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ã¾ã¨ã‚ã‚‹(swtichä½¿ã‚ãšã«)æ”¹è¡Œã‚ã‚Š
         UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180 - SelectNum * 70);
 
         switch (SelectNum)
         {
             case 0:
-                //ƒ[ƒhƒV[ƒ“‚Í‚±‚±‚ÅÄ“xì‚é
+                //ãƒ­ãƒ¼ãƒ‰ã‚·ãƒ¼ãƒ³ã¯ã“ã“ã§å†åº¦ä½œã‚‹
                 //if(Input.GetKeyDown("JoystickButton1"))
                 //{
                 //    LoadSelectScene();
@@ -92,7 +91,7 @@ public class SelectBotton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ìƒ[ƒhƒV[ƒ“—p
+    /// ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®ãƒ­ãƒ¼ãƒ‰ã‚·ãƒ¼ãƒ³ç”¨
     /// </summary>
     private void LoadSelectScene()
     {

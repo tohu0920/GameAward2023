@@ -20,10 +20,10 @@ public class OptionSelect : MonoBehaviour
     [SerializeReference] AudioMixerSnapshot BGM;
     
 
-    public Slider bgmSlider;         // Slider‚ğŠi”[‚·‚é•Ï”
-    public Slider SESlider;          // SE‚ğŠi”[‚·‚é•Ï”
-    public AudioSource BGMSource;    // BGM‚ğÄ¶‚·‚éAudioSource‚ğŠi”[‚·‚é•Ï”
-    public AudioSource SESourse;     // SEÄ¶‚·‚éAudioSource‚ğŠi”[‚·‚é•Ï”
+    public Slider bgmSlider;         // Sliderã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
+    public Slider SESlider;          // SEã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
+    public AudioSource BGMSource;    // BGMã‚’å†ç”Ÿã™ã‚‹AudioSourceã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
+    public AudioSource SESourse;     // SEå†ç”Ÿã™ã‚‹AudioSourceã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
 
     //public AudioMixerSnapshot BGM;
 
@@ -32,12 +32,12 @@ public class OptionSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BGMImage1 = GameObject.Find("BGMImage1");       //Œõ‚Á‚Ä‚¢‚é
-        BGMImage2 = GameObject.Find("BGMImage2");       //Œõ‚Á‚Ä‚¢‚È‚¢
-        SEImage1 = GameObject.Find("SEImage1");         //Œõ‚Á‚Ä‚¢‚È‚¢
-        SEImage2 = GameObject.Find("SEImage2");         //Œõ‚Á‚Ä‚¢‚é
-        ReadMeImage1 = GameObject.Find("ReadMeImage1"); //Œõ‚Á‚Ä‚¢‚È‚¢
-        ReadMeImage2 = GameObject.Find("ReadMeImage2"); //Œõ‚Á‚Ä‚¢‚é
+        BGMImage1 = GameObject.Find("BGMImage1");       //å…‰ã£ã¦ã„ã‚‹
+        BGMImage2 = GameObject.Find("BGMImage2");       //å…‰ã£ã¦ã„ãªã„
+        SEImage1 = GameObject.Find("SEImage1");         //å…‰ã£ã¦ã„ãªã„
+        SEImage2 = GameObject.Find("SEImage2");         //å…‰ã£ã¦ã„ã‚‹
+        ReadMeImage1 = GameObject.Find("ReadMeImage1"); //å…‰ã£ã¦ã„ãªã„
+        ReadMeImage2 = GameObject.Find("ReadMeImage2"); //å…‰ã£ã¦ã„ã‚‹
 
         bgmSlider.value = 5.0f;
         SESlider.value = 5.0f;
@@ -48,8 +48,8 @@ public class OptionSelect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {    
-        //‘I‘ğ
-        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical");
+        //é¸æŠ
+        SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         if (SelectOptionNum == -1)
         {
@@ -64,21 +64,21 @@ public class OptionSelect : MonoBehaviour
         switch (SelectOptionNum)
         {
             case 0:
-                //‰¹—Ê‚ª‚Ğ‚©‚Á‚Ä‚¢‚é
+                //éŸ³é‡ãŒã²ã‹ã£ã¦ã„ã‚‹
                 ChangeActive();               
 
                 bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f; 
                 break;
 
             case 1:
-                //Œø‰Ê‰¹‚ªŒõ‚Á‚Ä‚¢‚é
+                //åŠ¹æœéŸ³ãŒå…‰ã£ã¦ã„ã‚‹
                 ChangeActive();
 
                 SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal") * 5.0f;              
                 break;
 
             case 2:
-                //‘€ìà–¾‚ªŒõ‚Á‚Ä‚¢‚é
+                //æ“ä½œèª¬æ˜ãŒå…‰ã£ã¦ã„ã‚‹
                 ChangeActive();
                
                 //if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button0))
@@ -97,7 +97,7 @@ public class OptionSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// BGM‚Ì‰¹—Ê‚Ìİ’èŠÖ”
+    /// BGMã®éŸ³é‡ã®è¨­å®šé–¢æ•°
     /// </summary>
     /// <param name="volume"></param>
     public void SetBGM(float volume)
@@ -107,7 +107,7 @@ public class OptionSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// SE‚Ì‰¹—Êİ’è
+    /// SEã®éŸ³é‡è¨­å®š
     /// </summary>
     /// <param name="volume"></param>
     public void SetSE(float volume)
@@ -116,7 +116,7 @@ public class OptionSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// /// ƒCƒ[ƒWƒAƒNƒeƒBƒuE”ñƒAƒNƒeƒBƒu•ÏXŠÖ”
+    /// /// ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãƒ»éã‚¢ã‚¯ãƒ†ã‚£ãƒ–å¤‰æ›´é–¢æ•°
     /// </summary>
     public void ChangeActive()
     {

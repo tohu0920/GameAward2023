@@ -17,7 +17,7 @@ public static class AxisInput
 		const int INTERVAL_PRESS_CNT = 7;	//”»’èŠÔŠuƒtƒŒ[ƒ€
 
 		// ²‚Ì“ü—Í‚ğæ“¾(-1.0`1.0)
-		int axisRaw = (int)Input.GetAxisRaw(axisName);
+		int axisRaw = (int)PadInput.GetAxisRaw(axisName);
 
 		//--- ‰Ÿ‚³‚ê‚Ä‚È‚¢ê‡
 		if (axisRaw == 0)

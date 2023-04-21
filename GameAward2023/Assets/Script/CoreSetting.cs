@@ -147,7 +147,7 @@ public class CoreSetting : MonoBehaviour
 			}
 		}
 
-		float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical");    // c‚ÉˆÚ“®
+		float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");    // c‚ÉˆÚ“®
 
 		//--- c‚É“ü—Í‚ª‚ ‚Á‚½‚Ì‚İˆ—
 		if (axisY != 0)
