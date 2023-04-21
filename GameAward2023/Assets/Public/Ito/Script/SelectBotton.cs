@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class SelectBotton : MonoBehaviour
 {
-    private Text StartImage;
-    private Text OptionImage;
-    private Text EndImage;
+    private GameObject StartImage;       
+    private GameObject OptionImage;    
+    private GameObject EndImage;
+    private Image UnderLine;
 
     [SerializeReference] GameObject GameScreen;
     [SerializeReference] GameObject OptionScreen;
@@ -20,21 +21,23 @@ public class SelectBotton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartImage = GameObject.Find("Start").GetComponent<Text>();
-        OptionImage = GameObject.Find("Option").GetComponent<Text>();
-        EndImage = GameObject.Find("End").GetComponent<Text>();
+        StartImage = GameObject.Find("Start");
+        OptionImage = GameObject.Find("Option");
+        EndImage = GameObject.Find("End");
+        UnderLine = GameObject.Find("UnderLine").GetComponent<Image>();
 
-        StartImage.color = new Color(255, 0, 0, 255);
-
-        SelectNum = 0;        
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180);        
+        SelectNum = 0;       
     }
 
     // Update is called once per frame
     void Update()
     {
+        //十字キーの選択
         SelectNum -= AxisInput.GetAxisRawRepeat("Vertical");
 
-        if (SelectNum == -1)
+        //選択のループ
+        if (SelectNum == -1) //２行でまとめる (if文使わずに)
         {
             SelectNum = 2;       
         }
@@ -43,13 +46,12 @@ public class SelectBotton : MonoBehaviour
             SelectNum = 0;
         }
 
+        //ラインのポジションをまとめる(swtich使わずに)改行あり
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180 - SelectNum * 70);
 
         switch (SelectNum)
         {
             case 0:
-                StartImage.color = new Color(255, 0, 0, 255);
-                OptionImage.color = new Color(255, 256, 256, 255);
-                EndImage.color = new Color(255, 255, 255, 255);
                 //ロードシーンはここで再度作る
                 //if(Input.GetKeyDown("JoystickButton1"))
                 //{
@@ -62,9 +64,6 @@ public class SelectBotton : MonoBehaviour
                     break;
                 
             case 1:
-                OptionImage.color = new Color(255, 0, 0, 255);
-                StartImage.color = new Color(255, 255, 255, 255);
-                EndImage.color = new Color(255, 255, 255, 255);
                 //if (Input.GetKeyDown("JoystickButton1"))
                 //{
                 //    GameScreen.SetActive(false);
@@ -75,14 +74,11 @@ public class SelectBotton : MonoBehaviour
                 {
                     GameScreen.SetActive(false);
                     OptionScreen.SetActive(true);
-                    kari.SetActive(false);
+                    kari.SetActive(false);                    
                 }
                 break;
 
             case 2:
-                EndImage.color = new Color(255, 0, 0, 255);
-                StartImage.color = new Color(250, 255, 255, 255);
-                OptionImage.color = new Color(255, 255, 255, 255);
                 //if (Input.GetKeyDown("JoystickButton1"))
                 //{
                 //    Application.Quit();
@@ -92,9 +88,12 @@ public class SelectBotton : MonoBehaviour
                     Application.Quit();
                 }
                 break;
-        }        
+        }      
     }
 
+    /// <summary>
+    /// タイトルシーンのロードシーン用
+    /// </summary>
     private void LoadSelectScene()
     {
         SceneManager.LoadScene("StageSelectScene");        
