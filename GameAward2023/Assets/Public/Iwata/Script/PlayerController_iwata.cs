@@ -21,20 +21,20 @@ public class PlayerController_iwata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Dictionary<string, GameObject> objects = GM.Objects;
+        Dictionary<string, GameObject> jointobjects = GM.JointStage.Objects;
 
         switch (GM.GameStatus)
         {
             case GameManager.eGameStatus.E_GAME_STATUS_JOINT:
                 //十字ボタン
-                if (objects["Core"].GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
+                if (jointobjects["Core"].GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 {
                     float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
                     float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
                     if (axisX != 0)
-                        objects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
+                        jointobjects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
                     else if (axisY != 0)
-                        objects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
+                        jointobjects["Core"].GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
                 }
 
                 //float stick_RH = PadInput.GetAxisRaw("Horizontal_R");
@@ -44,41 +44,41 @@ public class PlayerController_iwata : MonoBehaviour
                 //    objects["JointCanvas"].transform.Find("Cursor").GetComponent<CursorController>().MoveCursor(stick_RH, stick_RV);
                 //}
 
-                ////Aボタン
-                //if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
-                //{
-                //    //--- プレビューが有効でない場合のみ選択可能
-                //    if (!Preview.activeSelf)
-                //    {
-                //        // 判定用のレイを用意
-                //        Ray ray = CursorController.GetCameraToRay();
-                //        RaycastHit hit;
+                //Aボタン
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton0) || PadInput.GetKeyDown(KeyCode.Space))
+                {
+                    //--- プレビューが有効でない場合のみ選択可能
+                    if (!jointobjects["Preview"].activeSelf)
+                    {
+                        // 判定用のレイを用意
+                        Ray ray = CursorController.GetCameraToRay(jointobjects["JointCamera"]);
+                        RaycastHit hit;
 
-                //        if (Physics.Raycast(ray, out hit))
-                //        {
-                //            Debug.Log(hit.transform.tag);
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            Debug.Log(hit.transform.tag);
 
-                //            // ガラクタではないならスルー
-                //            if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
+                            // ガラクタではないならスルー
+                            if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
-                //            // プレビューを有効化
-                //            Preview.SetActive(true);
-                //            Preview.transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
+                            // プレビューを有効化
+                            jointobjects["Preview"].SetActive(true);
+                            //objects["Preview"].transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
 
-                //            Jank.GetComponent<JankController>().SelectJank = hit.collider.gameObject;
+                            jointobjects["Jank"].GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
-                //            //m_seController.PlaySe("Select");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        bool AttachSuccess;
-                //        AttachSuccess = Core.GetComponent<CoreSetting_iwata>().AttachCore(Jank.GetComponent<JankController>().SelectJank);
+                            //m_seController.PlaySe("Select");
+                        }
+                    }
+                    else
+                    {
+                        bool AttachSuccess;
+                        AttachSuccess = jointobjects["Core"].GetComponent<CoreSetting_iwata>().AttachCore(jointobjects["Jank"].GetComponent<JankController>().SelectJank);
 
-                //        if (AttachSuccess)
-                //            Preview.SetActive(false);
-                //    }
-                //}
+                        if (AttachSuccess)
+                            jointobjects["Preview"].SetActive(false);
+                    }
+                }
 
                 ////Bボタン
                 //if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace))

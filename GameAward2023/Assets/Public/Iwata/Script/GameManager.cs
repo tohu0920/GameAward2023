@@ -17,9 +17,8 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private GameObject m_PlayStage;        //プレイ用の環境
-    [SerializeField] private GameObject m_JointStage;       //組み立て用の環境
-    [SerializeField] private Dictionary<string, GameObject> m_Objects = new Dictionary<string, GameObject>();   //今実行している環境で扱えるオブジェクトを登録
+    [SerializeField] private StageManagerBase m_PlayStage;        //プレイ用の環境
+    [SerializeField] private StageManagerBase m_JointStage;       //組み立て用の環境
 
     [SerializeField] private eGameStatus m_GameStatus;  //ゲームの状態
 
@@ -27,16 +26,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態の初期化
-
-        //アクティブの環境のオブジェクトの情報を登録
-        foreach (Transform childTransform in m_JointStage.transform)
-        {
-            GameObject childObject = childTransform.gameObject;
-            string objectName = childObject.name;
-
-            // Dictionaryに登録する
-            m_Objects[objectName] = childObject;
-        }
     }
 
     // Update is called once per frame
@@ -45,20 +34,16 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public GameObject PlayStage
+    public StageManagerBase PlayStage
     {
         get { return m_PlayStage; }
     }
 
-    public GameObject JointStage
+    public StageManagerBase JointStage
     {
         get { return m_JointStage; }
     }
 
-    public Dictionary<string, GameObject> Objects
-    {
-        get { return m_Objects; }
-    }
 
     public eGameStatus GameStatus
     {
