@@ -11,7 +11,7 @@ public class JankStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_orizinSize = this.transform.localScale;
+        //m_orizinSize = this.transform.localScale;
         m_pickupSize = m_orizinSize * m_val;
     }
 

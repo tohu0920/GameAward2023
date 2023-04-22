@@ -181,4 +181,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695e5181648f30349b2dd773d1707808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_orizinSize: {x: 0, y: 0, z: 0}
+  m_orizinSize: {x: 1, y: 1, z: 1}
+  m_pickupSize: {x: 0, y: 0, z: 0}

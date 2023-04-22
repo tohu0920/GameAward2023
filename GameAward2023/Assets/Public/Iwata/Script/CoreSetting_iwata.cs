@@ -173,6 +173,12 @@ public class CoreSetting_iwata : MonoBehaviour
     //    m_attachFaces[m_SelectFaceNum].Trans.localScale = m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().OrizinSize;
     //}
 
+    public void ResetCoreSize()
+    {
+        Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name);
+        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+    }
+
     public void ChangeFaceX(float axis)
     {
         this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
@@ -454,5 +460,10 @@ public class CoreSetting_iwata : MonoBehaviour
     {
         Debug.Log("âÒì]èâä˙âª");
         this.transform.rotation = Quaternion.identity;
+    }
+
+    public Transform SelectFace
+    {
+        get { return m_attachFaces[m_SelectFaceNum].Trans; }
     }
 }
