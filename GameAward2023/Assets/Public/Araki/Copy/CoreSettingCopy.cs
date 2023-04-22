@@ -1,6 +1,8 @@
 /**
  * ïœçXÅEí«â¡ì_
+ * AddFixedJoint()
  * RemoveFixedJoint()
+ * DetachJunk()
  * SearchUnconnectJunks()
  * SearchUnconnectJunksLoop()
  */
