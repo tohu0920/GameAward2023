@@ -40,6 +40,8 @@ public class CoreSetting_iwata : MonoBehaviour
     public GameManager GMManager;
     Vector3 RotVectorX;
     static int num = 0;
+    Vector3 AxisRotX;
+    Vector3 AxisRotY;
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
     //AudioSource audioSource;    //再生するためのハンドル
@@ -47,6 +49,10 @@ public class CoreSetting_iwata : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AxisRotY = this.transform.right;
+        Debug.Log(AxisRotX);
+        AxisRotX = this.transform.up;
+
         m_attachFaces = GetAttachFace();	// 組み立てられる面を取得
         m_SelectFaceNum = 0;
         m_rotateY = m_rotateX = 0.0f;
@@ -181,7 +187,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void ChangeFaceX(float axis)
     {
-        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
+        //this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.x += axis;
@@ -198,7 +204,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
             m_SelectFaceNum = i;
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
+            //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
             return;
         }
 
@@ -216,13 +222,13 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log("XP");
         }
         m_isDepath = true;
-        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
+        //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
         //audioSource.PlayOneShot(m_RotSound);    //SEの再生
     }
 
     public void ChangeFaceY(float axis)
     {
-        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
+        //this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
         pos.y += axis;
@@ -238,7 +244,7 @@ public class CoreSetting_iwata : MonoBehaviour
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             m_SelectFaceNum = i;
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
+            //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
             return;
         }
 
@@ -255,7 +261,7 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log("YP");
         }
         m_isDepath = true;
-        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
+        //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
         //audioSource.PlayOneShot(m_RotSound);    //SEの再生
     }
 
@@ -270,8 +276,13 @@ public class CoreSetting_iwata : MonoBehaviour
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
         //--- 座標計算
-        this.transform.Rotate(RotVectorX, m_lateY - lastY, Space.World);
-        this.transform.Rotate(Vector3.right, m_lateX - lastX, Space.World);
+        //this.transform.Rotate(RotVectorX, m_lateY - lastY, Space.Self);
+        //transform.rotation *= Quaternion.AngleAxis(m_lateY - lastY, AxisRotY);
+        //this.transform.Rotate(Vector3.right, m_lateX - lastX, Space.Self);/
+        //transform.rotation *= Quaternion.AngleAxis(m_lateX - lastX, AxisRotX);
+
+        transform.RotateAround(transform.position, AxisRotX, m_lateY - lastY);
+        transform.RotateAround(transform.position, AxisRotY, m_lateX - lastX);
 
         m_rotateFrameCnt++; // 回転フレームカウント
 
