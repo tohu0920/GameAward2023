@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class JunkBase : MonoBehaviour
 {
-    public Explosion explosionReference;
-
     void Start()
     {
-        explosionReference = FindObjectOfType<Explosion>();
     }
 
-    public virtual void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.CompareTag("Danger"))
-        {
-            Explosion();
-        }
-    }
 
     /// <summary>
     /// 釘コンクリートにあたったとき
     /// </summary>
     public virtual void HitNailConcrete()
     {
-        Debug.Log("釘コンクリートにあたった！");
     }
 
     /// <summary>
@@ -32,12 +21,22 @@ public class JunkBase : MonoBehaviour
     /// </summary>
     public virtual void HitCapacitor()
     {
-        Debug.Log("蓄電器にあたった！");
+    }
+
+    /// <summary>
+    /// 燃えているドラム缶にあたったとき
+    /// </summary>
+    public virtual void HitFireDrum()
+    {
+
     }
 
     public virtual void Explosion()
     {
-        explosionReference.Blast();
+        Explosion explosion = transform.root.gameObject.GetComponent<Explosion>();
+        if (explosion == null) return;
+
+        explosion.Blast();
     }
 
 }

@@ -8,7 +8,7 @@ public class Capacitor : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Junk") || col.gameObject.CompareTag("Player"))
         {
-            col.gameObject.GetComponent<junkBase>().HitCapacitor();
+            col.gameObject.GetComponent<JunkBase>().HitCapacitor();
         }
     }
 }
