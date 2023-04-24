@@ -377,10 +377,14 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public bool AttachCore(GameObject obj)
     {
+        Debug.Log("a");
         if(m_attachFaces[m_SelectFaceNum].isAttach)
         {//ëgÇ›óßÇƒÇÈèàóù
+            Debug.Log("b");
             m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-            obj.GetComponent<JointJank_iwata>().JointJanktoCore(m_attachFaces[m_SelectFaceNum].Trans);
+            Debug.Log("c");
+            obj.GetComponent<JankBase>().JointJank(m_attachFaces[m_SelectFaceNum].Trans);
+            Debug.Log("d");
             m_isDepath = true;
             return true;
         }

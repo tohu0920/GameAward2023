@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_ROT:
                             m_JointStage.gameObject.SetActive(false);
                             m_PlayStage.gameObject.SetActive(true);
+                            m_JointStage.Find("Jank").GetComponent<JankController>().SelectJank.GetComponent<JankStatus>().UndoSize();
                             Vector3 startpos = m_PlayStage.Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, Quaternion.identity);
                             core.transform.parent = m_PlayStage.transform;

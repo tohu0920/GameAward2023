@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JankStatus : MonoBehaviour
+public class JankStatus : ObjectBase
 {
     [SerializeField] private Vector3 m_orizinSize;
     [SerializeField] private Vector3 m_pickupSize;
     [SerializeField] private static float m_val = 1.25f;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        //m_orizinSize = this.transform.localScale;
+        base.Start();
+        m_orizinSize = this.transform.localScale;
         m_pickupSize = m_orizinSize * m_val;
     }
 
