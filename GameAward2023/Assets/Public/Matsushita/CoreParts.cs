@@ -39,7 +39,6 @@ public class CoreParts : Metal
     /// </summary>
     public override void HitNailConcrete()
     {
-        Debug.Log("ゲームオーバー");
     }
 
     /// <summary>

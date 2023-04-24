@@ -7,6 +7,10 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float explosionForce = 1000f; // ”š”­—Í
     [SerializeField] private float explosionRadius = 15f; // ”š”­”¼Œa
 
+
+    /// <summary>
+    /// fixjoint‚ð‚È‚­‚µ‚Ä”š”­‚·‚é
+    /// </summary>
     public void Blast()
     {
         Vector3 explosionPosition = transform.position;
@@ -22,10 +26,10 @@ public class Explosion : MonoBehaviour
                 Destroy(joint);
             }
 
-            if (rb != null)
-            {
-                rb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 3.0F);
-            }
+            if (rb == null) continue;
+            
+            rb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 3.0F);
+            
         }
     }
 }
