@@ -48,7 +48,7 @@ public class OptionSelect : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {    
         //選択変更処理
         OptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 

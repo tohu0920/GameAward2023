@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TitleSceneAnimation;
 
 
 public class SelectBotton : MonoBehaviour
@@ -12,7 +11,6 @@ public class SelectBotton : MonoBehaviour
     private GameObject OptionImage;    
     private GameObject EndImage;
     private Image UnderLine;
-    private TitleSceneAnimation titleAnimation;
 
     [SerializeReference] GameObject GameScreen;
     [SerializeReference] GameObject OptionScreen;
@@ -27,7 +25,6 @@ public class SelectBotton : MonoBehaviour
         OptionImage = GameObject.Find("Option");
         EndImage = GameObject.Find("End");
         UnderLine = GameObject.Find("UnderLine").GetComponent<Image>();
-        titleAnimation = GameObject.Find("core").GetComponent<TitleSceneAnimation>();
 
         UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180);        
         SelectNum = 0;       
@@ -51,12 +48,7 @@ public class SelectBotton : MonoBehaviour
             switch (SelectNum)
             {
                 case 0:
-                    //titleAnimation.StartAnimation();
-
-                    if( titleAnimation.isPlaying == false)
-                    {
-                        LoadSelectScene();
-                    }
+                        LoadSelectScene();                 
                     break;
 
                 case 1:

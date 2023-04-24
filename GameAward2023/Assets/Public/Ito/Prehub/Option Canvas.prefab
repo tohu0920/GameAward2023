@@ -1463,8 +1463,8 @@ MonoBehaviour:
   BGMResource: {fileID: 24500006, guid: 79bc44fec5b55bf4497c4d565b80c2b2, type: 2}
   bgmVolumeSlider: {fileID: 7602504307883918695}
   SEVolumeSlider: {fileID: 7602504308351319572}
-  BGMSource_camera: {fileID: 0}
-  SESourse_camera: {fileID: 0}
+  BGMSource: {fileID: 0}
+  SESourse: {fileID: 0}
   OptionNum: 0
 --- !u!1 &7602504307738640785
 GameObject:
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
