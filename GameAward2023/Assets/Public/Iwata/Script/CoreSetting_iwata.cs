@@ -37,7 +37,7 @@ public class CoreSetting_iwata : MonoBehaviour
     RotateFlag m_rotFlag;           //‚Ç‚Á‚¿‚É‰ñ“]‚µ‚Ä‚¢‚é‚©
     bool m_isDepath;        // –Êî•ñ‚ğæ“¾‚µ’¼‚·ƒtƒ‰ƒO
     public PlayerController_iwata PController;
-    public GameStatusManager GMManager;
+    public GameManager GMManager;
     Vector3 RotVectorX;
     static int num = 0;
 
@@ -417,17 +417,8 @@ public class CoreSetting_iwata : MonoBehaviour
         Debug.Log(num);
         num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
-        //clone.transform.name += num;
-        //Destroy(clone.GetComponent<CoreSetting_iwata>());
         clone.AddComponent<RotationCore>();
         clone.AddComponent<CloneCoreMove>();
-        //PController.CoreClone = clone;
-        GMManager.CloneCore = clone;
-        //this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
-        //foreach (Transform child in this.transform)
-        //{
-        //    child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotationY;
-        //}
     }
 
     public void RotToJoint()
