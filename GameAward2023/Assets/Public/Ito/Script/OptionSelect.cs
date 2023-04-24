@@ -48,7 +48,7 @@ public class OptionSelect : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {    
+    {
         //選択変更処理
         OptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
@@ -76,7 +76,7 @@ public class OptionSelect : MonoBehaviour
                 //操作説明が光っている
                 ChangeImageActive();
 
-                //if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                ///if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
 
                 break;
         }        
