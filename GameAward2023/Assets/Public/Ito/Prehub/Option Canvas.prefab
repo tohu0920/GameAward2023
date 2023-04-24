@@ -370,7 +370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fb610b3fc77460e4895f9538dbcebd21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff74cb66178e1424c91ae92c0c4b8634, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -522,7 +522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b65a42fa170d0fc449fbc95bce5ee319, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a435b97ebdbbf24e840db927d670470, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1253,8 +1253,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.9808, y: 239.65}
-  m_SizeDelta: {x: 353.9491, y: 260}
+  m_AnchoredPosition: {x: 23, y: 240}
+  m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7602504307375868478
 CanvasRenderer:
@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da421728e122c0d498bfc88484284f1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dff534650772fd1458682d9d8db7eaaf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1379,7 +1379,7 @@ GameObject:
   - component: {fileID: 7602504307704643599}
   - component: {fileID: 7602504307704643593}
   - component: {fileID: 7602504307704643592}
-  - component: {fileID: 7602504307704643594}
+  - component: {fileID: 8863906575017588508}
   m_Layer: 5
   m_Name: Blind Image
   m_TagString: Untagged
@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7602504307704643594
+--- !u!114 &8863906575017588508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1457,15 +1457,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9437149dbfac82f41bd284c03c219db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameScreen: {fileID: 8105727082276721093, guid: f1afc16cda58f70498cdc65b9bd0fcc2, type: 3}
-  OptionScreen: {fileID: 7602504307330951410}
-  kari: {fileID: 129040156103713268, guid: a56103f3c31a4534ca5dcbe6600e2e22, type: 3}
-  BGM: {fileID: 24500006, guid: 79bc44fec5b55bf4497c4d565b80c2b2, type: 2}
-  bgmSlider: {fileID: 7602504307883918695}
-  SESlider: {fileID: 7602504308351319572}
+  TitleScreen: {fileID: 8105727082276721093, guid: f1afc16cda58f70498cdc65b9bd0fcc2, type: 3}
+  OptionsScreen: {fileID: 7602504307330951410}
+  ControleObject: {fileID: 129040156103713268, guid: a56103f3c31a4534ca5dcbe6600e2e22, type: 3}
+  BGMResource: {fileID: 24500006, guid: 79bc44fec5b55bf4497c4d565b80c2b2, type: 2}
+  bgmVolumeSlider: {fileID: 7602504307883918695}
+  SEVolumeSlider: {fileID: 7602504308351319572}
   BGMSource: {fileID: 0}
   SESourse: {fileID: 0}
-  SelectOptionNum: 0
+  OptionNum: 0
 --- !u!1 &7602504307738640785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fb610b3fc77460e4895f9538dbcebd21, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff74cb66178e1424c91ae92c0c4b8634, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b65a42fa170d0fc449fbc95bce5ee319, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a435b97ebdbbf24e840db927d670470, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
