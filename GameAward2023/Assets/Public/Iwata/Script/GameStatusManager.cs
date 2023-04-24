@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GameStatusManager : MonoBehaviour
 {
-    [SerializeField] GameObject Core;
-    [SerializeField] GameObject Camera;
-    [SerializeField] GameObject Canvas;
+    [SerializeField] GameObject m_Core;
+    [SerializeField] GameObject m_Camera;
+    [SerializeField] GameObject m_Canvas;
+    [SerializeField] GameObject m_CloneCore;
 
     public enum eGameStatus
     {
@@ -20,7 +21,7 @@ public class GameStatusManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] static eGameStatus m_GameStatus;
+    [SerializeField] eGameStatus m_GameStatus;
     eGameStatus m_lastGameStatus;
 
     // Start is called before the first frame update
@@ -41,10 +42,10 @@ public class GameStatusManager : MonoBehaviour
                     switch (m_GameStatus)
                     {
                         case eGameStatus.E_GAME_STATUS_ROT:
-                            Core.GetComponent<CoreSetting_iwata>().JointToRot();
-                            Camera.transform.Find("Main Camera").gameObject.SetActive(false);
-                            Camera.transform.Find("PlayCamera").gameObject.SetActive(true);
-                            Canvas.transform.Find("Cursor").gameObject.SetActive(false);
+                            m_Core.GetComponent<CoreSetting_iwata>().JointToRot();
+                            m_Camera.transform.Find("Main Camera").gameObject.SetActive(false);
+                            m_Camera.transform.Find("PlayCamera").gameObject.SetActive(true);
+                            m_Canvas.transform.Find("Cursor").gameObject.SetActive(false);
                             break;
                     }
 
@@ -54,13 +55,13 @@ public class GameStatusManager : MonoBehaviour
                     switch (m_GameStatus)
                     {
                         case eGameStatus.E_GAME_STATUS_JOINT:
-                            Core.GetComponent<CoreSetting_iwata>().RotToJoint();
-                            Camera.transform.Find("PlayCamera").gameObject.SetActive(false);
-                            Camera.transform.Find("Main Camera").gameObject.SetActive(true);
-                            Canvas.transform.Find("Cursor").gameObject.SetActive(true);
+                            m_Core.GetComponent<CoreSetting_iwata>().RotToJoint();
+                            m_Camera.transform.Find("PlayCamera").gameObject.SetActive(false);
+                            m_Camera.transform.Find("Main Camera").gameObject.SetActive(true);
+                            m_Canvas.transform.Find("Cursor").gameObject.SetActive(true);
                             break;
                         case eGameStatus.E_GAME_STATUS_PLAY:
-                            Core.GetComponent<CoreSetting_iwata>().RotToPlay();
+                            m_CloneCore.GetComponent<CloneCoreMove>().RotToPlay();
                             break;
                     }
                 break;
@@ -68,13 +69,13 @@ public class GameStatusManager : MonoBehaviour
                     switch (m_GameStatus)
                     {
                         case eGameStatus.E_GAME_STATUS_JOINT:
-                            Core.GetComponent<CoreSetting_iwata>().PlayToRot();
-                            Camera.transform.Find("PlayCamera").gameObject.SetActive(false);
-                            Camera.transform.Find("Main Camera").gameObject.SetActive(true);
-                            Canvas.transform.Find("Cursor").gameObject.SetActive(true);
+                            m_Core.GetComponent<CoreSetting_iwata>().PlayToJoint();
+                            m_Camera.transform.Find("PlayCamera").gameObject.SetActive(false);
+                            m_Camera.transform.Find("Main Camera").gameObject.SetActive(true);
+                            m_Canvas.transform.Find("Cursor").gameObject.SetActive(true);
                             break;
                         case eGameStatus.E_GAME_STATUS_ROT:
-
+                            m_Core.GetComponent<CoreSetting_iwata>().PlayToRot();
                             break;
                     }
                     break;
@@ -95,6 +96,11 @@ public class GameStatusManager : MonoBehaviour
     {
         get { return m_GameStatus; }
         set { m_GameStatus = value; }
+    }
+
+    public GameObject CloneCore
+    {
+        set { m_CloneCore = value; }
     }
 
 }

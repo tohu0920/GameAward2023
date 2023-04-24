@@ -2,24 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JointJank_iwata : MonoBehaviour
+public abstract class JankBase : JankStatus
 {
+    [SerializeField] Vector3 StartPos;      //開始時のポジション
+    [SerializeField] Quaternion StartRot;      //開始時のポジション
+
+    public abstract void work();
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
+        base.Start();
+        StartPos = transform.position;
+        StartRot = transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    public void JointJanktoCore(Transform trans)
+    ///<summary>
+    ///ガラクタをガラクタ山に戻す時のガラクタの処理
+    ///</summary>
+    public void ReturnJank()
     {
-       
-        
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        this.transform.position = StartPos;
+        this.transform.rotation = StartRot;
+    }
+
+    /// <summary>
+    /// ガラクタをコアにつける時のガラクタの処理
+    /// </summary>
+    /// <param name="trans">　つけるコアのトランスフォーム　</param>
+    public void JointJank(Transform trans)
+    {
         this.transform.parent = null;
 
         this.transform.rotation = Quaternion.identity;
@@ -38,19 +57,6 @@ public class JointJank_iwata : MonoBehaviour
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         CoreTrans.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-
-        //this.transform.parent = trans.parent;
-
-        //this.transform.rotation = this.transform.parent.transform.rotation;
-
-        //float targetheaf = trans.localScale.z / 2.0f;
-        //float thisheaf = this.transform.localScale.z / 2.0f;
-
-        //Vector3 pos = trans.localPosition;
-
-        //pos.z = pos.z - targetheaf - thisheaf;
-
-        //this.transform.localPosition = pos;
 
         FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();
         joint.connectedBody = trans.GetComponent<Rigidbody>();
