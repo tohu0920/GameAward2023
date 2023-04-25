@@ -9639,7 +9639,7 @@ GameObject:
   - component: {fileID: 1675201598393663884}
   - component: {fileID: 1675201598393663883}
   - component: {fileID: 1675201598393663882}
-  - component: {fileID: 1675201598393663885}
+  - component: {fileID: 8106055286056151614}
   m_Layer: 0
   m_Name: SteamRoll
   m_TagString: Untagged
@@ -14441,7 +14441,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1675201598393663885
+--- !u!114 &8106055286056151614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14454,8 +14454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  resetPosition: -8
-  startingPosition: 8
+  resetPosition: -20
+  startingPosition: 20
 --- !u!1 &1675201598626768110
 GameObject:
   m_ObjectHideFlags: 0
