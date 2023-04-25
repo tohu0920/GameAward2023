@@ -44,7 +44,7 @@ public abstract class JankBase : JankStatus
         this.transform.rotation = Quaternion.identity;
 
         Transform CoreTrans = trans.parent;
-        CoreTrans.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
+        CoreTrans.Rotate(0.0f, -10.0f, 0.0f, Space.World);
         this.transform.parent = CoreTrans;
 
         Transform ChildTrans = CoreTrans.Find(trans.name);
@@ -56,7 +56,7 @@ public abstract class JankBase : JankStatus
 
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
-        CoreTrans.Rotate(10.0f, 0.0f, 0.0f, Space.World);
+        CoreTrans.Rotate(0.0f, 10.0f, 0.0f, Space.World);
 
         FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();
         joint.connectedBody = trans.GetComponent<Rigidbody>();
