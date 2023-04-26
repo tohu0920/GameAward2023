@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jet : JankBase
+public class Jet : JankBase_iwata
 {
     [SerializeReference] float m_boostForceRate;        //ë¨ìx
     [SerializeReference] float m_maxSpeed;          //ç≈çÇë¨ìx

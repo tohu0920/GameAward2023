@@ -244,7 +244,7 @@ public class CoreSetting_iwata : MonoBehaviour
             }
             
             m_SelectFaceNum = nextnum;
-            m_AttachJank.GetComponent<JankBase>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
+            m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
 
             //---------------------
 
@@ -280,7 +280,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
                 
                 m_SelectFaceNum = i;
-                m_AttachJank.GetComponent<JankBase>().PutJank(m_AttachFaces[i].Trans, this.transform);
+                m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[i].Trans, this.transform);
                 return;
             }
 
@@ -320,7 +320,7 @@ public class CoreSetting_iwata : MonoBehaviour
         m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
         m_SelectFaceNum = 0;        //選択している場所を左上に初期化
         m_AttachJank = jank;        //仮置きされているガラクタを登録
-        m_AttachJank.GetComponent<JankBase>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
+        m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
     }
 
     public bool AttachCore(GameObject obj)
@@ -331,7 +331,7 @@ public class CoreSetting_iwata : MonoBehaviour
             Debug.Log("b");
             m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             Debug.Log("c");
-            obj.GetComponent<JankBase>().JointJank(m_AttachFaces[m_SelectFaceNum].Trans);
+            obj.GetComponent<JankBase_iwata>().JointJank(m_AttachFaces[m_SelectFaceNum].Trans);
             Debug.Log("d");
             m_isDepath = true;
             return true;

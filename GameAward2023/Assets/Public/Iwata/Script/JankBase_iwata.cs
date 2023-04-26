@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class JankBase : JankStatus
+public abstract class JankBase_iwata : JankStatus
 {
     [SerializeField] Vector3 StartPos;      //開始時のポジション
     [SerializeField] Quaternion StartRot;      //開始時の回転
