@@ -11,13 +11,16 @@ public class CoreSetting_iwata : MonoBehaviour
         public bool isRelease;
     };
 
+    /// <summary>
+    /// 回転したときのボタンを押した方向
+    /// </summary>
     public enum RotateFlag
     {
         E_ROTATE_FLAG_NULL = 0,
-        E_ROTATE_FLAG_X_P,
-        E_ROTATE_FLAG_X_M,
-        E_ROTATE_FLAG_Y_P,
-        E_ROTATE_FLAG_Y_M,
+        E_ROTATE_FLAG_R,
+        E_ROTATE_FLAG_L,
+        E_ROTATE_FLAG_U,
+        E_ROTATE_FLAG_D,
 
         E_ROTATE_FLAG_Y_MAX
     }
@@ -27,7 +30,7 @@ public class CoreSetting_iwata : MonoBehaviour
     const float ENLARGE_SiZE = 1.25f;   //選択中のCoreの大きさ
     const float ORIZIN_SiZE = 1.00f;   //選択外のCoreの大きさ
 
-    List<AttachFace> m_attachFaces;	// 組み立てられる面
+    List<AttachFace> m_AttachFaces;	// 組み立てられる面
     List<Transform> hoge;
     int m_SelectFaceNum;     // 選択面の番号
     int m_timeToRotate;             // 回転時間
@@ -37,11 +40,11 @@ public class CoreSetting_iwata : MonoBehaviour
     RotateFlag m_rotFlag;           //どっちに回転しているか
     bool m_isDepath;        // 面情報を取得し直すフラグ
     public PlayerController_iwata PController;
-    public GameManager GMManager;
-    Vector3 RotVectorX;
+    public GameManager GM;
     static int num = 0;
     Vector3 AxisRotX;
     Vector3 AxisRotY;
+    [SerializeField] GameObject m_AttachJank;
 
     //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
     //AudioSource audioSource;    //再生するためのハンドル
@@ -49,30 +52,20 @@ public class CoreSetting_iwata : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AxisRotY = this.transform.right;
-        Debug.Log(AxisRotX);
-        AxisRotX = this.transform.up;
-
-        m_attachFaces = GetAttachFace();	// 組み立てられる面を取得
-        m_SelectFaceNum = 0;
-        m_rotateY = m_rotateX = 0.0f;
-        m_lateY = m_lateX = 0.0f;
+        AxisRotY = this.transform.right;        //縦回転するための軸登録
+        AxisRotX = this.transform.up;           //横開店するための軸登録
+        
+        m_rotateY = m_rotateX = 0.0f;       //角度初期化
+        m_lateY = m_lateX = 0.0f;       //遅延角度初期化
 
         // 回転時間を計算
         m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
-
-        //選ばれているCoreを大きくする
-        //EnlargeSizeCore();
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-
-
+        
         //再検索が必要な時に立てるFlagを設定
         m_isDepath = false;
 
         m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
-
-        RotVectorX = this.transform.up;
-
+        
         //audioSource = GetComponent<AudioSource>();
     }
 
@@ -86,23 +79,23 @@ public class CoreSetting_iwata : MonoBehaviour
             return;
         }
 
-        if (m_isDepath)
-        {
-            ResetAttachFace();
-        }
+        //if (m_isDepath)
+        //{
+        //    ResetAttachFace();
+        //}
     }
 
     private void ResetAttachFace()
     {
-        m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+        m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 
-        if (m_SelectFaceNum > m_attachFaces.Count - 1)
+        if (m_SelectFaceNum > m_AttachFaces.Count - 1)
         {
             m_SelectFaceNum = 0;
         }
 
         // 選択中の面を大きく協調する
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
+        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
 
         m_isDepath = false;
     }
@@ -117,6 +110,8 @@ public class CoreSetting_iwata : MonoBehaviour
         foreach (Transform child in this.transform)
         {
             //if (child.tag != "Player") continue;
+
+            if (child.gameObject == m_AttachJank) continue;
 
             // 手前に伸びるレイを用意
             Ray ray = new Ray(child.position, Vector3.back);
@@ -149,6 +144,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 TempFace.isRelease = true;
             }
 
+            //Debug.Log(TempFace.Trans.name);
             attachFaces.Add(TempFace); // 面を格納
         }
 
@@ -169,103 +165,14 @@ public class CoreSetting_iwata : MonoBehaviour
         return attachFaces;
     }
 
-    //void EnlargeSizeCore()
-    //{
-    //    m_attachFaces[m_SelectFaceNum].Trans.localScale *= ENLARGE_SiZE;
-    //}
-
-    //void UndoSizeCore()
-    //{
-    //    m_attachFaces[m_SelectFaceNum].Trans.localScale = m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().OrizinSize;
-    //}
-
     public void ResetCoreSize()
     {
-        Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name);
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
     }
 
-    public void ChangeFaceX(float axis)
-    {
-        //this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
-        pos.x += axis;
-        for(int i = 0; i < m_attachFaces.Count; i++)
-        {
-            //--- 現在の面と次の面のXY座標をVector2に格納
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
-            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
-
-            //Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
-
-            // XY平面での距離が離れすぎていたらスルー
-            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
-
-            m_SelectFaceNum = i;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-            return;
-        }
-
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        m_rotateY += ROTATION * (int)axis;  // 角度を設定
-        m_rotateFrameCnt = 1;	// 最初のカウント
-        if(axis < 0)
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_M;
-            Debug.Log("XM");
-        }
-        else
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_P;
-            Debug.Log("XP");
-        }
-        m_isDepath = true;
-        //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-        //audioSource.PlayOneShot(m_RotSound);    //SEの再生
-    }
-
-    public void ChangeFaceY(float axis)
-    {
-        //this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
-        pos.y += axis;
-        for (int i = 0; i < m_attachFaces.Count; i++)
-        {
-            //--- 現在の面と次の面のXY座標をVector2に格納
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
-            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
-
-            // XY平面での距離が離れすぎていたらスルー
-            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
-
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-            m_SelectFaceNum = i;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-            return;
-        }
-
-        m_rotateX -= ROTATION * (int)axis;  // 角度を設定
-        m_rotateFrameCnt = 1;   // 最初のカウント
-        if (axis < 0)
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_M;
-            Debug.Log("YM");
-        }
-        else
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_P;
-            Debug.Log("YP");
-        }
-        m_isDepath = true;
-        //this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-        //audioSource.PlayOneShot(m_RotSound);    //SEの再生
-    }
-
-    //Coreを回転される
+    /// <summary>
+    /// 通常のコアの回転
+    /// </summary>
     void RotateCore()
     {
         float lastY = m_lateY;
@@ -275,12 +182,6 @@ public class CoreSetting_iwata : MonoBehaviour
         m_lateY = (m_rotateY - m_lateY) * DAMPING_RATE + m_lateY;
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
-        //--- 座標計算
-        //this.transform.Rotate(RotVectorX, m_lateY - lastY, Space.Self);
-        //transform.rotation *= Quaternion.AngleAxis(m_lateY - lastY, AxisRotY);
-        //this.transform.Rotate(Vector3.right, m_lateX - lastX, Space.Self);/
-        //transform.rotation *= Quaternion.AngleAxis(m_lateX - lastX, AxisRotX);
-
         transform.RotateAround(transform.position, AxisRotX, m_lateY - lastY);
         transform.RotateAround(transform.position, AxisRotY, m_lateX - lastX);
 
@@ -289,112 +190,148 @@ public class CoreSetting_iwata : MonoBehaviour
         //--- 回転終了時の処理
         if (m_rotateFrameCnt > m_timeToRotate)
         {
-            //Transform RotStack = m_attachFaces[m_SelectFaceNum].Trans;
-
-            m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+            m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
 
-            float hogepos;
-            int nextnum = 0;
-            List<int> selectnum = new List<int>();
+            float hogepos;      //基準になるための座標
+            int nextnum = 0;    //回転後の選択面の添え字を検索用
 
+            //回転の向きに応じた処理を行う
             switch (m_rotFlag)
             {
-                case RotateFlag.E_ROTATE_FLAG_X_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    Debug.Log("target:" + hogepos);
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_R:        //右に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //候補の面をすべて検索する
                     {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos));
-
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
-
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        Debug.Log(m_AttachFaces[nextnum].Trans.name + ":" + m_AttachFaces[nextnum].Trans.position.x);
+                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + m_AttachFaces[i].Trans.position.x);
+                        if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[i].Trans.position.x) nextnum = i;      //今の候補の面の座標より右に検索した面があるなら候補を変える
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(0.0f, -90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_X_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_L:        //左に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //候補の面をすべて検索する
                     {
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        if (m_AttachFaces[nextnum].Trans.position.x < m_AttachFaces[i].Trans.position.x) nextnum = i;      //今の候補の面の座標より左に検索した面があるなら候補を変える
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(0.0f, 90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_Y_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_U:        //上に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //基準のX軸の座標を取得
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //候補の面をすべて検索する
                     {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos));
-
-
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //検索した面と基準のX座標を比較する
+                        if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //今の候補の面の座標より左に検索した面があるなら候補を変える
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_Y_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_D:
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x;
+                    for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
+                        
+                        if (m_AttachFaces[nextnum].Trans.position.y < m_AttachFaces[i].Trans.position.y) nextnum = i;
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
                     break;
             }
-
-
+            
             m_SelectFaceNum = nextnum;
+            m_AttachJank.GetComponent<JankBase>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
 
             //---------------------
 
             m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();   // 現在の面を協調
         }
+    }
+
+    /// <summary>
+    /// 入力の対してのコアの処理
+    /// </summary>
+    /// <param name="axisX">横入力</param>
+    /// <param name="axisY">縦入力</param>
+    public void InputAxisCore(int axisX, int axisY)
+    {
+        if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
+        {
+            m_rotateY += ROTATION * axisX;  // 角度を設定
+            m_rotateX += ROTATION * axisY;  // 角度を設定
+            m_rotateFrameCnt = 1;	// 最初のカウント
+        }
+        else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
+        {
+            Vector3 pos = m_AttachFaces[m_SelectFaceNum].Trans.position;
+            pos.x += axisX;
+            pos.y += axisY;
+            for (int i = 0; i < m_AttachFaces.Count; i++)
+            {
+                //--- 現在の面と次の面のXY座標をVector2に格納
+                Vector2 currentFacePos = new Vector2(m_AttachFaces[i].Trans.position.x, m_AttachFaces[i].Trans.position.y);
+                Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
+
+                // XY平面での距離が離れすぎていたらスルー
+                if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
+                
+                m_SelectFaceNum = i;
+                m_AttachJank.GetComponent<JankBase>().PutJank(m_AttachFaces[i].Trans, this.transform);
+                return;
+            }
+
+            m_rotateY += ROTATION * (int)axisX;  // 角度を設定
+            m_rotateX -= ROTATION * (int)axisY;  // 角度を設定
+            m_rotateFrameCnt = 1;   // 最初のカウント
+            if (axisX < 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_L;
+                Debug.Log("L");
+            }
+            else if(axisX > 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_R;
+                Debug.Log("R");
+            }
+            else if (axisY < 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_D;
+                Debug.Log("D");
+            }
+            else if(axisY > 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_U;
+                Debug.Log("U");
+            }
+            //m_isDepath = true;
+        }
+    }
+
+    /// <summary>
+    /// カーソルで選択されたガラクタをコアに配置する
+    /// </summary>
+    /// <param name="jank">カーソルで選択されたガラクタの情報</param>
+    public void PutJank(GameObject jank)
+    {
+        m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+        m_SelectFaceNum = 0;        //選択している場所を左上に初期化
+        m_AttachJank = jank;        //仮置きされているガラクタを登録
+        m_AttachJank.GetComponent<JankBase>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
     }
 
     public bool AttachCore(GameObject obj)
     {
         Debug.Log("a");
-        if(m_attachFaces[m_SelectFaceNum].isAttach)
+        if(m_AttachFaces[m_SelectFaceNum].isAttach)
         {//組み立てる処理
             Debug.Log("b");
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+            m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
             Debug.Log("c");
-            obj.GetComponent<JankBase>().JointJank(m_attachFaces[m_SelectFaceNum].Trans);
+            obj.GetComponent<JankBase>().JointJank(m_AttachFaces[m_SelectFaceNum].Trans);
             Debug.Log("d");
             m_isDepath = true;
             return true;
@@ -408,23 +345,23 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void ReleaseCore()
     {
-        if(m_attachFaces[m_SelectFaceNum].isRelease)
+        if(m_AttachFaces[m_SelectFaceNum].isRelease)
         {
             //外す処理
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "外した");
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "外した");
+            m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
             m_isDepath = true;
         }
         else
         {
             //外せなかったときに鳴らすSE
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "外せない");
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "外せない");
         }
     }
 
     public void JointToRot()
     {
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
         Debug.Log(num);
         num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
@@ -470,6 +407,6 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public Transform SelectFace
     {
-        get { return m_attachFaces[m_SelectFaceNum].Trans; }
+        get { return m_AttachFaces[m_SelectFaceNum].Trans; }
     }
 }

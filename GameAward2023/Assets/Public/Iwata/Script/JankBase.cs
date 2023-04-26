@@ -5,22 +5,19 @@ using UnityEngine;
 public abstract class JankBase : JankStatus
 {
     [SerializeField] Vector3 StartPos;      //開始時のポジション
-    [SerializeField] Quaternion StartRot;      //開始時のポジション
+    [SerializeField] Quaternion StartRot;      //開始時の回転
 
+    /// <summary>
+    /// 各ジャンク特有の処理を行う
+    /// </summary>
     public abstract void work();
 
     // Start is called before the first frame update
     protected void Start()
     {
         base.Start();
-        StartPos = transform.position;
-        StartRot = transform.rotation;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartPos = transform.position;      //初期座標を登録
+        StartRot = transform.rotation;      //初期回転を登録
     }
 
     ///<summary>
@@ -39,26 +36,54 @@ public abstract class JankBase : JankStatus
     /// <param name="trans">　つけるコアのトランスフォーム　</param>
     public void JointJank(Transform trans)
     {
+        this.transform.parent = null;       //親の登録を解除
+
+        this.transform.rotation = Quaternion.identity;      //回転を初期化
+
+        Transform CoreTrans = trans.parent;     //コアの大元を取得
+        CoreTrans.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
+        this.transform.parent = CoreTrans;      //コアを親として登録する
+
+        Vector3 pos = trans.transform.position;     //付ける面の座標取得
+        pos.z -= trans.localScale.z / 2.0f;     //付ける面の大きさの半分ずらす
+        pos.z -= this.transform.localScale.z / 2.0f;        //自分の半分ずらす
+        this.transform.position = pos;      //ずらして決めた座標に移動する
+
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;        //力が加わっても移動回転しないように固定
+
+        CoreTrans.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
+
+        FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();      //FixrdJointを追加
+        joint.connectedBody = trans.GetComponent<Rigidbody>();      //conenectedBodyにつけた面を登録
+    }
+
+    /// <summary>
+    /// 仮置きしたガラクタの処理
+    /// </summary>
+    /// <param name="trans">選択面の情報</param>
+    public void SetJank(Transform trans)
+    {
+        Transform CoreTrans = trans.parent;     //コアの大元を取得
+
+        this.transform.rotation = Quaternion.identity;      //回転を初期化
+
+        PutJank(trans, CoreTrans);
+
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;        //力が加わっても移動回転しないように固定
+        
+    }
+
+    public void PutJank(Transform trans, Transform core)
+    {
+        core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
+        Debug.Log("前：" + core.transform.rotation);
         this.transform.parent = null;
-
-        this.transform.rotation = Quaternion.identity;
-
-        Transform CoreTrans = trans.parent;
-        CoreTrans.Rotate(0.0f, -10.0f, 0.0f, Space.World);
-        this.transform.parent = CoreTrans;
-
-        Transform ChildTrans = CoreTrans.Find(trans.name);
-        Vector3 pos = ChildTrans.transform.position;
-        Debug.Log(pos);
-        pos.z -= ChildTrans.localScale.z / 2.0f;
-        pos.z -= this.transform.localScale.z / 2.0f;
-        this.transform.position = pos;
-
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-        CoreTrans.Rotate(0.0f, 10.0f, 0.0f, Space.World);
-
-        FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();
-        joint.connectedBody = trans.GetComponent<Rigidbody>();
+        Vector3 pos = trans.transform.position;     //付ける面の座標取得
+        pos.z -= trans.localScale.z / 2.0f;     //付ける面の大きさの半分ずらす
+        pos.z -= this.transform.localScale.z / 2.0f;        //自分の半分ずらす
+        this.transform.position = pos;      //ずらして決めた座標に移動する
+        this.transform.parent = core;
+        core.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
+        Debug.Log("後：" + core.transform.rotation);
     }
 }
