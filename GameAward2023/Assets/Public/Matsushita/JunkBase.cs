@@ -8,6 +8,11 @@ public class JunkBase : MonoBehaviour
     {
     }
 
+    public virtual void SetParam(List<float> paramList)
+    { 
+
+    }
+
 
     /// <summary>
     /// 釘コンクリートにあたったとき

@@ -52,7 +52,7 @@ public class Spring : MonoBehaviour
                 }
                 if (minIndex == 2 || minIndex == 5)
                 {
-                    Debug.Log("Hit face: " + (minIndex));
+                    Debug.Log("Hit face: " + (minIndex + 1));
 
                     Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
 
@@ -65,6 +65,7 @@ public class Spring : MonoBehaviour
                         // ñ è’ìÀîªíËÇçsÇ§
                         if (-dot > minDot)
                         {
+                            Debug.Log("ÇøÇ·ÇÒÇ∆Ç†ÇΩÇ¡ÇΩÇÊÅ[ÅI");
                             float force = (springForce + extraForce) * -dot; //í«â¡ÇÃóÕÇâ¡Ç¶ÇÈ
                             rb.AddForce(direction.normalized * force, ForceMode.Force);
                             GetComponent<Rigidbody>().AddForce(-direction.normalized * force, ForceMode.Force);
@@ -84,3 +85,4 @@ public class Spring : MonoBehaviour
         }
     }
 }
+

@@ -9,11 +9,11 @@ public class Metal : JunkBase
     /// </summary>
     public override void HitCapacitor()
     {
-        JunkBase junkBase = GetComponent<JunkBase>();
+        JunkBase JunkBase = GetComponent<JunkBase>();
 
-        if (junkBase != null)
+        if (JunkBase != null)
         {
-            junkBase.Explosion();
+            JunkBase.Explosion();
         }
     }
 }

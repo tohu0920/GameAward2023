@@ -22,6 +22,17 @@ public class Tire : JunkBase
             this.GetComponent<Rigidbody>().AddForce(vToSelf, ForceMode.Impulse);
         }
     }
+
+    /// <summary>
+    /// パラメーター配置
+    /// </summary>
+    /// <param name="paramList"></param>
+    public override void SetParam(List<float> paramList)
+    {
+        m_bounceRate = paramList[0];
+    }
+
+
     /// <summary>
     /// 釘コンクリートにあたったとき
     /// </summary>
