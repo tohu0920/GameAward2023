@@ -323,6 +323,21 @@ public class CoreSetting_iwata : MonoBehaviour
         m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ƒKƒ‰ƒNƒ^‚Ì‰¼’u‚«‚Ìˆ—
     }
 
+    public void JointCore()
+    {
+        if(true)
+        {
+            m_AttachJank.GetComponent<JankBase_iwata>().Orizin.SetActive(false);
+            m_AttachJank = null;
+            m_AttachFaces.Clear();
+            m_SelectFaceNum = 0;
+        }
+        else
+        {
+
+        }
+    }
+
     public bool AttachCore(GameObject obj)
     {
         Debug.Log("a");

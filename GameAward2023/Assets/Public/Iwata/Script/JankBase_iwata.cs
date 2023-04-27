@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class JankBase_iwata : JankStatus
 {
-    [SerializeField] Vector3 StartPos;      //開始時のポジション
-    [SerializeField] Quaternion StartRot;      //開始時の回転
+    [SerializeField] Vector3 m_StartPos;      //開始時のポジション
+    [SerializeField] Quaternion m_StartRot;      //開始時の回転
+    [SerializeField] GameObject m_Origin;     //クローンなら元のオブジェクトを入れるよう
 
     /// <summary>
     /// 各ジャンク特有の処理を行う
@@ -16,8 +17,8 @@ public abstract class JankBase_iwata : JankStatus
     protected void Start()
     {
         base.Start();
-        StartPos = transform.position;      //初期座標を登録
-        StartRot = transform.rotation;      //初期回転を登録
+        m_StartPos = transform.position;      //初期座標を登録
+        m_StartRot = transform.rotation;      //初期回転を登録
     }
 
     ///<summary>
@@ -26,8 +27,8 @@ public abstract class JankBase_iwata : JankStatus
     public void ReturnJank()
     {
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        this.transform.position = StartPos;
-        this.transform.rotation = StartRot;
+        this.transform.position = m_StartPos;
+        this.transform.rotation = m_StartRot;
     }
 
     /// <summary>
@@ -76,7 +77,6 @@ public abstract class JankBase_iwata : JankStatus
     public void PutJank(Transform trans, Transform core)
     {
         core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
-        Debug.Log("前：" + core.transform.rotation);
         this.transform.parent = null;
         Vector3 pos = trans.transform.position;     //付ける面の座標取得
         pos.z -= trans.localScale.z / 2.0f;     //付ける面の大きさの半分ずらす
@@ -84,6 +84,11 @@ public abstract class JankBase_iwata : JankStatus
         this.transform.position = pos;      //ずらして決めた座標に移動する
         this.transform.parent = core;
         core.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
-        Debug.Log("後：" + core.transform.rotation);
+    }
+
+    public GameObject Orizin
+    {
+        get { return m_Origin; }
+        set { m_Origin = value; }
     }
 }

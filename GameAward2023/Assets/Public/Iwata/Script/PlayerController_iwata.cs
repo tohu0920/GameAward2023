@@ -43,10 +43,28 @@ public class PlayerController_iwata : MonoBehaviour
                                 GM.JointStage.Find("Jank").GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
                                 GameObject clone = Instantiate(hit.collider.gameObject);
+                                clone.GetComponent<JankBase_iwata>().Orizin = hit.collider.gameObject;
                                 GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT;
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().PutJank(clone);
                             }
                         }
+
+                        ////Bボタン
+                        //if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
+                        //{
+                        //    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
+                        //    {
+                                
+                        //    }
+                        //    else
+                        //    {
+                        //        GM.JointStage.Find("Jank").GetComponent<JankController>().ReturnJank();
+                        //        GM.JointStage.Find("Preview").gameObject.SetActive(false);
+                        //    }
+                        //}
+                        //------------------
+                        //常時選択している面があるわけじゃないからRemoveどうしよう
+                        //-------------------------------
 
                         //Xボタン
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
@@ -67,10 +85,15 @@ public class PlayerController_iwata : MonoBehaviour
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().InputAxisCore(axisX, axisY);
                             }
                         }
-                        break;
 
-                    case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_JOINT:
+                        //Aボタン
+                        if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                        {
+                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().JointCore();
+                            GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
+                        }
                         break;
+                        
                 }
 
 
