@@ -22,10 +22,10 @@ public class Core_Playing : MonoBehaviour
     {
         if(gm.GameStatus == GameManager.eGameStatus.E_GAME_STATUS_PLAY)
         {
-            // qƒIƒuƒWƒFƒNƒg‚©‚çParentƒNƒ‰ƒX‚ğŒp³‚µ‚½ƒXƒNƒŠƒvƒg‚ğæ“¾‚·‚é
+            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Parentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—ã™ã‚‹
             JankBase_iwata[] scripts = GetComponentsInChildren<JankBase_iwata>();
 
-            // æ“¾‚µ‚½ƒXƒNƒŠƒvƒg‚ÌworkŠÖ”‚ğÀs‚·‚é
+            // å–å¾—ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã®worké–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹
             foreach (JankBase_iwata script in scripts)
             {
                 script.work();

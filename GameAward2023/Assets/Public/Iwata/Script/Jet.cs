@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Jet : JankBase_iwata
 {
-    [SerializeReference] float m_boostForceRate;        //‘¬“x
-    [SerializeReference] float m_maxSpeed;          //Å‚‘¬“x
+    [SerializeReference] float m_boostForceRate;        //é€Ÿåº¦
+    [SerializeReference] float m_maxSpeed;          //æœ€é«˜é€Ÿåº¦
 
     // Start is called before the first frame update
     void Start()
@@ -14,21 +14,21 @@ public class Jet : JankBase_iwata
     }
 
     /// <summary>
-    /// ƒWƒFƒbƒg‚Ì“®‚«
+    /// ã‚¸ã‚§ãƒƒãƒˆã®å‹•ã
     /// </summary>
     public override void work()
     {
-       //--- Œ»İ‚ÌƒXƒs[ƒh‚ğæ“¾
+       //--- ç¾åœ¨ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’å–å¾—
        Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
        float currentSpeed = rigidbody.velocity.magnitude;
 
-       // ƒu[ƒXƒg—p‚ÌƒxƒNƒgƒ‹‚ğŒvZ
+       // ãƒ–ãƒ¼ã‚¹ãƒˆç”¨ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—
        Vector3 boostFoce = this.transform.forward.normalized * m_boostForceRate;
 
-       // Å‘å‘¬“xˆÈ‰º‚Ì‚Ì‚İˆ—‚·‚é
-       if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);	// ƒu[ƒXƒgˆ—
+       // æœ€å¤§é€Ÿåº¦ä»¥ä¸‹ã®æ™‚ã®ã¿å‡¦ç†ã™ã‚‹
+       if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);	// ãƒ–ãƒ¼ã‚¹ãƒˆå‡¦ç†
 
-       //ƒWƒFƒbƒg‚Ì‰Š‚ÌƒGƒtƒFƒNƒg•\¦
+       //ã‚¸ã‚§ãƒƒãƒˆã®ç‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¡¨ç¤º
        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);
         
 
