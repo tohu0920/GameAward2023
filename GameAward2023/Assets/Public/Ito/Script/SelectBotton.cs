@@ -11,14 +11,12 @@ public class SelectBotton : MonoBehaviour
     private GameObject OptionImage;    
     private GameObject EndImage;
     private Image UnderLine;
-    private TitleAnimation titleAnimation;
-
-    public int SelectNum;
 
     [SerializeReference] GameObject GameScreen;
     [SerializeReference] GameObject OptionScreen;
     [SerializeReference] GameObject kari;
 
+    public int SelectNum;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +25,6 @@ public class SelectBotton : MonoBehaviour
         OptionImage = GameObject.Find("Option");
         EndImage = GameObject.Find("End");
         UnderLine = GameObject.Find("UnderLine").GetComponent<Image>();
-        titleAnimation = GameObject.Find("core").GetComponent<TitleAnimation>();
 
         UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180);        
         SelectNum = 0;       
@@ -39,41 +36,58 @@ public class SelectBotton : MonoBehaviour
         SelectNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         //選択のループ
-        SelectNum += 3;
-        SelectNum %= 3;
-        
+        if (SelectNum == -1) //２行でまとめる (if文使わずに)
+        {
+            SelectNum = 2;       
+        }
+        if (SelectNum == 3)
+        {
+            SelectNum = 0;
+        }
 
         //ラインのポジションをまとめる(swtich使わずに)改行あり
         UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180 - SelectNum * 70);
 
-        if(PadInput.GetKeyDown(KeyCode.JoystickButton0))
+        switch (SelectNum)
         {
-            switch (SelectNum)
-            {
-                case 0:
-                    //タイトルアニメーション再生
-                    titleAnimation.StartAnimetion();
-
-                    //アニメーション終了後シーン遷移
-                    if( titleAnimation.isPlaying == false)
-                    {
-                        LoadSelectScene();
-                    }
+            case 0:
+                //ロードシーンはここで再度作る
+                //if(Input.GetKeyDown("JoystickButton1"))
+                //{
+                //    LoadSelectScene();
+                //}
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    LoadSelectScene();
+                }
                     break;
+                
+            case 1:
+                //if (Input.GetKeyDown("JoystickButton1"))
+                //{
+                //    GameScreen.SetActive(false);
+                //    OptionScreen.SetActive(true);
+                //    kari.SetActive(false);
+                //}
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    GameScreen.SetActive(false);
+                    OptionScreen.SetActive(true);
+                    kari.SetActive(false);                    
+                }
+                break;
 
-                case 1:
-                        //オプション画面の表示
-                        GameScreen.SetActive(false);
-                        OptionScreen.SetActive(true);
-                        kari.SetActive(false);
-                    break;
-
-                case 2:
-                        //ゲーム終了
-                        Application.Quit();
-                    break;
-            }
-        }         
+            case 2:
+                //if (Input.GetKeyDown("JoystickButton1"))
+                //{
+                //    Application.Quit();
+                //}
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    Application.Quit();
+                }
+                break;
+        }      
     }
 
     /// <summary>

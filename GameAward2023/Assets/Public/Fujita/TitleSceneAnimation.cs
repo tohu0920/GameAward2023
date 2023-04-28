@@ -6,7 +6,7 @@ public class TitleSceneAnimation : MonoBehaviour
 {
     public Animator animator;
     public float animationTime = 2f; //アニメーションを再生する時間
-    public bool isPlaying = false; //アニメーションが再生中か判定するフラグ
+    private bool isPlaying = false; //アニメーションが再生中か判定するフラグ
 
     void Update()
     {
@@ -15,7 +15,7 @@ public class TitleSceneAnimation : MonoBehaviour
 
     void StartAnimetion()
     {
-        if (PadInput.GetKeyDown(KeyCode.Joystick1Button0) && isPlaying == false) //条件を「はじめから」or「つづきから」を押されたらに変更する
+        if (Input.GetButtonDown("A") && !isPlaying) //条件を「はじめから」or「つづきから」を押されたらに変更する
         {
             animator.Play("AnimationName"); //アニメーションを再生する
             isPlaying = true;
