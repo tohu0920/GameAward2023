@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerController_iwata : MonoBehaviour
 {
-    public GameObject Core;
-    public GameObject CoreClone;
-    public GameObject Preview;
-    public GameObject Jank;
-    public GameObject GSMana;
+    //public GameObject Core;
+    //public GameObject CoreClone;
+    //public GameObject Preview;
+    //public GameObject Jank;
+    //public GameObject GSMana;
+
+    [SerializeField] private GameManager GM;
 
     // Start is called before the first frame update
     void Start()
@@ -19,28 +21,38 @@ public class PlayerController_iwata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(GSMana.GetComponent<GameStatusManager>().GameStatus)
+        //Dictionary<string, GameObject> jointobjects = GM.JointStage.Objects;
+        //Dictionary<string, GameObject> playobjects = GM.PlayStage.Objects;
+
+        switch (GM.GameStatus)
         {
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT:
+            case GameManager.eGameStatus.E_GAME_STATUS_JOINT:
                 //十字ボタン
-                if (Core.GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
+                if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 {
                     float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
                     float axisY = (float)AxisInput.GetAxisRawRepeat("Vertical_PadX");
                     if (axisX != 0)
-                        Core.GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
+                        GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().ChangeFaceX(axisX);
                     else if (axisY != 0)
-                        Core.GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
+                        GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().ChangeFaceY(axisY);
                 }
 
+                //float stick_RH = PadInput.GetAxisRaw("Horizontal_R");
+                //float stick_RV = PadInput.GetAxisRaw("Vertical_R");
+                //if(stick_RH != 0 || stick_RV != 0)
+                //{
+                //    objects["JointCanvas"].transform.Find("Cursor").GetComponent<CursorController>().MoveCursor(stick_RH, stick_RV);
+                //}
+
                 //Aボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) || Input.GetKeyDown(KeyCode.Space))
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     //--- プレビューが有効でない場合のみ選択可能
-                    if (!Preview.activeSelf)
+                    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
                     {
                         // 判定用のレイを用意
-                        Ray ray = CursorController.GetCameraToRay();
+                        Ray ray = CursorController.GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
                         RaycastHit hit;
 
                         if (Physics.Raycast(ray, out hit))
@@ -51,10 +63,10 @@ public class PlayerController_iwata : MonoBehaviour
                             if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
                             // プレビューを有効化
-                            Preview.SetActive(true);
-                            Preview.transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
+                            GM.JointStage.Find("Preview").gameObject.SetActive(true);
+                            //objects["Preview"].transform.Find("PreviewBase").GetComponent<PreviewJank>().AttachPreviewJank(hit.collider.gameObject);
 
-                            Jank.GetComponent<JankController>().SelectJank = hit.collider.gameObject;
+                            GM.JointStage.Find("Jank").GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
                             //m_seController.PlaySe("Select");
                         }
@@ -62,79 +74,75 @@ public class PlayerController_iwata : MonoBehaviour
                     else
                     {
                         bool AttachSuccess;
-                        AttachSuccess = Core.GetComponent<CoreSetting_iwata>().AttachCore(Jank.GetComponent<JankController>().SelectJank);
-                        
-                        if(AttachSuccess)
-                            Preview.SetActive(false);
+                        AttachSuccess = GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachCore(GM.JointStage.Find("Jank").GetComponent<JankController>().SelectJank);
+
+                        if (AttachSuccess)
+                            GM.JointStage.Find("Preview").gameObject.SetActive(false);
                     }
                 }
 
                 //Bボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton1) || Input.GetKeyDown(KeyCode.Backspace))
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
                 {
-                    if (!Preview.activeSelf)
+                    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
                     {
-                        Core.GetComponent<CoreSetting_iwata>().ReleaseCore();
+                        GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().ReleaseCore();
                     }
                     else
                     {
-                        Jank.GetComponent<JankController>().ReturnJank();
-                        Preview.SetActive(false);
+                        GM.JointStage.Find("Jank").GetComponent<JankController>().ReturnJank();
+                        GM.JointStage.Find("Preview").gameObject.SetActive(false);
                     }
                 }
 
                 //Xボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
                 {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
+                    GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
 
-                //Lボタン
-                if(Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
-                {
-                    if (Preview.activeSelf)
-                    {
-                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
-                    }
-                }
+                ////Lボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
+                //{
+                //    if (Preview.activeSelf)
+                //    {
+                //        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
+                //    }
+                //}
 
-                //Rボタン
-                if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
-                {
-                    if (Preview.activeSelf)
-                    {
-                        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-                    }
-                }
-
-                break;
-
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_ROT:
-                if (Input.GetKey(KeyCode.Joystick1Button4) || Input.GetKeyDown(KeyCode.Q))
-                {
-                    CoreClone.GetComponent<RotationCore>().RotL();
-                }
-                if (Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.E))
-                {
-                    CoreClone.GetComponent<RotationCore>().RotR();
-                }
-                if (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Backspace))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_JOINT;
-                }
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
-                {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY;
-                }
+                ////Rボタン
+                //if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
+                //{
+                //    if (Preview.activeSelf)
+                //    {
+                //        Jank.GetComponent<JankController>().SelectJank.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+                //    }
+                //}
 
                 break;
-            case GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY:
-                if (Input.GetKeyDown(KeyCode.JoystickButton2) || Input.GetKeyDown(KeyCode.Return))
+            case GameManager.eGameStatus.E_GAME_STATUS_ROT:
+
+                //Bボタン
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
                 {
-                    GSMana.GetComponent<GameStatusManager>().GameStatus = GameStatusManager.eGameStatus.E_GAME_STATUS_ROT;
+                    GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_JOINT;
+                }
+
+                //Xボタン
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
+                {
+                    GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_PLAY;
+                }
+                break;
+
+
+            case GameManager.eGameStatus.E_GAME_STATUS_PLAY:
+                //Xボタン
+                if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
+                {
+                    GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_ROT;
                 }
                 break;
         }
-        
     }
 }
