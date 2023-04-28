@@ -89,8 +89,8 @@ public class PlayerController_iwata : MonoBehaviour
                         //Aƒ{ƒ^ƒ“
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
                         {
-                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().JointCore();
-                            GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
+                            if(GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().JointCore())
+                                GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
                         }
                         break;
                         

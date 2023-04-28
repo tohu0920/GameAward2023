@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreSetting_iwata : MonoBehaviour
+public class CoreSetting_iwata : ObjectBase
 {
     public struct AttachFace
     {
@@ -39,21 +39,19 @@ public class CoreSetting_iwata : MonoBehaviour
     public int m_rotateFrameCnt;    // 回転フレームのカウント
     RotateFlag m_rotFlag;           //どっちに回転しているか
     bool m_isDepath;        // 面情報を取得し直すフラグ
-    public PlayerController_iwata PController;
-    public GameManager GM;
-    static int num = 0;
-    Vector3 AxisRotX;
-    Vector3 AxisRotY;
-    [SerializeField] GameObject m_AttachJank;
+    Vector3 AxisRotX;       //コアの回転用のX軸
+    Vector3 AxisRotY;       //コアの回転用のY軸
+    bool m_CanAttach;
 
-    //[SerializeReference] AudioClip m_RotSound;  //オーディオファイルの情報
-    //AudioSource audioSource;    //再生するためのハンドル
+    [SerializeField] PlayerController_iwata PController;
+    [SerializeField] GameManager GM;
+    [SerializeField] GameObject m_AttachJank;
 
     // Start is called before the first frame update
     void Start()
     {
-        AxisRotY = this.transform.right;        //縦回転するための軸登録
-        AxisRotX = this.transform.up;           //横開店するための軸登録
+        AxisRotX = this.transform.right;        //縦回転するための軸登録
+        AxisRotY = this.transform.up;           //横開店するための軸登録
         
         m_rotateY = m_rotateX = 0.0f;       //角度初期化
         m_lateY = m_lateX = 0.0f;       //遅延角度初期化
@@ -64,9 +62,8 @@ public class CoreSetting_iwata : MonoBehaviour
         //再検索が必要な時に立てるFlagを設定
         m_isDepath = false;
 
+        //回転のフラグを初期化
         m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
-        
-        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -78,11 +75,6 @@ public class CoreSetting_iwata : MonoBehaviour
             RotateCore();   // 回転処理			
             return;
         }
-
-        //if (m_isDepath)
-        //{
-        //    ResetAttachFace();
-        //}
     }
 
     List<AttachFace> GetAttachFace()
@@ -94,8 +86,6 @@ public class CoreSetting_iwata : MonoBehaviour
         //--- 組み立てられる面を順番に格納
         foreach (Transform child in this.transform)
         {
-            //if (child.tag != "Player") continue;
-
             // 仮置きしているものと一緒ならスキップする
             if (child.gameObject == m_AttachJank) continue;
 
@@ -130,8 +120,7 @@ public class CoreSetting_iwata : MonoBehaviour
             {
                 TempFace.isRelease = true;
             }
-
-            Debug.Log(TempFace.Trans.name);
+            
             attachFaces.Add(TempFace); // 面を格納
         }
 
@@ -164,15 +153,16 @@ public class CoreSetting_iwata : MonoBehaviour
         m_lateY = (m_rotateY - m_lateY) * DAMPING_RATE + m_lateY;
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
-        transform.RotateAround(transform.position, AxisRotX, m_lateY - lastY);
-        transform.RotateAround(transform.position, AxisRotY, m_lateX - lastX);
+        transform.RotateAround(transform.position, AxisRotY, m_lateY - lastY);
+        transform.RotateAround(transform.position, AxisRotX, m_lateX - lastX);
 
         m_rotateFrameCnt++; // 回転フレームカウント
 
         //--- 回転終了時の処理
         if (m_rotateFrameCnt > m_timeToRotate)
         {
-            transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), 0));
+            Debug.Log(Mathf.Round(this.transform.rotation.eulerAngles.y));
+            transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), Mathf.Round(this.transform.rotation.eulerAngles.z)));
 
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
             if (m_rotFlag == RotateFlag.E_ROTATE_FLAG_NULL) return;
@@ -230,6 +220,7 @@ public class CoreSetting_iwata : MonoBehaviour
             
             m_SelectFaceNum = nextnum;
             m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
+            CheckCanAttach();
 
             //---------------------
 
@@ -266,6 +257,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 
                 m_SelectFaceNum = i;
                 m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[i].Trans, this.transform);
+                CheckCanAttach();
                 return;
             }
 
@@ -296,6 +288,20 @@ public class CoreSetting_iwata : MonoBehaviour
         }
     }
 
+    private void CheckCanAttach()
+    {
+        if(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform) && m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform))
+        {
+            Debug.Log("できるよー");
+            m_CanAttach = true;
+        }
+        else
+        {
+            Debug.Log("むりだよー");
+            m_CanAttach = false;
+        }
+    }
+
     /// <summary>
     /// カーソルで選択されたガラクタをコアに配置する
     /// </summary>
@@ -308,18 +314,21 @@ public class CoreSetting_iwata : MonoBehaviour
         m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
     }
 
-    public void JointCore()
+    public bool JointCore()
     {
-        if(true)
+        if(m_CanAttach)
         {
             m_AttachJank.GetComponent<JankBase_iwata>().Orizin.SetActive(false);
             m_AttachJank = null;
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;
+            Debug.Log("いいね");
+            return true;
         }
         else
         {
-
+            Debug.Log("むりっていってんだろ");
+            return false;
         }
     }
 
@@ -341,7 +350,6 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void JointToRot()
     {
-        num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
         clone.AddComponent<RotationCore>();
         clone.AddComponent<CloneCoreMove>();
@@ -355,14 +363,6 @@ public class CoreSetting_iwata : MonoBehaviour
         foreach (Transform child in this.transform)
         {
             child.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        }
-    }
-
-    public void RotToPlay()
-    {
-        foreach (Transform child in this.transform)
-        {
-            child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeAll;
         }
     }
 
@@ -381,10 +381,5 @@ public class CoreSetting_iwata : MonoBehaviour
     {
         Debug.Log("回転初期化");
         this.transform.rotation = Quaternion.identity;
-    }
-
-    public Transform SelectFace
-    {
-        get { return m_AttachFaces[m_SelectFaceNum].Trans; }
     }
 }
