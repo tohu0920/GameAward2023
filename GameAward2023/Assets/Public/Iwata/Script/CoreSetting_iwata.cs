@@ -111,6 +111,7 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             //if (child.tag != "Player") continue;
 
+            // 仮置きしているものと一緒ならスキップする
             if (child.gameObject == m_AttachJank) continue;
 
             // 手前に伸びるレイを用意
@@ -120,6 +121,7 @@ public class CoreSetting_iwata : MonoBehaviour
             // 組み立てられない面はスルー
             // 手前に物があったらスキップ
             if (Physics.Raycast(ray, out hit, 10.0f)) continue;
+            
 
             //Transformの情報登録
             TempFace.Trans = child;
@@ -144,7 +146,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 TempFace.isRelease = true;
             }
 
-            //Debug.Log(TempFace.Trans.name);
+            Debug.Log(TempFace.Trans.name);
             attachFaces.Add(TempFace); // 面を格納
         }
 
@@ -190,6 +192,8 @@ public class CoreSetting_iwata : MonoBehaviour
         //--- 回転終了時の処理
         if (m_rotateFrameCnt > m_timeToRotate)
         {
+            transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), 0));
+
             m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
 

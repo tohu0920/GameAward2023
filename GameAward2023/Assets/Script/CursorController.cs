@@ -39,7 +39,6 @@ public class CursorController : MonoBehaviour
         // カメラ→カーソル(ワールド座標系)のレイを取得
 		Vector2 pos = m_rectTransform.anchoredPosition;
         Camera camdata = cam.GetComponent<Camera>();
-        Debug.Log(camdata.transform.name);
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
 }
