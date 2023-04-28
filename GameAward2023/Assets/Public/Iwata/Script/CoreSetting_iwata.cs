@@ -85,21 +85,6 @@ public class CoreSetting_iwata : MonoBehaviour
         //}
     }
 
-    private void ResetAttachFace()
-    {
-        m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
-
-        if (m_SelectFaceNum > m_AttachFaces.Count - 1)
-        {
-            m_SelectFaceNum = 0;
-        }
-
-        // 選択中の面を大きく協調する
-        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-
-        m_isDepath = false;
-    }
-
     List<AttachFace> GetAttachFace()
     {
         // 面の格納先を用意
@@ -167,11 +152,6 @@ public class CoreSetting_iwata : MonoBehaviour
         return attachFaces;
     }
 
-    public void ResetCoreSize()
-    {
-        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-    }
-
     /// <summary>
     /// 通常のコアの回転
     /// </summary>
@@ -194,9 +174,10 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), 0));
 
-            m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
+            if (m_rotFlag == RotateFlag.E_ROTATE_FLAG_NULL) return;
 
+            m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             float hogepos;      //基準になるための座標
             int nextnum = 0;    //回転後の選択面の添え字を検索用
 
@@ -232,7 +213,7 @@ public class CoreSetting_iwata : MonoBehaviour
                         if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //検索した面と基準のX座標を比較する
                         if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //今の候補の面の座標より左に検索した面があるなら候補を変える
                     }
-                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
+                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
                     break;
 
                 case RotateFlag.E_ROTATE_FLAG_D:
@@ -243,7 +224,7 @@ public class CoreSetting_iwata : MonoBehaviour
                         
                         if (m_AttachFaces[nextnum].Trans.position.y < m_AttachFaces[i].Trans.position.y) nextnum = i;
                     }
-                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
+                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
                     break;
             }
             
@@ -342,26 +323,6 @@ public class CoreSetting_iwata : MonoBehaviour
         }
     }
 
-    public bool AttachCore(GameObject obj)
-    {
-        Debug.Log("a");
-        if(m_AttachFaces[m_SelectFaceNum].isAttach)
-        {//組み立てる処理
-            Debug.Log("b");
-            m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-            Debug.Log("c");
-            obj.GetComponent<JankBase_iwata>().JointJank(m_AttachFaces[m_SelectFaceNum].Trans);
-            Debug.Log("d");
-            m_isDepath = true;
-            return true;
-        }
-        else
-        {//組み立てられなかったときに鳴らすSE
-            Debug.Log("組めないよ！");
-            return false;
-        }
-    }
-
     public void ReleaseCore()
     {
         if(m_AttachFaces[m_SelectFaceNum].isRelease)
@@ -380,8 +341,6 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void JointToRot()
     {
-        m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        Debug.Log(num);
         num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
         clone.AddComponent<RotationCore>();

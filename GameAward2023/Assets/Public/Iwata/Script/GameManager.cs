@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_ROT:
                             m_JointStage.gameObject.SetActive(false);
                             m_PlayStage.gameObject.SetActive(true);
-                            m_JointStage.Find("Core").GetComponent<CoreSetting_iwata>().SelectFace.GetComponent<JankStatus>().UndoSize();
                             Vector3 startpos = m_PlayStage.Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
                             core.transform.Rotate(0.0f, -10.0f, 0.0f, Space.Self);

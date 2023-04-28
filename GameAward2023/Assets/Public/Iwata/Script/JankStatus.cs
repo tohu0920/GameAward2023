@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class JankStatus : ObjectBase
 {
-    [SerializeField] private Vector3 m_orizinSize;
-    [SerializeField] private Vector3 m_pickupSize;
-    [SerializeField] private static float m_val = 1.25f;
+    [System.Serializable]
+    public struct AttachFlag
+    {
+        public bool m_plusZ;
+        public bool m_minusZ;
+        public bool m_plusX;
+        public bool m_minusX;
+        public bool m_plusY;
+        public bool m_minusY;
+    }
+
+    [Tooltip("もうついている時に使うフラグ")]
+    [SerializeField] AttachFlag m_colliderFlags;    //もうついている時に使うフラグ
+
+    [Tooltip("今から付ける時に使うフラグ")]
+    [SerializeField] AttachFlag m_collisionFlags;     //今から付ける時に使うフラグ
 
     // Start is called before the first frame update
     protected void Start()
     {
         base.Start();
-        m_orizinSize = this.transform.localScale;
-        m_pickupSize = m_orizinSize * m_val;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public Vector3 OrizinSize
-    {
-        get { return m_orizinSize; }
-    }
-
-    public void PickupSize()
-    {
-        this.transform.localScale = m_pickupSize;
-    }
-    public void UndoSize()
-    {
-        this.transform.localScale = m_orizinSize;
     }
 }

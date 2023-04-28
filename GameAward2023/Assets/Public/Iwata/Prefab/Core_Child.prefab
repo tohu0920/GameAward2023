@@ -126,8 +126,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMane: {fileID: 0}
   EffectMane: {fileID: 0}
-  m_orizinSize: {x: 1, y: 1, z: 1}
-  m_pickupSize: {x: 0, y: 0, z: 0}
+  m_colliderFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
+  m_collisionFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
 --- !u!1 &853918096994671252
 GameObject:
   m_ObjectHideFlags: 0
