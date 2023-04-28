@@ -7,26 +7,30 @@ using UnityEngine.UI;
 
 public class SelectBotton : MonoBehaviour
 {
-    private Text StartImage;
-    private Text OptionImage;
-    private Text EndImage;
+    private GameObject StartImage;       
+    private GameObject OptionImage;    
+    private GameObject EndImage;
+    private Image UnderLine;
+    private TitleAnimation titleAnimation;
+
+    public int SelectNum;
 
     [SerializeReference] GameObject GameScreen;
     [SerializeReference] GameObject OptionScreen;
     [SerializeReference] GameObject kari;
 
-    public int SelectNum;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartImage = GameObject.Find("Start").GetComponent<Text>();
-        OptionImage = GameObject.Find("Option").GetComponent<Text>();
-        EndImage = GameObject.Find("End").GetComponent<Text>();
+        StartImage = GameObject.Find("Start");
+        OptionImage = GameObject.Find("Option");
+        EndImage = GameObject.Find("End");
+        UnderLine = GameObject.Find("UnderLine").GetComponent<Image>();
+        titleAnimation = GameObject.Find("core").GetComponent<TitleAnimation>();
 
-        StartImage.color = new Color(255, 0, 0, 255);
-
-        SelectNum = 0;        
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180);        
+        SelectNum = 0;       
     }
 
     // Update is called once per frame
@@ -34,67 +38,47 @@ public class SelectBotton : MonoBehaviour
     {
         SelectNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
-        if (SelectNum == -1)
-        {
-            SelectNum = 2;       
-        }
-        if (SelectNum == 3)
-        {
-            SelectNum = 0;
-        }
+        //選択のループ
+        SelectNum += 3;
+        SelectNum %= 3;
+        
 
+        //ラインのポジションをまとめる(swtich使わずに)改行あり
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180 - SelectNum * 70);
 
-        switch (SelectNum)
+        if(PadInput.GetKeyDown(KeyCode.JoystickButton0))
         {
-            case 0:
-                StartImage.color = new Color(255, 0, 0, 255);
-                OptionImage.color = new Color(255, 256, 256, 255);
-                EndImage.color = new Color(255, 255, 255, 255);
-                //���[�h�V�[���͂����ōēx���
-                //if(Input.GetKeyDown("JoystickButton1"))
-                //{
-                //    LoadSelectScene();
-                //}
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    LoadSelectScene();
-                }
+            switch (SelectNum)
+            {
+                case 0:
+                    //タイトルアニメーション再生
+                    titleAnimation.StartAnimetion();
+
+                    //アニメーション終了後シーン遷移
+                    if( titleAnimation.isPlaying == false)
+                    {
+                        LoadSelectScene();
+                    }
                     break;
-                
-            case 1:
-                OptionImage.color = new Color(255, 0, 0, 255);
-                StartImage.color = new Color(255, 255, 255, 255);
-                EndImage.color = new Color(255, 255, 255, 255);
-                //if (Input.GetKeyDown("JoystickButton1"))
-                //{
-                //    GameScreen.SetActive(false);
-                //    OptionScreen.SetActive(true);
-                //    kari.SetActive(false);
-                //}
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    GameScreen.SetActive(false);
-                    OptionScreen.SetActive(true);
-                    kari.SetActive(false);
-                }
-                break;
 
-            case 2:
-                EndImage.color = new Color(255, 0, 0, 255);
-                StartImage.color = new Color(250, 255, 255, 255);
-                OptionImage.color = new Color(255, 255, 255, 255);
-                //if (Input.GetKeyDown("JoystickButton1"))
-                //{
-                //    Application.Quit();
-                //}
-                if (Input.GetKeyDown(KeyCode.Return))
-                {
-                    Application.Quit();
-                }
-                break;
-        }        
+                case 1:
+                        //オプション画面の表示
+                        GameScreen.SetActive(false);
+                        OptionScreen.SetActive(true);
+                        kari.SetActive(false);
+                    break;
+
+                case 2:
+                        //ゲーム終了
+                        Application.Quit();
+                    break;
+            }
+        }         
     }
 
+    /// <summary>
+    /// タイトルシーンのロードシーン用
+    /// </summary>
     private void LoadSelectScene()
     {
         SceneManager.LoadScene("StageSelectScene");        
