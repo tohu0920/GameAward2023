@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231922416153138594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.41, y: 4.97, z: 2.12}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78,10 +78,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioMane: {fileID: 0}
   EffectMane: {fileID: 0}
-  m_orizinSize: {x: 0, y: 0, z: 0}
-  m_pickupSize: {x: 0, y: 0, z: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  StartRot: {x: 0, y: 0, z: 0, w: 0}
+  m_colliderFlags:
+    m_plusZ: 0
+    m_minusZ: 0
+    m_plusX: 0
+    m_minusX: 0
+    m_plusY: 0
+    m_minusY: 0
+  m_collisionFlags:
+    m_plusZ: 1
+    m_minusZ: 0
+    m_plusX: 0
+    m_minusX: 0
+    m_plusY: 0
+    m_minusY: 0
+  m_StartPos: {x: 0, y: 0, z: 0}
+  m_StartRot: {x: 0, y: 0, z: 0, w: 0}
+  m_Origin: {fileID: 0}
   m_boostForceRate: 500
   m_maxSpeed: 5000
 --- !u!1 &1231922417521546960

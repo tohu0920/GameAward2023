@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //ƒQ[ƒ€‚Ìó‘Ô‚Ìƒtƒ‰ƒO
+    //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®ãƒ•ãƒ©ã‚°
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -17,17 +17,17 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //ƒvƒŒƒC—p‚ÌŠÂ‹«
-    [SerializeField] private Transform m_JointStage;       //‘g‚İ—§‚Ä—p‚ÌŠÂ‹«
+    [SerializeField] private Transform m_PlayStage;        //ãƒ—ãƒ¬ã‚¤ç”¨ã®ç’°å¢ƒ
+    [SerializeField] private Transform m_JointStage;       //çµ„ã¿ç«‹ã¦ç”¨ã®ç’°å¢ƒ
 
-    [SerializeField] private eGameStatus m_GameStatus;  //ƒQ[ƒ€‚Ìó‘Ô
-    [SerializeField] private eGameStatus m_lastGameStatus;  //ƒQ[ƒ€‚Ìó‘Ô
+    [SerializeField] private eGameStatus m_GameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
+    [SerializeField] private eGameStatus m_lastGameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ƒQ[ƒ€‚Ìó‘Ô‚Ì‰Šú‰»
-        m_lastGameStatus = m_GameStatus;                    //‘OƒtƒŒ[ƒ€‚Ìó‘Ô‚ğ•Û
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®åˆæœŸåŒ–
+        m_lastGameStatus = m_GameStatus;                    //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’ä¿æŒ
     }
 
     // Update is called once per frame
@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_ROT:
                             m_JointStage.gameObject.SetActive(false);
                             m_PlayStage.gameObject.SetActive(true);
-                            m_JointStage.Find("Jank").GetComponent<JankController>().SelectJank.GetComponent<JankStatus>().UndoSize();
                             Vector3 startpos = m_PlayStage.Find("Start").transform.position;
-                            GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, Quaternion.identity);
+                            GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
+                            core.transform.Rotate(0.0f, -10.0f, 0.0f, Space.Self);
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();

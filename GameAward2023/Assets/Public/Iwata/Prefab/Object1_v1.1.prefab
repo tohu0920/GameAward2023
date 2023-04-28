@@ -13,10 +13,7 @@ GameObject:
   - component: {fileID: 7411999914163100902}
   - component: {fileID: 6770717819257058474}
   - component: {fileID: 8287169392369250745}
-  - component: {fileID: 3636903152219775592}
-  - component: {fileID: 3627694616037958866}
-  - component: {fileID: 7076129295220270718}
-  - component: {fileID: 7283179531321529410}
+  - component: {fileID: 5356150267800647493}
   m_Layer: 0
   m_Name: Object1_v1.1
   m_TagString: Jank
@@ -118,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3636903152219775592
+--- !u!114 &5356150267800647493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,59 +124,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2260154540229395784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47b5948cfe8b77a40a3e86b53e4c209a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fcf95da10430894fab16c1ed836682a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_canAttach:
-    m_forward: 0
-    m_back: 0
-    m_right: 0
-    m_left: 0
-    m_up: 0
-    m_down: 0
-  m_canRot:
-    m_forward: 1
-    m_back: 1
-    m_right: 1
-    m_left: 1
-    m_up: 1
-    m_down: 1
---- !u!114 &3627694616037958866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260154540229395784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf018ad1660495a458b1a021592eeb1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPos: {x: 0, y: 0, z: 0}
---- !u!114 &7076129295220270718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260154540229395784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5addf12ee7666054dadfb81473b21729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7283179531321529410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2260154540229395784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 695e5181648f30349b2dd773d1707808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_orizinSize: {x: 1, y: 1, z: 1}
-  m_pickupSize: {x: 0, y: 0, z: 0}
+  AudioMane: {fileID: 0}
+  EffectMane: {fileID: 0}
+  m_colliderFlags:
+    m_plusZ: 0
+    m_minusZ: 0
+    m_plusX: 0
+    m_minusX: 0
+    m_plusY: 0
+    m_minusY: 0
+  m_collisionFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
+  m_StartPos: {x: 0, y: 0, z: 0}
+  m_StartRot: {x: 0, y: 0, z: 0, w: 0}
+  m_Origin: {fileID: 0}

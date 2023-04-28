@@ -124,8 +124,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695e5181648f30349b2dd773d1707808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_orizinSize: {x: 1, y: 1, z: 1}
-  m_pickupSize: {x: 0, y: 0, z: 0}
+  AudioMane: {fileID: 0}
+  EffectMane: {fileID: 0}
+  m_colliderFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
+  m_collisionFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
 --- !u!1 &853918096994671252
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853918096994671252}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.041263, y: -0.022121916, z: 0.060973223}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -234,7 +248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3520561844828697568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.017, z: -0.044}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
   m_ConstrainProportionsScale: 1
   m_Children:
