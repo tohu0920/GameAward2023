@@ -12,7 +12,7 @@ public class CoreSetting_iwata : MonoBehaviour
     };
 
     /// <summary>
-    /// ‰ñ“]‚µ‚½‚Æ‚«‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½•ûŒü
+    /// å›è»¢ã—ãŸã¨ãã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ–¹å‘
     /// </summary>
     public enum RotateFlag
     {
@@ -25,20 +25,20 @@ public class CoreSetting_iwata : MonoBehaviour
         E_ROTATE_FLAG_Y_MAX
     }
     
-    const float ROTATION = 90.0f;   // ‰ñ“]Šp“x
-    const float DAMPING_RATE = 0.5f;   // ‰ñ“]Œ¸Š—¦
-    const float ENLARGE_SiZE = 1.25f;   //‘I‘ğ’†‚ÌCore‚Ì‘å‚«‚³
-    const float ORIZIN_SiZE = 1.00f;   //‘I‘ğŠO‚ÌCore‚Ì‘å‚«‚³
+    const float ROTATION = 90.0f;   // å›è»¢è§’åº¦
+    const float DAMPING_RATE = 0.5f;   // å›è»¢æ¸›è¡°ç‡
+    const float ENLARGE_SiZE = 1.25f;   //é¸æŠä¸­ã®Coreã®å¤§ãã•
+    const float ORIZIN_SiZE = 1.00f;   //é¸æŠå¤–ã®Coreã®å¤§ãã•
 
-    List<AttachFace> m_AttachFaces;	// ‘g‚İ—§‚Ä‚ç‚ê‚é–Ê
+    List<AttachFace> m_AttachFaces;	// çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢
     List<Transform> hoge;
-    int m_SelectFaceNum;     // ‘I‘ğ–Ê‚Ì”Ô†
-    int m_timeToRotate;             // ‰ñ“]ŠÔ
-    float m_rotateY, m_rotateX;     // Šp“x
-    float m_lateY, m_lateX;         // ’x‰„Šp“x
-    public int m_rotateFrameCnt;    // ‰ñ“]ƒtƒŒ[ƒ€‚ÌƒJƒEƒ“ƒg
-    RotateFlag m_rotFlag;           //‚Ç‚Á‚¿‚É‰ñ“]‚µ‚Ä‚¢‚é‚©
-    bool m_isDepath;        // –Êî•ñ‚ğæ“¾‚µ’¼‚·ƒtƒ‰ƒO
+    int m_SelectFaceNum;     // é¸æŠé¢ã®ç•ªå·
+    int m_timeToRotate;             // å›è»¢æ™‚é–“
+    float m_rotateY, m_rotateX;     // è§’åº¦
+    float m_lateY, m_lateX;         // é…å»¶è§’åº¦
+    public int m_rotateFrameCnt;    // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚«ã‚¦ãƒ³ãƒˆ
+    RotateFlag m_rotFlag;           //ã©ã£ã¡ã«å›è»¢ã—ã¦ã„ã‚‹ã‹
+    bool m_isDepath;        // é¢æƒ…å ±ã‚’å–å¾—ã—ç›´ã™ãƒ•ãƒ©ã‚°
     public PlayerController_iwata PController;
     public GameManager GM;
     static int num = 0;
@@ -46,22 +46,22 @@ public class CoreSetting_iwata : MonoBehaviour
     Vector3 AxisRotY;
     [SerializeField] GameObject m_AttachJank;
 
-    //[SerializeReference] AudioClip m_RotSound;  //ƒI[ƒfƒBƒIƒtƒ@ƒCƒ‹‚Ìî•ñ
-    //AudioSource audioSource;    //Ä¶‚·‚é‚½‚ß‚Ìƒnƒ“ƒhƒ‹
+    //[SerializeReference] AudioClip m_RotSound;  //ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±
+    //AudioSource audioSource;    //å†ç”Ÿã™ã‚‹ãŸã‚ã®ãƒãƒ³ãƒ‰ãƒ«
 
     // Start is called before the first frame update
     void Start()
     {
-        AxisRotY = this.transform.right;        //c‰ñ“]‚·‚é‚½‚ß‚Ì²“o˜^
-        AxisRotX = this.transform.up;           //‰¡ŠJ“X‚·‚é‚½‚ß‚Ì²“o˜^
+        AxisRotY = this.transform.right;        //ç¸¦å›è»¢ã™ã‚‹ãŸã‚ã®è»¸ç™»éŒ²
+        AxisRotX = this.transform.up;           //æ¨ªé–‹åº—ã™ã‚‹ãŸã‚ã®è»¸ç™»éŒ²
         
-        m_rotateY = m_rotateX = 0.0f;       //Šp“x‰Šú‰»
-        m_lateY = m_lateX = 0.0f;       //’x‰„Šp“x‰Šú‰»
+        m_rotateY = m_rotateX = 0.0f;       //è§’åº¦åˆæœŸåŒ–
+        m_lateY = m_lateX = 0.0f;       //é…å»¶è§’åº¦åˆæœŸåŒ–
 
-        // ‰ñ“]ŠÔ‚ğŒvZ
+        // å›è»¢æ™‚é–“ã‚’è¨ˆç®—
         m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
         
-        //ÄŒŸõ‚ª•K—v‚È‚É—§‚Ä‚éFlag‚ğİ’è
+        //å†æ¤œç´¢ãŒå¿…è¦ãªæ™‚ã«ç«‹ã¦ã‚‹Flagã‚’è¨­å®š
         m_isDepath = false;
 
         m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
@@ -72,10 +72,10 @@ public class CoreSetting_iwata : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //--- ‰ñ“]’†
+        //--- å›è»¢ä¸­
         if (m_rotateFrameCnt > 0)
         {
-            RotateCore();   // ‰ñ“]ˆ—			
+            RotateCore();   // å›è»¢å‡¦ç†			
             return;
         }
 
@@ -87,31 +87,31 @@ public class CoreSetting_iwata : MonoBehaviour
 
     List<AttachFace> GetAttachFace()
     {
-        // –Ê‚ÌŠi”[æ‚ğ—pˆÓ
+        // é¢ã®æ ¼ç´å…ˆã‚’ç”¨æ„
         List<AttachFace> attachFaces = new List<AttachFace>();
         AttachFace TempFace = new AttachFace();
 
-        //--- ‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğ‡”Ô‚ÉŠi”[
+        //--- çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’é †ç•ªã«æ ¼ç´
         foreach (Transform child in this.transform)
         {
             //if (child.tag != "Player") continue;
 
-            // ‰¼’u‚«‚µ‚Ä‚¢‚é‚à‚Ì‚Æˆê‚È‚çƒXƒLƒbƒv‚·‚é
+            // ä»®ç½®ãã—ã¦ã„ã‚‹ã‚‚ã®ã¨ä¸€ç·’ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹
             if (child.gameObject == m_AttachJank) continue;
 
-            // è‘O‚ÉL‚Ñ‚éƒŒƒC‚ğ—pˆÓ
+            // æ‰‹å‰ã«ä¼¸ã³ã‚‹ãƒ¬ã‚¤ã‚’ç”¨æ„
             Ray ray = new Ray(child.position, Vector3.back);
             RaycastHit hit;
 
-            // ‘g‚İ—§‚Ä‚ç‚ê‚È‚¢–Ê‚ÍƒXƒ‹[
-            // è‘O‚É•¨‚ª‚ ‚Á‚½‚çƒXƒLƒbƒv
+            // çµ„ã¿ç«‹ã¦ã‚‰ã‚Œãªã„é¢ã¯ã‚¹ãƒ«ãƒ¼
+            // æ‰‹å‰ã«ç‰©ãŒã‚ã£ãŸã‚‰ã‚¹ã‚­ãƒƒãƒ—
             if (Physics.Raycast(ray, out hit, 10.0f)) continue;
             
 
-            //Transform‚Ìî•ñ“o˜^
+            //Transformã®æƒ…å ±ç™»éŒ²
             TempFace.Trans = child;
 
-            //ƒAƒ^ƒbƒ`‚Å‚«‚é–Ê‚©‚ğ”»’f‚·‚éƒtƒ‰ƒO‚ğŠi”[
+            //ã‚¢ã‚¿ãƒƒãƒã§ãã‚‹é¢ã‹ã‚’åˆ¤æ–­ã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’æ ¼ç´
             if(!child.GetComponent<IsAttachFace_iwata>())
             {
                 TempFace.isAttach = true;
@@ -121,7 +121,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 TempFace.isAttach = child.GetComponent<IsAttachFace_iwata>().CanAttach(Vector3.back);
             }
 
-            //æ‚èŠO‚¹‚é–Ê‚©‚ğ”»’f‚·‚éƒtƒ‰ƒO‚ğŠi”[
+            //å–ã‚Šå¤–ã›ã‚‹é¢ã‹ã‚’åˆ¤æ–­ã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’æ ¼ç´
             if(child.name.Contains("Core_Child"))
             {
                 TempFace.isRelease = false;
@@ -132,19 +132,19 @@ public class CoreSetting_iwata : MonoBehaviour
             }
 
             Debug.Log(TempFace.Trans.name);
-            attachFaces.Add(TempFace); // –Ê‚ğŠi”[
+            attachFaces.Add(TempFace); // é¢ã‚’æ ¼ç´
         }
 
-        //--- ƒ\[ƒg
+        //--- ã‚½ãƒ¼ãƒˆ
         attachFaces.Sort((a, b) => {
             if (Mathf.Abs(a.Trans.position.y - b.Trans.position.y) > 0.75f)
             {
-                // YÀ•W‚ªˆÙ‚È‚éê‡‚ÍYÀ•W‚Å”äŠr‚·‚é
+                // Yåº§æ¨™ãŒç•°ãªã‚‹å ´åˆã¯Yåº§æ¨™ã§æ¯”è¼ƒã™ã‚‹
                 return b.Trans.position.y.CompareTo(a.Trans.position.y);
             }
             else
             {
-                // YÀ•W‚ª“¯‚¶ê‡‚ÍXÀ•W‚Å”äŠr‚·‚é
+                // Yåº§æ¨™ãŒåŒã˜å ´åˆã¯Xåº§æ¨™ã§æ¯”è¼ƒã™ã‚‹
                 return a.Trans.position.x.CompareTo(b.Trans.position.x);
             }
         });
@@ -153,65 +153,65 @@ public class CoreSetting_iwata : MonoBehaviour
     }
 
     /// <summary>
-    /// ’Êí‚ÌƒRƒA‚Ì‰ñ“]
+    /// é€šå¸¸ã®ã‚³ã‚¢ã®å›è»¢
     /// </summary>
     void RotateCore()
     {
         float lastY = m_lateY;
         float lastX = m_lateX;
 
-        //--- ’x‰„ˆ—
+        //--- é…å»¶å‡¦ç†
         m_lateY = (m_rotateY - m_lateY) * DAMPING_RATE + m_lateY;
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
         transform.RotateAround(transform.position, AxisRotX, m_lateY - lastY);
         transform.RotateAround(transform.position, AxisRotY, m_lateX - lastX);
 
-        m_rotateFrameCnt++; // ‰ñ“]ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg
+        m_rotateFrameCnt++; // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆ
 
-        //--- ‰ñ“]I—¹‚Ìˆ—
+        //--- å›è»¢çµ‚äº†æ™‚ã®å‡¦ç†
         if (m_rotateFrameCnt > m_timeToRotate)
         {
             transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), 0));
 
-            m_rotateFrameCnt = 0;   // ‰ñ“]ƒtƒŒ[ƒ€‚ğƒŠƒZƒbƒg
+            m_rotateFrameCnt = 0;   // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒªã‚»ãƒƒãƒˆ
             if (m_rotFlag == RotateFlag.E_ROTATE_FLAG_NULL) return;
 
-            m_AttachFaces = GetAttachFace();    // Ÿ‚Ì‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğæ“¾
-            float hogepos;      //Šî€‚É‚È‚é‚½‚ß‚ÌÀ•W
-            int nextnum = 0;    //‰ñ“]Œã‚Ì‘I‘ğ–Ê‚Ì“Y‚¦š‚ğŒŸõ—p
+            m_AttachFaces = GetAttachFace();    // æ¬¡ã®çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’å–å¾—
+            float hogepos;      //åŸºæº–ã«ãªã‚‹ãŸã‚ã®åº§æ¨™
+            int nextnum = 0;    //å›è»¢å¾Œã®é¸æŠé¢ã®æ·»ãˆå­—ã‚’æ¤œç´¢ç”¨
 
-            //‰ñ“]‚ÌŒü‚«‚É‰‚¶‚½ˆ—‚ğs‚¤
+            //å›è»¢ã®å‘ãã«å¿œã˜ãŸå‡¦ç†ã‚’è¡Œã†
             switch (m_rotFlag)
             {
-                case RotateFlag.E_ROTATE_FLAG_R:        //‰E‚É‰ñ“]‚·‚é
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //Šî€‚ÌY²‚ÌÀ•W‚ğæ“¾
-                    for (int i = 0; i < m_AttachFaces.Count; i++)       //Œó•â‚Ì–Ê‚ğ‚·‚×‚ÄŒŸõ‚·‚é
+                case RotateFlag.E_ROTATE_FLAG_R:        //å³ã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //åŸºæº–ã®Yè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //ŒŸõ‚µ‚½–Ê‚ÆŠî€‚ÌYÀ•W‚ğ”äŠr‚·‚é
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Yåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
                         Debug.Log(m_AttachFaces[nextnum].Trans.name + ":" + m_AttachFaces[nextnum].Trans.position.x);
                         Debug.Log(m_AttachFaces[i].Trans.name + ":" + m_AttachFaces[i].Trans.position.x);
-                        if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[i].Trans.position.x) nextnum = i;      //¡‚ÌŒó•â‚Ì–Ê‚ÌÀ•W‚æ‚è‰E‚ÉŒŸõ‚µ‚½–Ê‚ª‚ ‚é‚È‚çŒó•â‚ğ•Ï‚¦‚é
+                        if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[i].Trans.position.x) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå³ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
                     m_AttachJank.transform.Rotate(0.0f, -90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_L:        //¶‚É‰ñ“]‚·‚é
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //Šî€‚ÌY²‚ÌÀ•W‚ğæ“¾
-                    for (int i = 0; i < m_AttachFaces.Count; i++)       //Œó•â‚Ì–Ê‚ğ‚·‚×‚ÄŒŸõ‚·‚é
+                case RotateFlag.E_ROTATE_FLAG_L:        //å·¦ã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //åŸºæº–ã®Yè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //ŒŸõ‚µ‚½–Ê‚ÆŠî€‚ÌYÀ•W‚ğ”äŠr‚·‚é
-                        if (m_AttachFaces[nextnum].Trans.position.x < m_AttachFaces[i].Trans.position.x) nextnum = i;      //¡‚ÌŒó•â‚Ì–Ê‚ÌÀ•W‚æ‚è¶‚ÉŒŸõ‚µ‚½–Ê‚ª‚ ‚é‚È‚çŒó•â‚ğ•Ï‚¦‚é
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Yåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
+                        if (m_AttachFaces[nextnum].Trans.position.x < m_AttachFaces[i].Trans.position.x) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå·¦ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
                     m_AttachJank.transform.Rotate(0.0f, 90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_U:        //ã‚É‰ñ“]‚·‚é
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //Šî€‚ÌX²‚ÌÀ•W‚ğæ“¾
-                    for (int i = 0; i < m_AttachFaces.Count; i++)       //Œó•â‚Ì–Ê‚ğ‚·‚×‚ÄŒŸõ‚·‚é
+                case RotateFlag.E_ROTATE_FLAG_U:        //ä¸Šã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //åŸºæº–ã®Xè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //ŒŸõ‚µ‚½–Ê‚ÆŠî€‚ÌXÀ•W‚ğ”äŠr‚·‚é
-                        if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //¡‚ÌŒó•â‚Ì–Ê‚ÌÀ•W‚æ‚è¶‚ÉŒŸõ‚µ‚½–Ê‚ª‚ ‚é‚È‚çŒó•â‚ğ•Ï‚¦‚é
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Xåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
+                        if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå·¦ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
                     m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
                     break;
@@ -238,17 +238,17 @@ public class CoreSetting_iwata : MonoBehaviour
     }
 
     /// <summary>
-    /// “ü—Í‚Ì‘Î‚µ‚Ä‚ÌƒRƒA‚Ìˆ—
+    /// å…¥åŠ›ã®å¯¾ã—ã¦ã®ã‚³ã‚¢ã®å‡¦ç†
     /// </summary>
-    /// <param name="axisX">‰¡“ü—Í</param>
-    /// <param name="axisY">c“ü—Í</param>
+    /// <param name="axisX">æ¨ªå…¥åŠ›</param>
+    /// <param name="axisY">ç¸¦å…¥åŠ›</param>
     public void InputAxisCore(int axisX, int axisY)
     {
         if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
         {
-            m_rotateY += ROTATION * axisX;  // Šp“x‚ğİ’è
-            m_rotateX += ROTATION * axisY;  // Šp“x‚ğİ’è
-            m_rotateFrameCnt = 1;	// Å‰‚ÌƒJƒEƒ“ƒg
+            m_rotateY += ROTATION * axisX;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateX += ROTATION * axisY;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateFrameCnt = 1;	// æœ€åˆã®ã‚«ã‚¦ãƒ³ãƒˆ
         }
         else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
         {
@@ -257,11 +257,11 @@ public class CoreSetting_iwata : MonoBehaviour
             pos.y += axisY;
             for (int i = 0; i < m_AttachFaces.Count; i++)
             {
-                //--- Œ»İ‚Ì–Ê‚ÆŸ‚Ì–Ê‚ÌXYÀ•W‚ğVector2‚ÉŠi”[
+                //--- ç¾åœ¨ã®é¢ã¨æ¬¡ã®é¢ã®XYåº§æ¨™ã‚’Vector2ã«æ ¼ç´
                 Vector2 currentFacePos = new Vector2(m_AttachFaces[i].Trans.position.x, m_AttachFaces[i].Trans.position.y);
                 Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
-                // XY•½–Ê‚Å‚Ì‹——£‚ª—£‚ê‚·‚¬‚Ä‚¢‚½‚çƒXƒ‹[
+                // XYå¹³é¢ã§ã®è·é›¢ãŒé›¢ã‚Œã™ãã¦ã„ãŸã‚‰ã‚¹ãƒ«ãƒ¼
                 if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
                 
                 m_SelectFaceNum = i;
@@ -269,9 +269,9 @@ public class CoreSetting_iwata : MonoBehaviour
                 return;
             }
 
-            m_rotateY += ROTATION * (int)axisX;  // Šp“x‚ğİ’è
-            m_rotateX -= ROTATION * (int)axisY;  // Šp“x‚ğİ’è
-            m_rotateFrameCnt = 1;   // Å‰‚ÌƒJƒEƒ“ƒg
+            m_rotateY += ROTATION * (int)axisX;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateX -= ROTATION * (int)axisY;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateFrameCnt = 1;   // æœ€åˆã®ã‚«ã‚¦ãƒ³ãƒˆ
             if (axisX < 0)
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_L;
@@ -297,15 +297,15 @@ public class CoreSetting_iwata : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒJ[ƒ\ƒ‹‚Å‘I‘ğ‚³‚ê‚½ƒKƒ‰ƒNƒ^‚ğƒRƒA‚É”z’u‚·‚é
+    /// ã‚«ãƒ¼ã‚½ãƒ«ã§é¸æŠã•ã‚ŒãŸã‚¬ãƒ©ã‚¯ã‚¿ã‚’ã‚³ã‚¢ã«é…ç½®ã™ã‚‹
     /// </summary>
-    /// <param name="jank">ƒJ[ƒ\ƒ‹‚Å‘I‘ğ‚³‚ê‚½ƒKƒ‰ƒNƒ^‚Ìî•ñ</param>
+    /// <param name="jank">ã‚«ãƒ¼ã‚½ãƒ«ã§é¸æŠã•ã‚ŒãŸã‚¬ãƒ©ã‚¯ã‚¿ã®æƒ…å ±</param>
     public void PutJank(GameObject jank)
     {
-        m_AttachFaces = GetAttachFace();    // Ÿ‚Ì‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğæ“¾
-        m_SelectFaceNum = 0;        //‘I‘ğ‚µ‚Ä‚¢‚éêŠ‚ğ¶ã‚É‰Šú‰»
-        m_AttachJank = jank;        //‰¼’u‚«‚³‚ê‚Ä‚¢‚éƒKƒ‰ƒNƒ^‚ğ“o˜^
-        m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ƒKƒ‰ƒNƒ^‚Ì‰¼’u‚«‚Ìˆ—
+        m_AttachFaces = GetAttachFace();    // æ¬¡ã®çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’å–å¾—
+        m_SelectFaceNum = 0;        //é¸æŠã—ã¦ã„ã‚‹å ´æ‰€ã‚’å·¦ä¸Šã«åˆæœŸåŒ–
+        m_AttachJank = jank;        //ä»®ç½®ãã•ã‚Œã¦ã„ã‚‹ã‚¬ãƒ©ã‚¯ã‚¿ã‚’ç™»éŒ²
+        m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ã‚¬ãƒ©ã‚¯ã‚¿ã®ä»®ç½®ãã®å‡¦ç†
     }
 
     public void JointCore()
@@ -327,15 +327,15 @@ public class CoreSetting_iwata : MonoBehaviour
     {
         if(m_AttachFaces[m_SelectFaceNum].isRelease)
         {
-            //ŠO‚·ˆ—
-            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "ŠO‚µ‚½");
+            //å¤–ã™å‡¦ç†
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "å¤–ã—ãŸ");
             m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
             m_isDepath = true;
         }
         else
         {
-            //ŠO‚¹‚È‚©‚Á‚½‚Æ‚«‚É–Â‚ç‚·SE
-            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "ŠO‚¹‚È‚¢");
+            //å¤–ã›ãªã‹ã£ãŸã¨ãã«é³´ã‚‰ã™SE
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "å¤–ã›ãªã„");
         }
     }
 
@@ -379,7 +379,7 @@ public class CoreSetting_iwata : MonoBehaviour
 
     public void PlayToRot()
     {
-        Debug.Log("‰ñ“]‰Šú‰»");
+        Debug.Log("å›è»¢åˆæœŸåŒ–");
         this.transform.rotation = Quaternion.identity;
     }
 

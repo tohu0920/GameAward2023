@@ -15,11 +15,11 @@ public class JankStatus : ObjectBase
         public bool m_minusY;
     }
 
-    [Tooltip("‚à‚¤‚Â‚¢‚Ä‚¢‚é‚Ég‚¤ƒtƒ‰ƒO")]
-    [SerializeField] AttachFlag m_colliderFlags;    //‚à‚¤‚Â‚¢‚Ä‚¢‚é‚Ég‚¤ƒtƒ‰ƒO
+    [Tooltip("ï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O")]
+    [SerializeField] AttachFlag m_colliderFlags;    //ï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 
-    [Tooltip("¡‚©‚ç•t‚¯‚é‚Ég‚¤ƒtƒ‰ƒO")]
-    [SerializeField] AttachFlag m_collisionFlags;     //¡‚©‚ç•t‚¯‚é‚Ég‚¤ƒtƒ‰ƒO
+    [Tooltip("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O")]
+    [SerializeField] AttachFlag m_collisionFlags;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 
     // Start is called before the first frame update
     protected void Start()

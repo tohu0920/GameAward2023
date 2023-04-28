@@ -13,9 +13,9 @@ public class PlayerController_iwata : MonoBehaviour
         {
             case GameManager.eGameStatus.E_GAME_STATUS_JOINT:
                 switch (GM.JointStage.GetComponent<JointStageManager>().JSStatus)
-                {//ƒWƒƒƒ“ƒNƒXƒe[ƒW‚Ìó‘Ô‚É‡‚í‚¹‚½ˆ—‚ğ‚·‚é
+                {//ã‚¸ãƒ£ãƒ³ã‚¯ã‚¹ãƒ†ãƒ¼ã‚¸ã®çŠ¶æ…‹ã«åˆã‚ã›ãŸå‡¦ç†ã‚’ã™ã‚‹
                     case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT:   
-                        //\šƒ{ƒ^ƒ“
+                        //åå­—ãƒœã‚¿ãƒ³
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
                             int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
@@ -26,20 +26,20 @@ public class PlayerController_iwata : MonoBehaviour
                             }
                         }
 
-                        //Aƒ{ƒ^ƒ“
+                        //Aãƒœã‚¿ãƒ³
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
                         {
-                            // ”»’è—p‚ÌƒŒƒC‚ğ—pˆÓ
+                            // åˆ¤å®šç”¨ã®ãƒ¬ã‚¤ã‚’ç”¨æ„
                             Ray ray = CursorController.GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
                             RaycastHit hit;
 
-                            //ƒJ[ƒ\ƒ‹‚©‚ç‰œ‚ÉŒü‚¯‚ÄƒŒƒC‚ğ”ò‚Î‚·
+                            //ã‚«ãƒ¼ã‚½ãƒ«ã‹ã‚‰å¥¥ã«å‘ã‘ã¦ãƒ¬ã‚¤ã‚’é£›ã°ã™
                             if (Physics.Raycast(ray, out hit))
                             {
-                                // ƒKƒ‰ƒNƒ^‚Å‚Í‚È‚¢‚È‚çƒXƒ‹[
+                                // ã‚¬ãƒ©ã‚¯ã‚¿ã§ã¯ãªã„ãªã‚‰ã‚¹ãƒ«ãƒ¼
                                 if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
-                                //ƒWƒƒƒ“ƒNƒRƒ“ƒgƒ[ƒ‰[‚É¡‘I‘ğ‚µ‚Ä‚¢‚éƒWƒƒƒ“ƒN‚ğ“o˜^
+                                //ã‚¸ãƒ£ãƒ³ã‚¯ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã«ä»Šé¸æŠã—ã¦ã„ã‚‹ã‚¸ãƒ£ãƒ³ã‚¯ã‚’ç™»éŒ²
                                 GM.JointStage.Find("Jank").GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
                                 GameObject clone = Instantiate(hit.collider.gameObject);
@@ -49,7 +49,7 @@ public class PlayerController_iwata : MonoBehaviour
                             }
                         }
 
-                        ////Bƒ{ƒ^ƒ“
+                        ////Bãƒœã‚¿ãƒ³
                         //if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
                         //{
                         //    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
@@ -63,10 +63,10 @@ public class PlayerController_iwata : MonoBehaviour
                         //    }
                         //}
                         //------------------
-                        //í‘I‘ğ‚µ‚Ä‚¢‚é–Ê‚ª‚ ‚é‚í‚¯‚¶‚á‚È‚¢‚©‚çRemove‚Ç‚¤‚µ‚æ‚¤
+                        //å¸¸æ™‚é¸æŠã—ã¦ã„ã‚‹é¢ãŒã‚ã‚‹ã‚ã‘ã˜ã‚ƒãªã„ã‹ã‚‰Removeã©ã†ã—ã‚ˆã†
                         //-------------------------------
 
-                        //Xƒ{ƒ^ƒ“
+                        //Xãƒœã‚¿ãƒ³
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
                         {
                             GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_ROT;
@@ -75,7 +75,7 @@ public class PlayerController_iwata : MonoBehaviour
 
 
                     case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT:
-                        //\šƒ{ƒ^ƒ“
+                        //åå­—ãƒœã‚¿ãƒ³
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
                             int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
@@ -86,7 +86,7 @@ public class PlayerController_iwata : MonoBehaviour
                             }
                         }
 
-                        //Aƒ{ƒ^ƒ“
+                        //Aãƒœã‚¿ãƒ³
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
                         {
                             GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().JointCore();
@@ -99,7 +99,7 @@ public class PlayerController_iwata : MonoBehaviour
 
 
 
-                ////\šƒ{ƒ^ƒ“
+                ////åå­—ãƒœã‚¿ãƒ³
                 //if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                 //{
                 //    int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
@@ -110,20 +110,20 @@ public class PlayerController_iwata : MonoBehaviour
                 //    }
                 //}
                 
-                ////Aƒ{ƒ^ƒ“
+                ////Aãƒœã‚¿ãƒ³
                 //if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
                 //{
-                //    // ”»’è—p‚ÌƒŒƒC‚ğ—pˆÓ
+                //    // åˆ¤å®šç”¨ã®ãƒ¬ã‚¤ã‚’ç”¨æ„
                 //    Ray ray = CursorController.GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
                 //    RaycastHit hit;
                     
-                //    //ƒJ[ƒ\ƒ‹‚©‚ç‰œ‚ÉŒü‚¯‚ÄƒŒƒC‚ğ”ò‚Î‚·
+                //    //ã‚«ãƒ¼ã‚½ãƒ«ã‹ã‚‰å¥¥ã«å‘ã‘ã¦ãƒ¬ã‚¤ã‚’é£›ã°ã™
                 //    if (Physics.Raycast(ray, out hit))
                 //    {
-                //        // ƒKƒ‰ƒNƒ^‚Å‚Í‚È‚¢‚È‚çƒXƒ‹[
+                //        // ã‚¬ãƒ©ã‚¯ã‚¿ã§ã¯ãªã„ãªã‚‰ã‚¹ãƒ«ãƒ¼
                 //        if (hit.transform.tag != "Jank" && hit.transform.tag != "Player") return;
 
-                //        //ƒWƒƒƒ“ƒNƒRƒ“ƒgƒ[ƒ‰[‚É¡‘I‘ğ‚µ‚Ä‚¢‚éƒWƒƒƒ“ƒN‚ğ“o˜^
+                //        //ã‚¸ãƒ£ãƒ³ã‚¯ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã«ä»Šé¸æŠã—ã¦ã„ã‚‹ã‚¸ãƒ£ãƒ³ã‚¯ã‚’ç™»éŒ²
                 //        GM.JointStage.Find("Jank").GetComponent<JankController>().SelectJank = hit.collider.gameObject;
 
                 //        GameObject clone = Instantiate(hit.collider.gameObject);
@@ -132,7 +132,7 @@ public class PlayerController_iwata : MonoBehaviour
                 //    }
                 //}
 
-                ////Bƒ{ƒ^ƒ“
+                ////Bãƒœã‚¿ãƒ³
                 //if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
                 //{
                 //    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
@@ -147,7 +147,7 @@ public class PlayerController_iwata : MonoBehaviour
                 //}
 
 
-                //////Lƒ{ƒ^ƒ“
+                //////Lãƒœã‚¿ãƒ³
                 ////if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.Q))
                 ////{
                 ////    if (Preview.activeSelf)
@@ -156,7 +156,7 @@ public class PlayerController_iwata : MonoBehaviour
                 ////    }
                 ////}
 
-                //////Rƒ{ƒ^ƒ“
+                //////Rãƒœã‚¿ãƒ³
                 ////if (Input.GetKeyDown(KeyCode.JoystickButton5) || Input.GetKeyDown(KeyCode.E))
                 ////{
                 ////    if (Preview.activeSelf)
@@ -168,13 +168,13 @@ public class PlayerController_iwata : MonoBehaviour
                 break;
             case GameManager.eGameStatus.E_GAME_STATUS_ROT:
 
-                //Bƒ{ƒ^ƒ“
+                //Bãƒœã‚¿ãƒ³
                 if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
                 {
                     GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_JOINT;
                 }
 
-                //Xƒ{ƒ^ƒ“
+                //Xãƒœã‚¿ãƒ³
                 if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
                 {
                     GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_PLAY;
@@ -183,7 +183,7 @@ public class PlayerController_iwata : MonoBehaviour
 
 
             case GameManager.eGameStatus.E_GAME_STATUS_PLAY:
-                //Xƒ{ƒ^ƒ“
+                //Xãƒœã‚¿ãƒ³
                 if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
                 {
                     GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_ROT;
