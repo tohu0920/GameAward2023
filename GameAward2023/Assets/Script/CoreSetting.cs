@@ -7,7 +7,7 @@ public class CoreSetting : MonoBehaviour
 	const float ROTATION	 = 90.0f;   // 回転角度
 	const float DAMPING_RATE = 0.5f;   // 回転減衰率
 
-	List<Transform> m_attachFaces;	// 組み立てられる面
+	List<Transform> m_AttachFaces;	// 組み立てられる面
 	int m_selectFaceNum;			// 選択面の番号
 	int m_timeToRotate;				// 回転時間
 	float m_rotateY, m_rotateX;     // 角度
@@ -21,7 +21,7 @@ public class CoreSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		m_attachFaces = GetAttachFace();	// 組み立てられる面を取得
+		m_AttachFaces = GetAttachFace();	// 組み立てられる面を取得
 		m_selectFaceNum = 0;
 		m_rotateY = m_rotateX = 0.0f;
 		m_lateY = m_lateX = 0.0f;
@@ -30,7 +30,7 @@ public class CoreSetting : MonoBehaviour
 		m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
 
 		// 選択中の面を大きく協調する
-		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
+		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
 
 		m_isDepath = false;
 
@@ -49,15 +49,15 @@ public class CoreSetting : MonoBehaviour
 
 		if(m_isDepath)
 		{
-			m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+			m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 		
 			// 選択中の面を大きく協調する
-			m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
+			m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
 			Debug.Log(m_selectFaceNum);
-			Debug.Log(m_attachFaces.Count);
-			for (int i = 0; i < m_attachFaces.Count; i++)
+			Debug.Log(m_AttachFaces.Count);
+			for (int i = 0; i < m_AttachFaces.Count; i++)
 			{
-				Vector3 pos = m_attachFaces[i].position;
+				Vector3 pos = m_AttachFaces[i].position;
 				Debug.Log("X:" + pos.x + " Y:" + pos.y + " Z:" + pos.z);
 			}
 		
@@ -114,21 +114,21 @@ public class CoreSetting : MonoBehaviour
 	{
 		int lastSelectFaceNum = m_selectFaceNum;	// 過去の選択面番号を格納
 
-		float axisX = AxisInput.GetAxisRawRepeat("Horizontal");         // 横に移動
+		float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");         // 横に移動
 
 		//--- 横に入力があった時のみ処理
 		if (axisX != 0)
 		{
-			Vector3 facePos = m_attachFaces[m_selectFaceNum].position;  // 現在の面の座標を取得
+			Vector3 facePos = m_AttachFaces[m_selectFaceNum].position;  // 現在の面の座標を取得
 			facePos.x += axisX; // 移動先の面の座標に修正
 
 			bool isRotate = true;
 
 			//--- 一致する面を探索
-			for (int i = 0; i < m_attachFaces.Count; i++)
+			for (int i = 0; i < m_AttachFaces.Count; i++)
 			{
 				//--- 現在の面と次の面のXY座標をVector2に格納
-				Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+				Vector2 currentFacePos = new Vector2(m_AttachFaces[i].position.x, m_AttachFaces[i].position.y);
 				Vector2 newxtFacePos = new Vector2(facePos.x, facePos.y);
 
 				// XY平面での距離が離れすぎていたらスルー
@@ -141,7 +141,7 @@ public class CoreSetting : MonoBehaviour
 
 			if (isRotate)
 			{
-				m_attachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);    // 過去の面を初期化
+				m_AttachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);    // 過去の面を初期化
 				StartRotateY((int)axisX);
 				return;
 			}
@@ -152,16 +152,16 @@ public class CoreSetting : MonoBehaviour
 		//--- 縦に入力があった時のみ処理
 		if (axisY != 0)
 		{
-			Vector3 facePos = m_attachFaces[m_selectFaceNum].position;	// 現在の面の座標を取得
+			Vector3 facePos = m_AttachFaces[m_selectFaceNum].position;	// 現在の面の座標を取得
 			facePos.y += axisY; // 移動先の面の座標に修正
 
 			bool isRotate = true;
 
 			//--- 一致する面を探索
-			for (int i = 0; i < m_attachFaces.Count; i++)
+			for (int i = 0; i < m_AttachFaces.Count; i++)
 			{
 				//--- 現在の面と次の面のXY座標をVector2に格納
-				Vector2 currentFacePos = new Vector2(m_attachFaces[i].position.x, m_attachFaces[i].position.y);
+				Vector2 currentFacePos = new Vector2(m_AttachFaces[i].position.x, m_AttachFaces[i].position.y);
 				Vector2 newxtFacePos = new Vector2(facePos.x, facePos.y);
 
 				// XY平面での距離が離れすぎていたらスルー
@@ -174,7 +174,7 @@ public class CoreSetting : MonoBehaviour
 
 			if (isRotate)
 			{
-				m_attachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);    // 過去の面を初期化
+				m_AttachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);    // 過去の面を初期化
 				StartRotateX((int)axisY);
 				return;
 			}
@@ -183,8 +183,8 @@ public class CoreSetting : MonoBehaviour
 		//--- 選択面が変更された場合
 		if (m_selectFaceNum != lastSelectFaceNum)
 		{
-			m_attachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);	// 過去の面を初期化
-			m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);	// 現在の面を協調
+			m_AttachFaces[lastSelectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);	// 過去の面を初期化
+			m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);	// 現在の面を協調
 		}
 
 	}
@@ -210,10 +210,10 @@ public class CoreSetting : MonoBehaviour
 		//--- 回転終了時の処理
 		if (m_rotateFrameCnt > m_timeToRotate)
 		{
-			m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+			m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 			m_rotateFrameCnt = 0;   // 回転フレームをリセット
 			m_selectFaceNum = 0;    // 選択面の番号をリセット
-			m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
+			m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);   // 現在の面を協調
 		}
 	}
 
@@ -316,19 +316,19 @@ public class CoreSetting : MonoBehaviour
 	/// </summary>
 	public bool AttachJunk(GameObject junk)
 	{
-        if (junk.tag == "Junk" && m_attachFaces[m_selectFaceNum].tag == "Junk") return false;
+        if (junk.tag == "Junk" && m_AttachFaces[m_selectFaceNum].tag == "Junk") return false;
 
 		//--- 組み立てられない面であればキャンセル
-		if(m_attachFaces[m_selectFaceNum].transform.tag == "Junk")
+		if(m_AttachFaces[m_selectFaceNum].transform.tag == "Junk")
 		{
 			//--- 組み立てられない場合
-			if (!m_attachFaces[m_selectFaceNum].GetComponent<JunkSetting>().CanAttach(Vector3.back))	return false;
+			if (!m_AttachFaces[m_selectFaceNum].GetComponent<JunkSetting>().CanAttach(Vector3.back))	return false;
 		}
 
-		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
+		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 		//--- アタッチする座標を指定
-		Vector3 junkPos = m_attachFaces[m_selectFaceNum].position;
+		Vector3 junkPos = m_AttachFaces[m_selectFaceNum].position;
 		//Vector3 junkPos = face.position;
 		junkPos -= Vector3.forward.normalized * 1.0f;
 		junk.transform.position = junkPos;
@@ -342,10 +342,10 @@ public class CoreSetting : MonoBehaviour
 
 		junk.transform.SetParent(this.transform);   // コアの子にする
 
-		m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+		m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 		
 		// 選択中の面を大きく協調する
-		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
+		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
 
 		return true;
 	}
@@ -353,26 +353,26 @@ public class CoreSetting : MonoBehaviour
 	public void DetachJunk()
 	{
 		// ガラクタでない場合スルー
-		if (m_attachFaces[m_selectFaceNum].transform.tag != "Junk") return;
+		if (m_AttachFaces[m_selectFaceNum].transform.tag != "Junk") return;
 
-		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
+		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 		// 探索する方向を取得
-		List<Vector3> searchDirects = m_attachFaces[m_selectFaceNum].transform.GetComponent<JunkSetting>().GetAttachVector();
+		List<Vector3> searchDirects = m_AttachFaces[m_selectFaceNum].transform.GetComponent<JunkSetting>().GetAttachVector();
 
 		//--- 各方向のFixedJointを削除
 		for (int i = 0; i < searchDirects.Count; i++)
 			RemoveFixedJoint(
-				m_attachFaces[m_selectFaceNum].transform.gameObject,
+				m_AttachFaces[m_selectFaceNum].transform.gameObject,
 				searchDirects[i]);
 
 		//--- 自身のFixedJointを全て削除
-		FixedJoint[] joints = m_attachFaces[m_selectFaceNum].transform.GetComponents<FixedJoint>();
+		FixedJoint[] joints = m_AttachFaces[m_selectFaceNum].transform.GetComponents<FixedJoint>();
 		for (int i = 0; i < joints.Length; i++)
 			Destroy(joints[i]);
 
 		//--- ゴミ山に戻す
-		Transform junkTransform = m_attachFaces[m_selectFaceNum].transform;
+		Transform junkTransform = m_AttachFaces[m_selectFaceNum].transform;
 		junkTransform.GetComponent<JunkController>().ResetTransform();
 
 		m_isDepath = true;	// 面情報を取得し直すフラグを立てる
@@ -381,15 +381,15 @@ public class CoreSetting : MonoBehaviour
 		/**
 		 *	if (m_isDepath)
 		 *	{
-		 *		m_attachFaces = GetAttachFace();    // 次の組み立てられる面を取得
+		 *		m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
 		 *
 		 *		// 選択中の面を大きく協調する
-		 *		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
+		 *		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.25f, 1.25f, 1.25f);
 		 *		Debug.Log(m_selectFaceNum);
-		 *		Debug.Log(m_attachFaces.Count);
-		 *		for (int i = 0; i < m_attachFaces.Count; i++)
+		 *		Debug.Log(m_AttachFaces.Count);
+		 *		for (int i = 0; i < m_AttachFaces.Count; i++)
 		 *		{
-		 *			Vector3 pos = m_attachFaces[i].position;
+		 *			Vector3 pos = m_AttachFaces[i].position;
 		 *			Debug.Log("X:" + pos.x + " Y:" + pos.y + " Z:" + pos.z);
 		 *		}
 		 *
@@ -403,7 +403,7 @@ public class CoreSetting : MonoBehaviour
 	/// </summary>
 	public void CoreReady()
 	{
-		m_attachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
+		m_AttachFaces[m_selectFaceNum].localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 		foreach (Transform child in this.transform)
 		{
