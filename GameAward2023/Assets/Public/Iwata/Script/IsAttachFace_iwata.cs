@@ -14,15 +14,7 @@ public class IsAttachFace_iwata : MonoBehaviour
         public bool m_up;
         public bool m_down;
     }
-
-
-    //[SerializeReference] bool m_forward;
-    //[SerializeReference] bool m_back;
-    //[SerializeReference] bool m_right;
-    //[SerializeReference] bool m_left;
-    //[SerializeReference] bool m_up;
-    //[SerializeReference] bool m_down;
-
+    
     [SerializeField] AttachFlag m_canAttach;
     [SerializeField] AttachFlag m_canRot;
 

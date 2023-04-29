@@ -11,117 +11,107 @@ public class CoreSetting_iwata : MonoBehaviour
         public bool isRelease;
     };
 
+    /// <summary>
+    /// å›è»¢ã—ãŸã¨ãã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸæ–¹å‘
+    /// </summary>
     public enum RotateFlag
     {
         E_ROTATE_FLAG_NULL = 0,
-        E_ROTATE_FLAG_X_P,
-        E_ROTATE_FLAG_X_M,
-        E_ROTATE_FLAG_Y_P,
-        E_ROTATE_FLAG_Y_M,
+        E_ROTATE_FLAG_R,
+        E_ROTATE_FLAG_L,
+        E_ROTATE_FLAG_U,
+        E_ROTATE_FLAG_D,
 
         E_ROTATE_FLAG_Y_MAX
     }
     
-    const float ROTATION = 90.0f;   // ‰ñ“]Šp“x
-    const float DAMPING_RATE = 0.5f;   // ‰ñ“]Œ¸Š—¦
-    const float ENLARGE_SiZE = 1.25f;   //‘I‘ğ’†‚ÌCore‚Ì‘å‚«‚³
-    const float ORIZIN_SiZE = 1.00f;   //‘I‘ğŠO‚ÌCore‚Ì‘å‚«‚³
+    const float ROTATION = 90.0f;   // å›è»¢è§’åº¦
+    const float DAMPING_RATE = 0.5f;   // å›è»¢æ¸›è¡°ç‡
+    const float ENLARGE_SiZE = 1.25f;   //é¸æŠä¸­ã®Coreã®å¤§ãã•
+    const float ORIZIN_SiZE = 1.00f;   //é¸æŠå¤–ã®Coreã®å¤§ãã•
 
-    List<AttachFace> m_attachFaces;	// ‘g‚İ—§‚Ä‚ç‚ê‚é–Ê
+    List<AttachFace> m_AttachFaces;	// çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢
     List<Transform> hoge;
-    int m_SelectFaceNum;     // ‘I‘ğ–Ê‚Ì”Ô†
-    int m_timeToRotate;             // ‰ñ“]ŠÔ
-    float m_rotateY, m_rotateX;     // Šp“x
-    float m_lateY, m_lateX;         // ’x‰„Šp“x
-    public int m_rotateFrameCnt;    // ‰ñ“]ƒtƒŒ[ƒ€‚ÌƒJƒEƒ“ƒg
-    RotateFlag m_rotFlag;           //‚Ç‚Á‚¿‚É‰ñ“]‚µ‚Ä‚¢‚é‚©
-    bool m_isDepath;        // –Êî•ñ‚ğæ“¾‚µ’¼‚·ƒtƒ‰ƒO
+    int m_SelectFaceNum;     // é¸æŠé¢ã®ç•ªå·
+    int m_timeToRotate;             // å›è»¢æ™‚é–“
+    float m_rotateY, m_rotateX;     // è§’åº¦
+    float m_lateY, m_lateX;         // é…å»¶è§’åº¦
+    public int m_rotateFrameCnt;    // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚«ã‚¦ãƒ³ãƒˆ
+    RotateFlag m_rotFlag;           //ã©ã£ã¡ã«å›è»¢ã—ã¦ã„ã‚‹ã‹
+    bool m_isDepath;        // é¢æƒ…å ±ã‚’å–å¾—ã—ç›´ã™ãƒ•ãƒ©ã‚°
     public PlayerController_iwata PController;
-    Vector3 RotVectorX;
+    public GameManager GM;
+    static int num = 0;
+    Vector3 AxisRotX;
+    Vector3 AxisRotY;
+    [SerializeField] GameObject m_AttachJank;
 
-    //[SerializeReference] AudioClip m_RotSound;  //ƒI[ƒfƒBƒIƒtƒ@ƒCƒ‹‚Ìî•ñ
-    //AudioSource audioSource;    //Ä¶‚·‚é‚½‚ß‚Ìƒnƒ“ƒhƒ‹
+    //[SerializeReference] AudioClip m_RotSound;  //ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ•ã‚¡ã‚¤ãƒ«ã®æƒ…å ±
+    //AudioSource audioSource;    //å†ç”Ÿã™ã‚‹ãŸã‚ã®ãƒãƒ³ãƒ‰ãƒ«
 
     // Start is called before the first frame update
     void Start()
     {
-        m_attachFaces = GetAttachFace();	// ‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğæ“¾
-        m_SelectFaceNum = 0;
-        m_rotateY = m_rotateX = 0.0f;
-        m_lateY = m_lateX = 0.0f;
+        AxisRotY = this.transform.right;        //ç¸¦å›è»¢ã™ã‚‹ãŸã‚ã®è»¸ç™»éŒ²
+        AxisRotX = this.transform.up;           //æ¨ªé–‹åº—ã™ã‚‹ãŸã‚ã®è»¸ç™»éŒ²
+        
+        m_rotateY = m_rotateX = 0.0f;       //è§’åº¦åˆæœŸåŒ–
+        m_lateY = m_lateX = 0.0f;       //é…å»¶è§’åº¦åˆæœŸåŒ–
 
-        // ‰ñ“]ŠÔ‚ğŒvZ
+        // å›è»¢æ™‚é–“ã‚’è¨ˆç®—
         m_timeToRotate = (int)(Mathf.Log(0.00001f) / Mathf.Log(1.0f - DAMPING_RATE));
-
-        //‘I‚Î‚ê‚Ä‚¢‚éCore‚ğ‘å‚«‚­‚·‚é
-        //EnlargeSizeCore();
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-
-
-        //ÄŒŸõ‚ª•K—v‚È‚É—§‚Ä‚éFlag‚ğİ’è
+        
+        //å†æ¤œç´¢ãŒå¿…è¦ãªæ™‚ã«ç«‹ã¦ã‚‹Flagã‚’è¨­å®š
         m_isDepath = false;
 
         m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
-
-        RotVectorX = this.transform.up;
-
+        
         //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //--- ‰ñ“]’†
+        //--- å›è»¢ä¸­
         if (m_rotateFrameCnt > 0)
         {
-            RotateCore();   // ‰ñ“]ˆ—			
+            RotateCore();   // å›è»¢å‡¦ç†			
             return;
         }
 
-        if (m_isDepath)
-        {
-            ResetAttachFace();
-        }
-    }
-
-    private void ResetAttachFace()
-    {
-        m_attachFaces = GetAttachFace();    // Ÿ‚Ì‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğæ“¾
-
-        if (m_SelectFaceNum > m_attachFaces.Count - 1)
-        {
-            m_SelectFaceNum = 0;
-        }
-
-        // ‘I‘ğ’†‚Ì–Ê‚ğ‘å‚«‚­‹¦’²‚·‚é
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-
-        m_isDepath = false;
+        //if (m_isDepath)
+        //{
+        //    ResetAttachFace();
+        //}
     }
 
     List<AttachFace> GetAttachFace()
     {
-        // –Ê‚ÌŠi”[æ‚ğ—pˆÓ
+        // é¢ã®æ ¼ç´å…ˆã‚’ç”¨æ„
         List<AttachFace> attachFaces = new List<AttachFace>();
         AttachFace TempFace = new AttachFace();
 
-        //--- ‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğ‡”Ô‚ÉŠi”[
+        //--- çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’é †ç•ªã«æ ¼ç´
         foreach (Transform child in this.transform)
         {
             //if (child.tag != "Player") continue;
 
-            // è‘O‚ÉL‚Ñ‚éƒŒƒC‚ğ—pˆÓ
+            // ä»®ç½®ãã—ã¦ã„ã‚‹ã‚‚ã®ã¨ä¸€ç·’ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹
+            if (child.gameObject == m_AttachJank) continue;
+
+            // æ‰‹å‰ã«ä¼¸ã³ã‚‹ãƒ¬ã‚¤ã‚’ç”¨æ„
             Ray ray = new Ray(child.position, Vector3.back);
             RaycastHit hit;
 
-            // ‘g‚İ—§‚Ä‚ç‚ê‚È‚¢–Ê‚ÍƒXƒ‹[
-            // è‘O‚É•¨‚ª‚ ‚Á‚½‚çƒXƒLƒbƒv
+            // çµ„ã¿ç«‹ã¦ã‚‰ã‚Œãªã„é¢ã¯ã‚¹ãƒ«ãƒ¼
+            // æ‰‹å‰ã«ç‰©ãŒã‚ã£ãŸã‚‰ã‚¹ã‚­ãƒƒãƒ—
             if (Physics.Raycast(ray, out hit, 10.0f)) continue;
+            
 
-            //Transform‚Ìî•ñ“o˜^
+            //Transformã®æƒ…å ±ç™»éŒ²
             TempFace.Trans = child;
 
-            //ƒAƒ^ƒbƒ`‚Å‚«‚é–Ê‚©‚ğ”»’f‚·‚éƒtƒ‰ƒO‚ğŠi”[
+            //ã‚¢ã‚¿ãƒƒãƒã§ãã‚‹é¢ã‹ã‚’åˆ¤æ–­ã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’æ ¼ç´
             if(!child.GetComponent<IsAttachFace_iwata>())
             {
                 TempFace.isAttach = true;
@@ -131,7 +121,7 @@ public class CoreSetting_iwata : MonoBehaviour
                 TempFace.isAttach = child.GetComponent<IsAttachFace_iwata>().CanAttach(Vector3.back);
             }
 
-            //æ‚èŠO‚¹‚é–Ê‚©‚ğ”»’f‚·‚éƒtƒ‰ƒO‚ğŠi”[
+            //å–ã‚Šå¤–ã›ã‚‹é¢ã‹ã‚’åˆ¤æ–­ã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’æ ¼ç´
             if(child.name.Contains("Core_Child"))
             {
                 TempFace.isRelease = false;
@@ -141,19 +131,20 @@ public class CoreSetting_iwata : MonoBehaviour
                 TempFace.isRelease = true;
             }
 
-            attachFaces.Add(TempFace); // –Ê‚ğŠi”[
+            Debug.Log(TempFace.Trans.name);
+            attachFaces.Add(TempFace); // é¢ã‚’æ ¼ç´
         }
 
-        //--- ƒ\[ƒg
+        //--- ã‚½ãƒ¼ãƒˆ
         attachFaces.Sort((a, b) => {
             if (Mathf.Abs(a.Trans.position.y - b.Trans.position.y) > 0.75f)
             {
-                // YÀ•W‚ªˆÙ‚È‚éê‡‚ÍYÀ•W‚Å”äŠr‚·‚é
+                // Yåº§æ¨™ãŒç•°ãªã‚‹å ´åˆã¯Yåº§æ¨™ã§æ¯”è¼ƒã™ã‚‹
                 return b.Trans.position.y.CompareTo(a.Trans.position.y);
             }
             else
             {
-                // YÀ•W‚ª“¯‚¶ê‡‚ÍXÀ•W‚Å”äŠr‚·‚é
+                // Yåº§æ¨™ãŒåŒã˜å ´åˆã¯Xåº§æ¨™ã§æ¯”è¼ƒã™ã‚‹
                 return a.Trans.position.x.CompareTo(b.Trans.position.x);
             }
         });
@@ -161,262 +152,199 @@ public class CoreSetting_iwata : MonoBehaviour
         return attachFaces;
     }
 
-    //void EnlargeSizeCore()
-    //{
-    //    m_attachFaces[m_SelectFaceNum].Trans.localScale *= ENLARGE_SiZE;
-    //}
-
-    //void UndoSizeCore()
-    //{
-    //    m_attachFaces[m_SelectFaceNum].Trans.localScale = m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().OrizinSize;
-    //}
-
-    public void ChangeFaceX(float axis)
-    {
-        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
-        pos.x += axis;
-        for(int i = 0; i < m_attachFaces.Count; i++)
-        {
-            //--- Œ»İ‚Ì–Ê‚ÆŸ‚Ì–Ê‚ÌXYÀ•W‚ğVector2‚ÉŠi”[
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
-            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
-
-            //Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + ":" + m_attachFaces[i].Trans.name + " = " + Vector2.Distance(currentFacePos, newxtFacePos) + "(" + (bool)!(Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) + ")");
-
-            // XY•½–Ê‚Å‚Ì‹——£‚ª—£‚ê‚·‚¬‚Ä‚¢‚½‚çƒXƒ‹[
-            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
-
-            m_SelectFaceNum = i;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-            return;
-        }
-
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        m_rotateY += ROTATION * (int)axis;  // Šp“x‚ğİ’è
-        m_rotateFrameCnt = 1;	// Å‰‚ÌƒJƒEƒ“ƒg
-        if(axis < 0)
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_M;
-            Debug.Log("XM");
-        }
-        else
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_X_P;
-            Debug.Log("XP");
-        }
-        m_isDepath = true;
-        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-        //audioSource.PlayOneShot(m_RotSound);    //SE‚ÌÄ¶
-    }
-
-    public void ChangeFaceY(float axis)
-    {
-        this.transform.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-        Vector3 pos = m_attachFaces[m_SelectFaceNum].Trans.position;
-        pos.y += axis;
-        for (int i = 0; i < m_attachFaces.Count; i++)
-        {
-            //--- Œ»İ‚Ì–Ê‚ÆŸ‚Ì–Ê‚ÌXYÀ•W‚ğVector2‚ÉŠi”[
-            Vector2 currentFacePos = new Vector2(m_attachFaces[i].Trans.position.x, m_attachFaces[i].Trans.position.y);
-            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
-
-            // XY•½–Ê‚Å‚Ì‹——£‚ª—£‚ê‚·‚¬‚Ä‚¢‚½‚çƒXƒ‹[
-            if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
-
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-            m_SelectFaceNum = i;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();
-            this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-            return;
-        }
-
-        m_rotateX -= ROTATION * (int)axis;  // Šp“x‚ğİ’è
-        m_rotateFrameCnt = 1;   // Å‰‚ÌƒJƒEƒ“ƒg
-        if (axis < 0)
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_M;
-            Debug.Log("YM");
-        }
-        else
-        {
-            m_rotFlag = RotateFlag.E_ROTATE_FLAG_Y_P;
-            Debug.Log("YP");
-        }
-        m_isDepath = true;
-        this.transform.Rotate(10.0f, 0.0f, 0.0f, Space.World);
-        //audioSource.PlayOneShot(m_RotSound);    //SE‚ÌÄ¶
-    }
-
-    //Core‚ğ‰ñ“]‚³‚ê‚é
+    /// <summary>
+    /// é€šå¸¸ã®ã‚³ã‚¢ã®å›è»¢
+    /// </summary>
     void RotateCore()
     {
         float lastY = m_lateY;
         float lastX = m_lateX;
 
-        //--- ’x‰„ˆ—
+        //--- é…å»¶å‡¦ç†
         m_lateY = (m_rotateY - m_lateY) * DAMPING_RATE + m_lateY;
         m_lateX = (m_rotateX - m_lateX) * DAMPING_RATE + m_lateX;
 
-        //--- À•WŒvZ
-        this.transform.Rotate(RotVectorX, m_lateY - lastY, Space.World);
-        this.transform.Rotate(Vector3.right, m_lateX - lastX, Space.World);
+        transform.RotateAround(transform.position, AxisRotX, m_lateY - lastY);
+        transform.RotateAround(transform.position, AxisRotY, m_lateX - lastX);
 
-        m_rotateFrameCnt++; // ‰ñ“]ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg
+        m_rotateFrameCnt++; // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆ
 
-        //--- ‰ñ“]I—¹‚Ìˆ—
+        //--- å›è»¢çµ‚äº†æ™‚ã®å‡¦ç†
         if (m_rotateFrameCnt > m_timeToRotate)
         {
-            //Transform RotStack = m_attachFaces[m_SelectFaceNum].Trans;
+            transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), 0));
 
-            m_attachFaces = GetAttachFace();    // Ÿ‚Ì‘g‚İ—§‚Ä‚ç‚ê‚é–Ê‚ğæ“¾
-            m_rotateFrameCnt = 0;   // ‰ñ“]ƒtƒŒ[ƒ€‚ğƒŠƒZƒbƒg
+            m_rotateFrameCnt = 0;   // å›è»¢ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒªã‚»ãƒƒãƒˆ
+            if (m_rotFlag == RotateFlag.E_ROTATE_FLAG_NULL) return;
 
-            //m_SelectFaceNum = m_attachFaces.FindIndex(x => x.Trans == RotStack);
+            m_AttachFaces = GetAttachFace();    // æ¬¡ã®çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’å–å¾—
+            float hogepos;      //åŸºæº–ã«ãªã‚‹ãŸã‚ã®åº§æ¨™
+            int nextnum = 0;    //å›è»¢å¾Œã®é¸æŠé¢ã®æ·»ãˆå­—ã‚’æ¤œç´¢ç”¨
 
-            //-------------------‰ñ“]‚µ‚½‚ ‚ÆÅ‰‚É‘I‘ğ‚³‚ê‚é–Ê‚ğm_rotFlag‚Å”»•Ê‚·‚é
-            //m_SelectFaceNum = 0;    // ‘I‘ğ–Ê‚Ì”Ô†‚ğƒŠƒZƒbƒg
-
-            float hogepos;
-            int nextnum = 0;
-            List<int> selectnum = new List<int>();
-
-
+            //å›è»¢ã®å‘ãã«å¿œã˜ãŸå‡¦ç†ã‚’è¡Œã†
             switch (m_rotFlag)
             {
-                case RotateFlag.E_ROTATE_FLAG_X_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    Debug.Log("target:" + hogepos);
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_R:        //å³ã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //åŸºæº–ã®Yè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos));
-
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
-
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.x >= m_attachFaces[i].Trans.position.x) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Yåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
+                        Debug.Log(m_AttachFaces[nextnum].Trans.name + ":" + m_AttachFaces[nextnum].Trans.position.x);
+                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + m_AttachFaces[i].Trans.position.x);
+                        if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[i].Trans.position.x) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå³ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(0.0f, -90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_X_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.y;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_L:        //å·¦ã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //åŸºæº–ã®Yè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        //if (m_attachFaces[i].Trans.position.y != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.x <= m_attachFaces[i].Trans.position.x) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Yåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
+                        if (m_AttachFaces[nextnum].Trans.position.x < m_AttachFaces[i].Trans.position.x) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå·¦ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(0.0f, 90.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_Y_P:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_U:        //ä¸Šã«å›è»¢ã™ã‚‹
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //åŸºæº–ã®Xè»¸ã®åº§æ¨™ã‚’å–å¾—
+                    for (int i = 0; i < m_AttachFaces.Count; i++)       //å€™è£œã®é¢ã‚’ã™ã¹ã¦æ¤œç´¢ã™ã‚‹
                     {
-                        Debug.Log(m_attachFaces[i].Trans.name + ":" + Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos));
-
-
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y >= m_attachFaces[i].Trans.position.y) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //æ¤œç´¢ã—ãŸé¢ã¨åŸºæº–ã®Xåº§æ¨™ã‚’æ¯”è¼ƒã™ã‚‹
+                        if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //ä»Šã®å€™è£œã®é¢ã®åº§æ¨™ã‚ˆã‚Šå·¦ã«æ¤œç´¢ã—ãŸé¢ãŒã‚ã‚‹ãªã‚‰å€™è£œã‚’å¤‰ãˆã‚‹
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
                     break;
 
-                case RotateFlag.E_ROTATE_FLAG_Y_M:
-                    hogepos = m_attachFaces[m_SelectFaceNum].Trans.position.x;
-                    for (int i = 0; i < m_attachFaces.Count; i++)
+                case RotateFlag.E_ROTATE_FLAG_D:
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x;
+                    for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        //if (m_attachFaces[i].Trans.position.x != hogepos) continue;
-                        if (Mathf.Abs(m_attachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
-
-                        selectnum.Add(i);
-
-                        if (m_attachFaces[nextnum].Trans.position.y <= m_attachFaces[i].Trans.position.y) nextnum = i;
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;
+                        
+                        if (m_AttachFaces[nextnum].Trans.position.y < m_AttachFaces[i].Trans.position.y) nextnum = i;
                     }
-                    foreach (int child in selectnum)
-                    {
-                        Debug.Log(child);
-                    }
+                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
                     break;
             }
-
-
+            
             m_SelectFaceNum = nextnum;
+            m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
 
             //---------------------
 
             m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().PickupSize();   // Œ»İ‚Ì–Ê‚ğ‹¦’²
         }
     }
 
-    public bool AttachCore(GameObject obj)
+    /// <summary>
+    /// å…¥åŠ›ã®å¯¾ã—ã¦ã®ã‚³ã‚¢ã®å‡¦ç†
+    /// </summary>
+    /// <param name="axisX">æ¨ªå…¥åŠ›</param>
+    /// <param name="axisY">ç¸¦å…¥åŠ›</param>
+    public void InputAxisCore(int axisX, int axisY)
     {
-        if(m_attachFaces[m_SelectFaceNum].isAttach)
-        {//‘g‚İ—§‚Ä‚éˆ—
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
-            obj.GetComponent<JointJank_iwata>().JointJanktoCore(m_attachFaces[m_SelectFaceNum].Trans);
-            m_isDepath = true;
-            return true;
+        if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
+        {
+            m_rotateY += ROTATION * axisX;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateX += ROTATION * axisY;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateFrameCnt = 1;	// æœ€åˆã®ã‚«ã‚¦ãƒ³ãƒˆ
+        }
+        else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
+        {
+            Vector3 pos = m_AttachFaces[m_SelectFaceNum].Trans.position;
+            pos.x += axisX;
+            pos.y += axisY;
+            for (int i = 0; i < m_AttachFaces.Count; i++)
+            {
+                //--- ç¾åœ¨ã®é¢ã¨æ¬¡ã®é¢ã®XYåº§æ¨™ã‚’Vector2ã«æ ¼ç´
+                Vector2 currentFacePos = new Vector2(m_AttachFaces[i].Trans.position.x, m_AttachFaces[i].Trans.position.y);
+                Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
+
+                // XYå¹³é¢ã§ã®è·é›¢ãŒé›¢ã‚Œã™ãã¦ã„ãŸã‚‰ã‚¹ãƒ«ãƒ¼
+                if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
+                
+                m_SelectFaceNum = i;
+                m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[i].Trans, this.transform);
+                return;
+            }
+
+            m_rotateY += ROTATION * (int)axisX;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateX -= ROTATION * (int)axisY;  // è§’åº¦ã‚’è¨­å®š
+            m_rotateFrameCnt = 1;   // æœ€åˆã®ã‚«ã‚¦ãƒ³ãƒˆ
+            if (axisX < 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_L;
+                Debug.Log("L");
+            }
+            else if(axisX > 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_R;
+                Debug.Log("R");
+            }
+            else if (axisY < 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_D;
+                Debug.Log("D");
+            }
+            else if(axisY > 0)
+            {
+                m_rotFlag = RotateFlag.E_ROTATE_FLAG_U;
+                Debug.Log("U");
+            }
+            //m_isDepath = true;
+        }
+    }
+
+    /// <summary>
+    /// ã‚«ãƒ¼ã‚½ãƒ«ã§é¸æŠã•ã‚ŒãŸã‚¬ãƒ©ã‚¯ã‚¿ã‚’ã‚³ã‚¢ã«é…ç½®ã™ã‚‹
+    /// </summary>
+    /// <param name="jank">ã‚«ãƒ¼ã‚½ãƒ«ã§é¸æŠã•ã‚ŒãŸã‚¬ãƒ©ã‚¯ã‚¿ã®æƒ…å ±</param>
+    public void PutJank(GameObject jank)
+    {
+        m_AttachFaces = GetAttachFace();    // æ¬¡ã®çµ„ã¿ç«‹ã¦ã‚‰ã‚Œã‚‹é¢ã‚’å–å¾—
+        m_SelectFaceNum = 0;        //é¸æŠã—ã¦ã„ã‚‹å ´æ‰€ã‚’å·¦ä¸Šã«åˆæœŸåŒ–
+        m_AttachJank = jank;        //ä»®ç½®ãã•ã‚Œã¦ã„ã‚‹ã‚¬ãƒ©ã‚¯ã‚¿ã‚’ç™»éŒ²
+        m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ã‚¬ãƒ©ã‚¯ã‚¿ã®ä»®ç½®ãã®å‡¦ç†
+    }
+
+    public void JointCore()
+    {
+        if(true)
+        {
+            m_AttachJank.GetComponent<JankBase_iwata>().Orizin.SetActive(false);
+            m_AttachJank = null;
+            m_AttachFaces.Clear();
+            m_SelectFaceNum = 0;
         }
         else
-        {//‘g‚İ—§‚Ä‚ç‚ê‚È‚©‚Á‚½‚Æ‚«‚É–Â‚ç‚·SE
-            Debug.Log("‘g‚ß‚È‚¢‚æI");
-            return false;
+        {
+
         }
     }
 
     public void ReleaseCore()
     {
-        if(m_attachFaces[m_SelectFaceNum].isRelease)
+        if(m_AttachFaces[m_SelectFaceNum].isRelease)
         {
-            //ŠO‚·ˆ—
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "ŠO‚µ‚½");
-            m_attachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
+            //å¤–ã™å‡¦ç†
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "å¤–ã—ãŸ");
+            m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<SpownJank_iwata>().RemoveCore();
             m_isDepath = true;
         }
         else
         {
-            //ŠO‚¹‚È‚©‚Á‚½‚Æ‚«‚É–Â‚ç‚·SE
-            Debug.Log(m_attachFaces[m_SelectFaceNum].Trans.name + "ŠO‚¹‚È‚¢");
+            //å¤–ã›ãªã‹ã£ãŸã¨ãã«é³´ã‚‰ã™SE
+            Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.name + "å¤–ã›ãªã„");
         }
     }
 
     public void JointToRot()
     {
-        m_attachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().UndoSize();
+        num++;
         GameObject clone = Instantiate(this.gameObject, new Vector3(-9.0f, 1.5f, -9.0f), Quaternion.identity);
-        Destroy(clone.GetComponent<CoreSetting_iwata>());
         clone.AddComponent<RotationCore>();
-        PController.CoreClone = clone;
-        //this.transform.position = new Vector3(-9.0f, 1.5f, -9.0f);
-        //foreach (Transform child in this.transform)
-        //{
-        //    child.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotationY;
-        //}
+        clone.AddComponent<CloneCoreMove>();
     }
 
     public void RotToJoint()
@@ -438,7 +366,7 @@ public class CoreSetting_iwata : MonoBehaviour
         }
     }
 
-    public void PlayToRot()
+    public void PlayToJoint()
     {
         m_isDepath = true;
         this.transform.position = new Vector3(-4.0f, 11.0f, -38.0f);
@@ -447,5 +375,16 @@ public class CoreSetting_iwata : MonoBehaviour
         {
             child.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
+    }
+
+    public void PlayToRot()
+    {
+        Debug.Log("å›è»¢åˆæœŸåŒ–");
+        this.transform.rotation = Quaternion.identity;
+    }
+
+    public Transform SelectFace
+    {
+        get { return m_AttachFaces[m_SelectFaceNum].Trans; }
     }
 }

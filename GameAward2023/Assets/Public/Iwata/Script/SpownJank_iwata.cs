@@ -24,7 +24,6 @@ public class SpownJank_iwata : MonoBehaviour
         this.transform.parent = GameObject.Find("Jank").transform;
         this.GetComponent<Rigidbody>().constraints &= RigidbodyConstraints.None;
         this.transform.position = StartPos;
-        this.transform.GetComponent<JankStatus>().UndoSize();
     }
 
     public void ReturnJank()

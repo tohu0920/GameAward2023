@@ -24,9 +24,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5727359501281835490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.017, z: -0.044}
-  m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3288895926917132911}
   m_Father: {fileID: 4079942858688015506}
@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8392913908233883798}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.041263, y: -0.022121916, z: 0.060973223}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -127,9 +127,7 @@ GameObject:
   - component: {fileID: 4079942858688015506}
   - component: {fileID: 3212539544337151031}
   - component: {fileID: 6118549887607939438}
-  - component: {fileID: 4867824253088916751}
-  - component: {fileID: 5324903012668627174}
-  - component: {fileID: -4736589105399936312}
+  - component: {fileID: 6112396962029954732}
   m_Layer: 0
   m_Name: MiniCore
   m_TagString: Player
@@ -145,9 +143,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8775677992224322028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.456694, y: 0.997, z: -0.48843622}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4961210620773796363}
   m_Father: {fileID: 0}
@@ -182,7 +180,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4867824253088916751
+--- !u!114 &6112396962029954732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,32 +189,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8775677992224322028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf018ad1660495a458b1a021592eeb1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d67635b3c64b6d4193b443773d82ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartPos: {x: 0, y: 0, z: 0}
---- !u!114 &5324903012668627174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8775677992224322028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5addf12ee7666054dadfb81473b21729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-4736589105399936312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8775677992224322028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 695e5181648f30349b2dd773d1707808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_orizinSize: {x: 0, y: 0, z: 0}
+  AudioMane: {fileID: 0}
+  EffectMane: {fileID: 0}
+  m_colliderFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
+  m_collisionFlags:
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
+    m_plusY: 1
+    m_minusY: 1
+  m_StartPos: {x: 0, y: 0, z: 0}
+  m_StartRot: {x: 0, y: 0, z: 0, w: 0}
+  m_Origin: {fileID: 0}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GameAward2023/Assets/Public/Ito/Ito_GameObject/PoseItem/Ito_PoseImage/B.png.meta
 guid: 87e8456663856e54fbd426aee961ddba
+========
+guid: 7e46ede8aeca62846a8c0a18b1dc62a9
+>>>>>>>> main:GameAward2023/Assets/Public/Ito/Ito_GameObject/PoseItem/NewImage/NewOptionImage/BGM1.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

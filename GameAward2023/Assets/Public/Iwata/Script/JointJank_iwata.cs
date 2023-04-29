@@ -22,6 +22,8 @@ public class JointJank_iwata : MonoBehaviour
         
         this.transform.parent = null;
 
+        this.transform.rotation = Quaternion.identity;
+
         Transform CoreTrans = trans.parent;
         CoreTrans.Rotate(-10.0f, 0.0f, 0.0f, Space.World);
         this.transform.parent = CoreTrans;
@@ -32,6 +34,8 @@ public class JointJank_iwata : MonoBehaviour
         pos.z -= ChildTrans.localScale.z / 2.0f;
         pos.z -= this.transform.localScale.z / 2.0f;
         this.transform.position = pos;
+
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
 
         CoreTrans.Rotate(10.0f, 0.0f, 0.0f, Space.World);
 
