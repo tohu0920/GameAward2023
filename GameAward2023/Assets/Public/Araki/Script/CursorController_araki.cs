@@ -51,7 +51,7 @@ public class CursorController_araki : MonoBehaviour
 
 		//--- ‰æ–ÊŠO‚Éo‚Ä‚¢‚­‚Ì‚ð–h‚®(¶‰æ–Ê‚Ì‚ÝˆÚ“®‰Â”\)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
-		if (pos.x < 0.0f)				  pos.x = 0.0f;
+		if (pos.x < -Screen.width / 2.0f) pos.x = -Screen.width / 2.0f;
 		if (pos.y >  Screen.height / 2.0f) pos.y =  Screen.height / 2.0f;
 		if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
 
