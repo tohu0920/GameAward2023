@@ -17,29 +17,29 @@ public class PlayerControllerCopy: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//--- Aボタンを押したら
-		if (Input.GetKeyDown(KeyCode.JoystickButton0))
-		{
-			//--- プレビューが有効でない場合のみ選択可能
-			if (!m_previewController.Active)
-			{
-				// 判定用のレイを用意
-				Ray ray = CursorController.GetCameraToRay();
-				RaycastHit hit;
+		////--- Aボタンを押したら
+		//if (Input.GetKeyDown(KeyCode.JoystickButton0))
+		//{
+		//	//--- プレビューが有効でない場合のみ選択可能
+		//	if (!m_previewController.Active)
+		//	{
+		//		// 判定用のレイを用意
+		//		Ray ray = CursorController.GetCameraToRay();
+		//		RaycastHit hit;
 
-				if (Physics.Raycast(ray, out hit))
-				{
-					// ガラクタではないならスルー
-					if (hit.transform.tag != "Junk") return;
+		//		if (Physics.Raycast(ray, out hit))
+		//		{
+		//			// ガラクタではないならスルー
+		//			if (hit.transform.tag != "Junk") return;
 
-					// プレビューを有効化
-					m_previewController.Active = true;
-					m_previewController.TargetFace.AttachJunk(hit.transform.gameObject);
+		//			// プレビューを有効化
+		//			m_previewController.Active = true;
+		//			m_previewController.TargetFace.AttachJunk(hit.transform.gameObject);
 
-					m_seController.PlaySe("Select");
-				}
-			}
-		}
+		//			m_seController.PlaySe("Select");
+		//		}
+		//	}
+		//}
 
 		//--- Bボタンを押したら
 		if (Input.GetKeyDown(KeyCode.JoystickButton1))

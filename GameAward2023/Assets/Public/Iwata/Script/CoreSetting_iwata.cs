@@ -46,6 +46,7 @@ public class CoreSetting_iwata : ObjectBase
     [SerializeField] PlayerController_iwata PController;
     [SerializeField] GameManager GM;
     [SerializeField] GameObject m_AttachJank;
+    [SerializeField] float m_BreakForce = 1500.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -161,7 +162,6 @@ public class CoreSetting_iwata : ObjectBase
         //--- 回転終了時の処理
         if (m_rotateFrameCnt > m_timeToRotate)
         {
-            Debug.Log(Mathf.Round(this.transform.rotation.eulerAngles.y));
             transform.rotation = Quaternion.Euler(new Vector3(Mathf.Round(this.transform.rotation.eulerAngles.x), Mathf.Round(this.transform.rotation.eulerAngles.y), Mathf.Round(this.transform.rotation.eulerAngles.z)));
 
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
@@ -243,23 +243,29 @@ public class CoreSetting_iwata : ObjectBase
         }
         else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
         {
+            this.transform.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
             Vector3 pos = m_AttachFaces[m_SelectFaceNum].Trans.position;
             pos.x += axisX;
             pos.y += axisY;
+            Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
             for (int i = 0; i < m_AttachFaces.Count; i++)
             {
                 //--- 現在の面と次の面のXY座標をVector2に格納
                 Vector2 currentFacePos = new Vector2(m_AttachFaces[i].Trans.position.x, m_AttachFaces[i].Trans.position.y);
-                Vector2 newxtFacePos = new Vector2(pos.x, pos.y);
 
                 // XY平面での距離が離れすぎていたらスルー
                 if (Vector2.Distance(currentFacePos, newxtFacePos) > 0.05f) continue;
                 
+                this.transform.Rotate(0.0f, 10.0f, 0.0f, Space.World);      //コアの傾きをもとに戻す
+
                 m_SelectFaceNum = i;
                 m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[i].Trans, this.transform);
                 CheckCanAttach();
+                
                 return;
             }
+            
+            this.transform.Rotate(0.0f, 10.0f, 0.0f, Space.World);      //コアの傾きをもとに戻す
 
             m_rotateY += ROTATION * (int)axisX;  // 角度を設定
             m_rotateX -= ROTATION * (int)axisY;  // 角度を設定
@@ -267,27 +273,26 @@ public class CoreSetting_iwata : ObjectBase
             if (axisX < 0)
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_L;
-                Debug.Log("L");
             }
             else if(axisX > 0)
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_R;
-                Debug.Log("R");
             }
             else if (axisY < 0)
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_D;
-                Debug.Log("D");
             }
             else if(axisY > 0)
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_U;
-                Debug.Log("U");
             }
             //m_isDepath = true;
         }
     }
 
+    /// <summary>
+    /// 組み立てることができるか判定する
+    /// </summary>
     private void CheckCanAttach()
     {
         if(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform) && m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform))
@@ -312,13 +317,21 @@ public class CoreSetting_iwata : ObjectBase
         m_SelectFaceNum = 0;        //選択している場所を左上に初期化
         m_AttachJank = jank;        //仮置きされているガラクタを登録
         m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
+        CheckCanAttach();
     }
 
+    /// <summary>
+    /// 仮置きしているオブジェクトを確定させる
+    /// </summary>
+    /// <returns></returns>
     public bool JointCore()
     {
         if(m_CanAttach)
         {
             m_AttachJank.GetComponent<JankBase_iwata>().Orizin.SetActive(false);
+            FixedJoint comp = m_AttachJank.AddComponent<FixedJoint>();
+            comp.connectedBody = m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<Rigidbody>();
+            comp.breakForce = m_BreakForce;
             m_AttachJank = null;
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;

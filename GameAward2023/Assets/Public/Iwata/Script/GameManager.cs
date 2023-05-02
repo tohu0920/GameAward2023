@@ -45,10 +45,21 @@ public class GameManager : MonoBehaviour
                             m_PlayStage.gameObject.SetActive(true);
                             Vector3 startpos = m_PlayStage.Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
-                            core.transform.Rotate(0.0f, -10.0f, 0.0f, Space.Self);
+                            // オブジェクトの回転角度を取得する
+                            Quaternion currentRotation = core.transform.rotation;
+
+                            // オブジェクトをY軸周りに回転させる
+                            Quaternion targetRotation = Quaternion.AngleAxis(-10.0f, Vector3.up) * currentRotation;
+
+                            // オブジェクトの回転を適用する
+                            core.transform.rotation = targetRotation;
+
+
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
+                            core.GetComponent<Core_Playing>().StartRot = targetRotation;
+                            core.GetComponent<Core_Playing>().StartFlag = true;
                             break;
                     }
                     break;
@@ -58,6 +69,7 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_JOINT:
                             m_JointStage.gameObject.SetActive(true);
                             m_PlayStage.gameObject.SetActive(false);
+                            m_PlayStage.Find("Core(Clone)").GetComponent<Core_Playing>().ResetPlayCore();
                             Destroy(m_PlayStage.Find("Core(Clone)").gameObject);
                             break;
                         case eGameStatus.E_GAME_STATUS_PLAY:
@@ -79,6 +91,7 @@ public class GameManager : MonoBehaviour
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
+                            core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
                             break;
 
                     }
