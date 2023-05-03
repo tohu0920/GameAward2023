@@ -15,7 +15,8 @@ public class CursorController_araki : MonoBehaviour
 {
 	static RectTransform m_rectTransform;	// カーソルの座標情報
 	GameObject m_lastPointJunk;	// 前フレームで指していたガラクタのデータ
-	GameObject m_previewJunk;	// プレビュー用ガラクタのデータ
+	GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
+	[SerializeReference]PreviewCamera_araki m_previreCamera;
 
 	// Start is called before the first frame update
 	void Start()
@@ -32,13 +33,23 @@ public class CursorController_araki : MonoBehaviour
 		switch (CheckRayHitState())
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				Debug.Log("作成");
-				m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
-					new Vector3(1000.0f, 5.0f, 6.5f), Quaternion.identity);
+				m_previreCamera.StartNoise();	// ノイズを再生		
 				break;
-			case E_RAY_HIT_STATE.EXIT:	// 離れた瞬間
+			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
+				m_previreCamera.EndPreview();
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
+				break;
+			case E_RAY_HIT_STATE.STAY:
+				if (!m_previreCamera.isEndNoise) break;
+
+				//--- ノイズが終わったらガラクタを生成
+				m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
+					new Vector3(1114.4f, 0.0f, 2.5f), Quaternion.identity);
+				// 動作を固定
+				m_previewJunk.GetComponent<Rigidbody>().constraints
+					= RigidbodyConstraints.FreezeAll;
+				m_previewJunk.AddComponent<PreviewJunk_araki>();
 				break;
 			default:    // 上記以外の場合は処理しない
 				break;
@@ -51,7 +62,7 @@ public class CursorController_araki : MonoBehaviour
 
 		//--- 画面外に出ていくのを防ぐ(左画面のみ移動可能)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
-		if (pos.x < 0.0f)				  pos.x = 0.0f;
+		if (pos.x < -Screen.width / 2.0f) pos.x = -Screen.width / 2.0f;
 		if (pos.y >  Screen.height / 2.0f) pos.y =  Screen.height / 2.0f;
 		if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
 

@@ -30,7 +30,5 @@ public class Jet : JankBase_iwata
 
        //ジェットの炎のエフェクト表示
        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);
-        
-
     }
 }

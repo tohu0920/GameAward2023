@@ -20,10 +20,10 @@ public class CursorController : MonoBehaviour
 		Vector2 pos = m_rectTransform.anchoredPosition;
 		pos.x += Input.GetAxisRaw("Horizontal_R") * 7.5f;
 		pos.y += Input.GetAxisRaw("Vertical_R") * 7.5f;
-        if (Input.GetKey(KeyCode.J)) pos.x -= 7.5f;
-        if (Input.GetKey(KeyCode.L)) pos.x += 7.5f;
-        if (Input.GetKey(KeyCode.I)) pos.y += 7.5f;
-        if (Input.GetKey(KeyCode.K)) pos.y -= 7.5f;
+        //if (Input.GetKey(KeyCode.J)) pos.x -= 7.5f;
+        //if (Input.GetKey(KeyCode.L)) pos.x += 7.5f;
+        //if (Input.GetKey(KeyCode.I)) pos.y += 7.5f;
+        //if (Input.GetKey(KeyCode.K)) pos.y -= 7.5f;
 
 		//--- 画面外に出ていくのを防ぐ(左画面のみ移動可能)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
