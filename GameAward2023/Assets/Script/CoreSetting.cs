@@ -114,7 +114,7 @@ public class CoreSetting : MonoBehaviour
 	{
 		int lastSelectFaceNum = m_selectFaceNum;	// ‰ß‹‚Ì‘I‘ğ–Ê”Ô†‚ğŠi”[
 
-		float axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");         // ‰¡‚ÉˆÚ“®
+		float axisX = AxisInput.GetAxisRawRepeat("Horizontal");         // ‰¡‚ÉˆÚ“®
 
 		//--- ‰¡‚É“ü—Í‚ª‚ ‚Á‚½‚Ì‚İˆ—
 		if (axisX != 0)

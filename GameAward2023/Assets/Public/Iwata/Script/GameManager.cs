@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //ƒQ[ƒ€‚Ìó‘Ô‚Ìƒtƒ‰ƒO
+    //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®ãƒ•ãƒ©ã‚°
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -17,17 +17,17 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //ƒvƒŒƒC—p‚ÌŠÂ‹«
-    [SerializeField] private Transform m_JointStage;       //‘g‚İ—§‚Ä—p‚ÌŠÂ‹«
+    [SerializeField] private Transform m_PlayStage;        //ãƒ—ãƒ¬ã‚¤ç”¨ã®ç’°å¢ƒ
+    [SerializeField] private Transform m_JointStage;       //çµ„ã¿ç«‹ã¦ç”¨ã®ç’°å¢ƒ
 
-    [SerializeField] private eGameStatus m_GameStatus;  //ƒQ[ƒ€‚Ìó‘Ô
-    [SerializeField] private eGameStatus m_lastGameStatus;  //ƒQ[ƒ€‚Ìó‘Ô
+    [SerializeField] private eGameStatus m_GameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
+    [SerializeField] private eGameStatus m_lastGameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ƒQ[ƒ€‚Ìó‘Ô‚Ì‰Šú‰»
-        m_lastGameStatus = m_GameStatus;                    //‘OƒtƒŒ[ƒ€‚Ìó‘Ô‚ğ•Û
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®åˆæœŸåŒ–
+        m_lastGameStatus = m_GameStatus;                    //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’ä¿æŒ
     }
 
     // Update is called once per frame

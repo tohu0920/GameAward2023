@@ -16,7 +16,7 @@ public class CursorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//--- ˆÚ“®ˆ—
+		//--- ç§»å‹•å‡¦ç†
 		Vector2 pos = m_rectTransform.anchoredPosition;
 		pos.x += Input.GetAxisRaw("Horizontal_R") * 7.5f;
 		pos.y += Input.GetAxisRaw("Vertical_R") * 7.5f;
@@ -25,18 +25,18 @@ public class CursorController : MonoBehaviour
         //if (Input.GetKey(KeyCode.I)) pos.y += 7.5f;
         //if (Input.GetKey(KeyCode.K)) pos.y -= 7.5f;
 
-		//--- ‰æ–ÊŠO‚Éo‚Ä‚¢‚­‚Ì‚ð–h‚®(¶‰æ–Ê‚Ì‚ÝˆÚ“®‰Â”\)
+		//--- ç”»é¢å¤–ã«å‡ºã¦ã„ãã®ã‚’é˜²ã(å·¦ç”»é¢ã®ã¿ç§»å‹•å¯èƒ½)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
 		if (pos.x < 0.0f)				  pos.x = 0.0f;
 		if (pos.y >  Screen.height / 2.0f) pos.y =  Screen.height / 2.0f;
 		if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
 
-		m_rectTransform.anchoredPosition = pos;	// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ðŠm’è
+		m_rectTransform.anchoredPosition = pos;	// ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’ç¢ºå®š
 	}
 
 	public static Ray GetCameraToRay(GameObject cam)
 	{
-        // ƒJƒƒ‰¨ƒJ[ƒ\ƒ‹(ƒ[ƒ‹ƒhÀ•WŒn)‚ÌƒŒƒC‚ðŽæ“¾
+        // ã‚«ãƒ¡ãƒ©â†’ã‚«ãƒ¼ã‚½ãƒ«(ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»)ã®ãƒ¬ã‚¤ã‚’å–å¾—
 		Vector2 pos = m_rectTransform.anchoredPosition;
         Camera camdata = cam.GetComponent<Camera>();
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
