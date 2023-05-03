@@ -19,8 +19,13 @@ public class Goal : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.root.name != "Core") return;
+        Debug.Log("Ç‘Ç¬Ç©Ç¡ÇΩ" + collision.transform.name);
 
-		SceneManager.LoadScene("GameScene");
+		if (collision.transform.name.Contains("Core_Child"))
+        {
+            Debug.Log("ÉSÅ[ÉãÇµÇΩ");
+            SceneManager.LoadScene("GameScene_v2.0");
+        }
+
 	}
 }
