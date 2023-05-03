@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //ゲームの状態のフラグ
+    //ゲームの状態�Eフラグ
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -17,16 +17,16 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //プレイ用の環境
-    [SerializeField] private Transform m_JointStage;       //組み立て用の環境
+    [SerializeField] private Transform m_PlayStage;        //プレイ用の環墁E
+    [SerializeField] private Transform m_JointStage;       //絁E��立て用の環墁E
 
-    [SerializeField] private eGameStatus m_GameStatus;  //ゲームの状態
-    [SerializeField] private eGameStatus m_lastGameStatus;  //ゲームの状態
+    [SerializeField] private eGameStatus m_GameStatus;  //ゲームの状慁E
+    [SerializeField] private eGameStatus m_lastGameStatus;  //ゲームの状慁E
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態の初期化
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態�E初期匁E
         m_lastGameStatus = m_GameStatus;                    //前フレームの状態を保持
     }
 

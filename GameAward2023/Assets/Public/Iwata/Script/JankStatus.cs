@@ -15,11 +15,11 @@ public class JankStatus : ObjectBase
         public bool m_minusY;
     }
 
-    [Tooltip("ï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O")]
-    [SerializeField] AttachFlag m_colliderFlags;    //ï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+    [Tooltip("E½E½E½Â‚ï¿½E½Ä‚ï¿½E½éï¿½ÉgE½E½E½tE½E½E½O")]
+    [SerializeField] AttachFlag m_colliderFlags;    //E½E½E½Â‚ï¿½E½Ä‚ï¿½E½éï¿½ÉgE½E½E½tE½E½E½O
 
-    [Tooltip("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O")]
-    [SerializeField] AttachFlag m_collisionFlags;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½éï¿½Égï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+    [Tooltip("E½E½E½E½E½E½tE½E½E½éï¿½ÉgE½E½E½tE½E½E½O")]
+    [SerializeField] AttachFlag m_collisionFlags;     //E½E½E½E½E½E½tE½E½E½éï¿½ÉgE½E½E½tE½E½E½O
 
     // Start is called before the first frame update
     protected void Start()

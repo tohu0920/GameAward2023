@@ -6,8 +6,8 @@ public class PlayerControllerCopy: MonoBehaviour
 {
 	[SerializeReference] GameSceneController m_gameSceneController;
 	[SerializeReference] SeController m_seController;
-	[SerializeReference] CoreControllerCopy m_coreController;
-	[SerializeReference] PreviewControllerCopy m_previewController;
+	//[SerializeReference] CoreControllerCopy m_coreController;
+	//[SerializeReference] PreviewControllerCopy m_previewController;
 
     // Start is called before the first frame update
     void Start()
@@ -41,22 +41,22 @@ public class PlayerControllerCopy: MonoBehaviour
 		//	}
 		//}
 
-		//--- Bボタンを押したら
-		if (Input.GetKeyDown(KeyCode.JoystickButton1))
-		{
-			//--- プレビューが有効でない場合のみ切り離し可能
-			if (!m_previewController.Active)
-			{
-				m_coreController.CoreSetting.DetachJunk();
-			}
-		}
+		////--- Bボタンを押したら
+		//if (Input.GetKeyDown(KeyCode.JoystickButton1))
+		//{
+		//	//--- プレビューが有効でない場合のみ切り離し可能
+		//	if (!m_previewController.Active)
+		//	{
+		//		m_coreController.CoreSetting.DetachJunk();
+		//	}
+		//}
 
-		//--- Xボタンを押したら
-		if(Input.GetKeyDown(KeyCode.JoystickButton2) && !m_gameSceneController.IsStart)
-		{
-			//--- 各オブジェクトのスタート処理
-			m_coreController.StartCore();
-			m_gameSceneController.StartStage();
-		}
+		////--- Xボタンを押したら
+		//if(Input.GetKeyDown(KeyCode.JoystickButton2) && !m_gameSceneController.IsStart)
+		//{
+		//	//--- 各オブジェクトのスタート処理
+		//	m_coreController.StartCore();
+		//	m_gameSceneController.StartStage();
+		//}
 	}
 }
