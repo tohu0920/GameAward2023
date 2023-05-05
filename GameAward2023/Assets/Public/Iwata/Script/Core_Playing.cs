@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Core_Playing : MonoBehaviour
+public class Core_Playing : ObjectBase
 {
     [SerializeField] GameManager gm;
     [SerializeField] static Quaternion startRot;
