@@ -20,13 +20,18 @@ public class Jet : JankBase_iwata
     {
        //--- 現在のスピードを取得
        Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
+       Rigidbody center = this.transform.parent.Find("CoreCenter").GetComponent<Rigidbody>();
        float currentSpeed = rigidbody.velocity.magnitude;
 
        // ブースト用のベクトルを計算
        Vector3 boostFoce = this.transform.forward.normalized * m_boostForceRate;
 
-       // 最大速度以下の時のみ処理する
-       if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);	// ブースト処理
+        // 最大速度以下の時のみ処理する
+        if (currentSpeed < m_maxSpeed)
+        {
+            rigidbody.AddForce(boostFoce);	// ブースト処理
+            //center.AddForce(boostFoce);	// ブースト処理
+        } 
 
        //ジェットの炎のエフェクト表示
        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);

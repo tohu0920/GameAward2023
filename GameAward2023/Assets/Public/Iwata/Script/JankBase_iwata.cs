@@ -32,33 +32,6 @@ public abstract class JankBase_iwata : JankStatus
     }
 
     /// <summary>
-    /// ガラクタをコアにつける時のガラクタの処理
-    /// </summary>
-    /// <param name="trans">　つけるコアのトランスフォーム　</param>
-    public void JointJank(Transform trans)
-    {
-        this.transform.parent = null;       //親の登録を解除
-
-        this.transform.rotation = Quaternion.identity;      //回転を初期化
-
-        Transform CoreTrans = trans.parent;     //コアの大元を取得
-        CoreTrans.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
-        this.transform.parent = CoreTrans;      //コアを親として登録する
-
-        Vector3 pos = trans.transform.position;     //付ける面の座標取得
-        pos.z -= trans.localScale.z / 2.0f;     //付ける面の大きさの半分ずらす
-        pos.z -= this.transform.localScale.z / 2.0f;        //自分の半分ずらす
-        this.transform.position = pos;      //ずらして決めた座標に移動する
-
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;        //力が加わっても移動回転しないように固定
-
-        CoreTrans.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
-
-        FixedJoint joint = this.gameObject.AddComponent<FixedJoint>();      //FixrdJointを追加
-        joint.connectedBody = trans.GetComponent<Rigidbody>();      //conenectedBodyにつけた面を登録
-    }
-
-    /// <summary>
     /// 仮置きしたガラクタの処理
     /// </summary>
     /// <param name="trans">選択面の情報</param>
@@ -79,10 +52,98 @@ public abstract class JankBase_iwata : JankStatus
         core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
         this.transform.parent = null;
         Vector3 pos = trans.transform.position;     //付ける面の座標取得
-        pos.z -= trans.localScale.z / 2.0f;     //付ける面の大きさの半分ずらす
-        pos.z -= this.transform.localScale.z / 2.0f;        //自分の半分ずらす
+        BoxCollider thiscollider = GetComponent<BoxCollider>();
+        BoxCollider corecollider = trans.GetComponent<BoxCollider>();
+        float[] dot = new float[3];
+        dot[0] = Vector3.Dot(transform.forward, Vector3.forward);
+        dot[1] = Vector3.Dot(transform.right, Vector3.forward);
+        dot[2] = Vector3.Dot(transform.up, Vector3.forward);
+
+        int nearestValue = 0;
+        float nearestDistance = float.MaxValue;
+        for (int i = 0; i < 3; i++)
+        {
+            float distance = Mathf.Abs(Mathf.Abs(dot[i]) - 1f);
+            if (distance < nearestDistance)
+            {
+                nearestValue = i;
+                nearestDistance = distance;
+            }
+        }
+        switch (nearestValue)
+        {
+            case 0:
+                Debug.Log("Z" + thiscollider.size.z);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.z / 2.0f;        //自分の半分ずらす
+                break;
+            case 1:
+                Debug.Log("X" + thiscollider.size.x);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.x / 2.0f;        //自分の半分ずらす
+                break;
+            case 2:
+                Debug.Log("Y" + thiscollider.size.y);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.y / 2.0f;        //自分の半分ずらす
+                break;
+        }
         this.transform.position = pos;      //ずらして決めた座標に移動する
         this.transform.parent = core;
+        core.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
+    }
+
+    public void RotJank(int axisX, int axisY, Transform core)
+    {
+        Transform trans = core.GetComponent<CoreSetting_iwata>().SelectFace;
+        core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
+        if (axisX != 0)
+        {
+            transform.Rotate(0.0f, 90.0f * axisX, 0.0f, Space.World);
+        }
+        else if(axisY != 0)
+        {
+            transform.Rotate(90.0f * axisY, 0.0f, 0.0f, Space.World);
+        }
+        Vector3 pos = trans.transform.position;     //付ける面の座標取得
+        BoxCollider thiscollider = GetComponent<BoxCollider>();
+        BoxCollider corecollider = trans.GetComponent<BoxCollider>();
+        float[] dot = new float[3];
+        dot[0] = Vector3.Dot(transform.forward, Vector3.forward);
+        dot[1] = Vector3.Dot(transform.right, Vector3.forward);
+        dot[2] = Vector3.Dot(transform.up, Vector3.forward);
+        
+        int nearestValue = 0;
+        float nearestDistance = float.MaxValue;
+        for (int i = 0; i < 3; i++)
+        {
+            float distance = Mathf.Abs(Mathf.Abs(dot[i]) - 1f);
+            if (distance < nearestDistance)
+            {
+                nearestValue = i;
+                nearestDistance = distance;
+            }
+        }
+        switch (nearestValue)
+        {
+            case 0:
+                Debug.Log("Z" + thiscollider.size.z);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.z / 2.0f;        //自分の半分ずらす
+                break;
+            case 1:
+                Debug.Log("X" + thiscollider.size.x);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.x / 2.0f;        //自分の半分ずらす
+                break;
+            case 2:
+                Debug.Log("Y" + thiscollider.size.y);
+                pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
+                pos.z -= thiscollider.size.y / 2.0f;        //自分の半分ずらす
+                break;
+        }
+
+        this.transform.position = pos;      //ずらして決めた座標に移動する
         core.Rotate(0.0f, 10.0f, 0.0f, Space.World);       //一時的に0，0，0にしていた回転を戻す
     }
 

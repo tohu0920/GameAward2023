@@ -92,6 +92,25 @@ public class PlayerController_iwata : MonoBehaviour
                             if(GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().JointCore())
                                 GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
                         }
+
+                        //Bボタン
+                        if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
+                        {
+                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().CanselCore();
+                            GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
+                        }
+
+                        //Lボタン
+                        if (PadInput.GetKeyDown(KeyCode.JoystickButton4))
+                        {
+                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(1, 0, GM.JointStage.Find("Core"));
+                        }
+
+                        //Lボタン
+                        if (PadInput.GetKeyDown(KeyCode.JoystickButton5))
+                        {
+                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(-1, 0, GM.JointStage.Find("Core"));
+                        }
                         break;
                         
                 }

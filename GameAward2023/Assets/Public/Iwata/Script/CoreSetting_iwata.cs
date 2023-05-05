@@ -179,8 +179,8 @@ public class CoreSetting_iwata : ObjectBase
                     for (int i = 0; i < m_AttachFaces.Count; i++)       //候補の面をすべて検索する
                     {
                         if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
-                        Debug.Log(m_AttachFaces[nextnum].Trans.name + ":" + m_AttachFaces[nextnum].Trans.position.x);
-                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + m_AttachFaces[i].Trans.position.x);
+                        //Debug.Log(m_AttachFaces[nextnum].Trans.name + ":" + m_AttachFaces[nextnum].Trans.position.x);
+                        //Debug.Log(m_AttachFaces[i].Trans.name + ":" + m_AttachFaces[i].Trans.position.x);
                         if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[i].Trans.position.x) nextnum = i;      //今の候補の面の座標より右に検索した面があるなら候補を変える
                     }
                     m_AttachJank.transform.Rotate(0.0f, -90.0f, 0.0f);
@@ -203,7 +203,7 @@ public class CoreSetting_iwata : ObjectBase
                         if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //検索した面と基準のX座標を比較する
                         if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[i].Trans.position.y) nextnum = i;      //今の候補の面の座標より左に検索した面があるなら候補を変える
                     }
-                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
+                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
                     break;
 
                 case RotateFlag.E_ROTATE_FLAG_D:
@@ -214,7 +214,7 @@ public class CoreSetting_iwata : ObjectBase
                         
                         if (m_AttachFaces[nextnum].Trans.position.y < m_AttachFaces[i].Trans.position.y) nextnum = i;
                     }
-                    m_AttachJank.transform.Rotate(90.0f, 0.0f, 0.0f);
+                    m_AttachJank.transform.Rotate(-90.0f, 0.0f, 0.0f);
                     break;
             }
             
@@ -345,6 +345,11 @@ public class CoreSetting_iwata : ObjectBase
         }
     }
 
+    public void CanselCore()
+    {
+        Destroy(m_AttachJank);
+    }
+
     public void ReleaseCore()
     {
         if(m_AttachFaces[m_SelectFaceNum].isRelease)
@@ -392,7 +397,17 @@ public class CoreSetting_iwata : ObjectBase
 
     public void PlayToRot()
     {
-        Debug.Log("回転初期化");
         this.transform.rotation = Quaternion.identity;
     }
+
+    public GameObject AttachJank
+    {
+        get { return m_AttachJank; }
+    }
+
+    public Transform SelectFace
+    {
+        get { return m_AttachFaces[m_SelectFaceNum].Trans; }
+    }
+
 }

@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_ROT:
                             m_JointStage.gameObject.SetActive(false);
                             m_PlayStage.gameObject.SetActive(true);
-                            Vector3 startpos = m_PlayStage.Find("Start").transform.position;
+                            Vector3 startpos = m_PlayStage.Find("StageObject").Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
                             // オブジェクトの回転角度を取得する
                             Quaternion currentRotation = core.transform.rotation;
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
                     {
                         case eGameStatus.E_GAME_STATUS_ROT:
                             Destroy(m_PlayStage.Find("Core(Clone)").gameObject);
-                            Vector3 startpos = m_PlayStage.Find("Start").transform.position;
+                            Vector3 startpos = m_PlayStage.Find("StageObject").Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, Quaternion.identity);
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());

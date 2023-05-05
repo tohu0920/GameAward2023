@@ -140,6 +140,7 @@ MonoBehaviour:
     m_minusX: 1
     m_plusY: 1
     m_minusY: 1
+  m_JankTag: 1
 --- !u!1 &853918096994671252
 GameObject:
   m_ObjectHideFlags: 0
