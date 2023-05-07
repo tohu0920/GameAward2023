@@ -13,9 +13,9 @@ enum E_RAY_HIT_STATE
 
 public class CursorController_araki : MonoBehaviour
 {
-	static RectTransform m_rectTransform;	// カーソルの座標情報
-	GameObject m_lastPointJunk;	// 前フレームで指していたガラクタのデータ
-	GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
+	static RectTransform m_rectTransform;   // カーソルの座標情報
+    [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
+    [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference]PreviewCamera_araki m_previreCamera;
 
 	// Start is called before the first frame update
@@ -133,4 +133,9 @@ public class CursorController_araki : MonoBehaviour
         Debug.Log(camdata.transform.name);
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
+
+    public GameObject SelectJank
+    {
+        get { return m_lastPointJunk; }
+    }
 }
