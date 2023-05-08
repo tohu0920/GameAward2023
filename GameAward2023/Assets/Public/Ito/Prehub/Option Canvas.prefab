@@ -1226,6 +1226,7 @@ GameObject:
   - component: {fileID: 7602504307704643593}
   - component: {fileID: 7602504307704643592}
   - component: {fileID: 7602504307704643594}
+  - component: {fileID: 1526238227469808303}
   m_Layer: 5
   m_Name: Blind Image
   m_TagString: Untagged
@@ -1303,15 +1304,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9437149dbfac82f41bd284c03c219db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameScreen: {fileID: 0}
-  OptionScreen: {fileID: 0}
-  kari: {fileID: 0}
   BGM: {fileID: 0}
-  bgmSlider: {fileID: 0}
-  SESlider: {fileID: 0}
-  BGMSource: {fileID: 0}
-  SESourse: {fileID: 0}
-  SelectOptionNum: 0
+--- !u!114 &1526238227469808303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602504307704643598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4c64790d162f749b94222107c8547a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7602504307738640785
 GameObject:
   m_ObjectHideFlags: 0
