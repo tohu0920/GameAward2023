@@ -15,18 +15,23 @@ public class JankStatus : ObjectBase
         public bool m_minusY;
     }
 
+    public enum eJankTag
+    {
+        E_JANK_TAG_NORMAL = 0,
+        E_JANK_TAG_CORE,
+        E_JANK_TAG_METAL,
+        E_JANK_TAG_DRUM,
+        E_JANK_TAG_MAX
+    }
+
     [Tooltip("・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
     [SerializeField] AttachFlag m_colliderFlags;    //・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
 
     [Tooltip("・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
     [SerializeField] AttachFlag m_collisionFlags;     //・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
 
-    // Start is called before the first frame update
-    protected void Start()
-    {
-        base.Start();
-    }
-
+    [SerializeField] eJankTag m_JankTag;
+    
     /// <summary>
     /// 設置済みのオブジェクトの組み立てれる面かの判定
     /// </summary>
@@ -103,4 +108,10 @@ public class JankStatus : ObjectBase
 
         return rotVector;
     }
+
+    public eJankTag JankTag
+    {
+        get { return m_JankTag; }
+    }
+
 }

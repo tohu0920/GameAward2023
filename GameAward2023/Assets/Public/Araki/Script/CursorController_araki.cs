@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//--- ƒŒƒC‚ÌÕ“Ëó‹µ‚Ì‘JˆÚ
+//--- ãƒ¬ã‚¤ã®è¡çªçŠ¶æ³ã®é·ç§»
 enum E_RAY_HIT_STATE
 {
-	ENTER,	//“–‚½‚Á‚½uŠÔ
-	EXIT,	//—£‚ê‚½uŠÔ
-	STAY,	//“–‚½‚Á‚Ä‚¢‚é
-	NOT_HIT	//“–‚½‚Á‚Ä‚¢‚È‚¢
+	ENTER,	//å½“ãŸã£ãŸç¬é–“
+	EXIT,	//é›¢ã‚ŒãŸç¬é–“
+	STAY,	//å½“ãŸã£ã¦ã„ã‚‹
+	NOT_HIT	//å½“ãŸã£ã¦ã„ãªã„
 }
 
 public class CursorController_araki : MonoBehaviour
 {
-	static RectTransform m_rectTransform;	// ƒJ[ƒ\ƒ‹‚ÌÀ•Wî•ñ
-	GameObject m_lastPointJunk;	// ‘OƒtƒŒ[ƒ€‚Åw‚µ‚Ä‚¢‚½ƒKƒ‰ƒNƒ^‚Ìƒf[ƒ^
-	GameObject m_previewJunk;   // ƒvƒŒƒrƒ…[—pƒKƒ‰ƒNƒ^‚Ìƒf[ƒ^
+	static RectTransform m_rectTransform;   // ã‚«ãƒ¼ã‚½ãƒ«ã®åº§æ¨™æƒ…å ±
+    [SerializeReference] GameObject m_lastPointJunk; // å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§æŒ‡ã—ã¦ã„ãŸã‚¬ãƒ©ã‚¯ã‚¿ã®ãƒ‡ãƒ¼ã‚¿
+    [SerializeReference] GameObject m_previewJunk;   // ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”¨ã‚¬ãƒ©ã‚¯ã‚¿ã®ãƒ‡ãƒ¼ã‚¿
 	[SerializeReference]PreviewCamera_araki m_previreCamera;
 
 	// Start is called before the first frame update
@@ -29,13 +29,13 @@ public class CursorController_araki : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//--- ƒvƒŒƒrƒ…[—pƒKƒ‰ƒNƒ^‚ğ¶¬
+		//--- ãƒ—ãƒ¬ãƒ“ãƒ¥ãƒ¼ç”¨ã‚¬ãƒ©ã‚¯ã‚¿ã‚’ç”Ÿæˆ
 		switch (CheckRayHitState())
 		{
-			case E_RAY_HIT_STATE.ENTER: // w‚µ‚½uŠÔ
-				m_previreCamera.StartNoise();	// ƒmƒCƒY‚ğÄ¶		
+			case E_RAY_HIT_STATE.ENTER: // æŒ‡ã—ãŸç¬é–“
+				m_previreCamera.StartNoise();	// ãƒã‚¤ã‚ºã‚’å†ç”Ÿ		
 				break;
-			case E_RAY_HIT_STATE.EXIT:  // —£‚ê‚½uŠÔ
+			case E_RAY_HIT_STATE.EXIT:  // é›¢ã‚ŒãŸç¬é–“
 				m_previreCamera.EndPreview();
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
@@ -43,51 +43,51 @@ public class CursorController_araki : MonoBehaviour
 			case E_RAY_HIT_STATE.STAY:
 				if (!m_previreCamera.isEndNoise) break;
 
-				//--- ƒmƒCƒY‚ªI‚í‚Á‚½‚çƒKƒ‰ƒNƒ^‚ğ¶¬
+				//--- ãƒã‚¤ã‚ºãŒçµ‚ã‚ã£ãŸã‚‰ã‚¬ãƒ©ã‚¯ã‚¿ã‚’ç”Ÿæˆ
 				m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
 					new Vector3(1114.4f, 0.0f, 2.5f), Quaternion.identity);
-				// “®ì‚ğŒÅ’è
+				// å‹•ä½œã‚’å›ºå®š
 				m_previewJunk.GetComponent<Rigidbody>().constraints
 					= RigidbodyConstraints.FreezeAll;
 				m_previewJunk.AddComponent<PreviewJunk_araki>();
 				break;
-			default:    // ã‹LˆÈŠO‚Ìê‡‚Íˆ—‚µ‚È‚¢
+			default:    // ä¸Šè¨˜ä»¥å¤–ã®å ´åˆã¯å‡¦ç†ã—ãªã„
 				break;
 		}
 
-		//--- ˆÚ“®ˆ—
+		//--- ç§»å‹•å‡¦ç†
 		Vector2 pos = m_rectTransform.anchoredPosition;
 		pos.x += PadInput.GetAxis("Horizontal_R") * 7.5f;
 		pos.y += PadInput.GetAxis("Vertical_R") * 7.5f;
 
-		//--- ‰æ–ÊŠO‚Éo‚Ä‚¢‚­‚Ì‚ğ–h‚®(¶‰æ–Ê‚Ì‚İˆÚ“®‰Â”\)
+		//--- ç”»é¢å¤–ã«å‡ºã¦ã„ãã®ã‚’é˜²ã(å·¦ç”»é¢ã®ã¿ç§»å‹•å¯èƒ½)
 		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
 		if (pos.x < -Screen.width / 2.0f) pos.x = -Screen.width / 2.0f;
 		if (pos.y >  Screen.height / 2.0f) pos.y =  Screen.height / 2.0f;
 		if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
 
-		m_rectTransform.anchoredPosition = pos;	// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğŠm’è
+		m_rectTransform.anchoredPosition = pos;	// ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’ç¢ºå®š
 	}
 
 	/// <summary>
-	/// ƒJ[ƒ\ƒ‹‚ÆƒKƒ‰ƒNƒ^‚ÌÕ“Ëó‹µ‚ğæ“¾
+	/// ã‚«ãƒ¼ã‚½ãƒ«ã¨ã‚¬ãƒ©ã‚¯ã‚¿ã®è¡çªçŠ¶æ³ã‚’å–å¾—
 	/// </summary>
 	E_RAY_HIT_STATE CheckRayHitState()
 	{
-		//--- ƒJƒƒ‰‚ğæ“¾
+		//--- ã‚«ãƒ¡ãƒ©ã‚’å–å¾—
 		GameObject cam = GameObject.Find("JointCamera");
-		if (cam == null) return E_RAY_HIT_STATE.NOT_HIT;    // ƒJƒƒ‰‚ª–³‚¯‚ê‚Îˆ—‚µ‚È‚¢
+		if (cam == null) return E_RAY_HIT_STATE.NOT_HIT;    // ã‚«ãƒ¡ãƒ©ãŒç„¡ã‘ã‚Œã°å‡¦ç†ã—ãªã„
 
-		//--- ƒŒƒC‚Å“–‚½‚è”»’è‚ğæ‚é
+		//--- ãƒ¬ã‚¤ã§å½“ãŸã‚Šåˆ¤å®šã‚’å–ã‚‹
 		Ray ray = GetCameraToRay(cam);
 		RaycastHit hit;
-		// “ü‚êq‚ğíŒ¸‚·‚éˆ×‚É”Û’è‚Å”»’è
-		if (!Physics.Raycast(ray, out hit)) // ƒJ[ƒ\ƒ‹‚ªw‚·•¨‚ğæ“¾
+		// å…¥ã‚Œå­ã‚’å‰Šæ¸›ã™ã‚‹ç‚ºã«å¦å®šã§åˆ¤å®š
+		if (!Physics.Raycast(ray, out hit)) // ã‚«ãƒ¼ã‚½ãƒ«ãŒæŒ‡ã™ç‰©ã‚’å–å¾—
 		{
 			GameObject temp = m_lastPointJunk;
-			m_lastPointJunk = null; // ‰ß‹‚Ìƒf[ƒ^‚ğƒŠƒZƒbƒg
+			m_lastPointJunk = null; // éå»ã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒªã‚»ãƒƒãƒˆ
 
-			// ‘OƒtƒŒ[ƒ€‚ÅƒKƒ‰ƒNƒ^‚ğw‚µ‚Ä‚¢‚½ê‡
+			// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚¬ãƒ©ã‚¯ã‚¿ã‚’æŒ‡ã—ã¦ã„ãŸå ´åˆ
 			if (temp != null) return E_RAY_HIT_STATE.EXIT;
 
 			return E_RAY_HIT_STATE.NOT_HIT;
@@ -95,56 +95,60 @@ public class CursorController_araki : MonoBehaviour
 
 		GameObject hitJunk = hit.transform.gameObject;
 
-		// ƒKƒ‰ƒNƒ^‚É“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+		// ã‚¬ãƒ©ã‚¯ã‚¿ã«å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 		if (hitJunk.transform.parent.name != "Jank")
 		{
 			GameObject temp = m_lastPointJunk;
-			m_lastPointJunk = null; // ‰ß‹‚Ìƒf[ƒ^‚ğƒŠƒZƒbƒg
+			m_lastPointJunk = null; // éå»ã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒªã‚»ãƒƒãƒˆ
 
-			// ‘OƒtƒŒ[ƒ€‚ÅƒKƒ‰ƒNƒ^‚ğw‚µ‚Ä‚¢‚½ê‡
+			// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚¬ãƒ©ã‚¯ã‚¿ã‚’æŒ‡ã—ã¦ã„ãŸå ´åˆ
 			if (temp != null) return E_RAY_HIT_STATE.EXIT;
 
 			return E_RAY_HIT_STATE.NOT_HIT;
 		}
 
-		//--- ‘OƒtƒŒ[ƒ€‚ÅƒKƒ‰ƒNƒ^‚ğw‚µ‚Ä‚¢‚È‚©‚Á‚½ê‡
+		//--- å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã‚¬ãƒ©ã‚¯ã‚¿ã‚’æŒ‡ã—ã¦ã„ãªã‹ã£ãŸå ´åˆ
 		if (m_lastPointJunk == null)
 		{
-			m_lastPointJunk = hitJunk;  // ‰ß‹‚Ìƒf[ƒ^‚Æ‚µ‚Ä‘Ş”ğ
+			m_lastPointJunk = hitJunk;  // éå»ã®ãƒ‡ãƒ¼ã‚¿ã¨ã—ã¦é€€é¿
 			return E_RAY_HIT_STATE.ENTER;
 		}
 
-		// w‚µ‘±‚¯‚Ä‚¢‚éê‡
+		// æŒ‡ã—ç¶šã‘ã¦ã„ã‚‹å ´åˆ
 		if (m_lastPointJunk == hitJunk) return E_RAY_HIT_STATE.STAY;
 
-		//--- ‰½‚àw‚³‚È‚­‚È‚Á‚½ê‡
-		m_lastPointJunk = null; // ‰ß‹‚Ìƒf[ƒ^‚ğƒŠƒZƒbƒg
+		//--- ä½•ã‚‚æŒ‡ã•ãªããªã£ãŸå ´åˆ
+		m_lastPointJunk = null; // éå»ã®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒªã‚»ãƒƒãƒˆ
 		return E_RAY_HIT_STATE.EXIT;
 	}
 
 	/// <summary>
-	/// ƒJ[ƒ\ƒ‹‚©‚ç‚ÌƒŒƒC‚ğæ“¾
+	/// ã‚«ãƒ¼ã‚½ãƒ«ã‹ã‚‰ã®ãƒ¬ã‚¤ã‚’å–å¾—
 	/// </summary>
 	public static Ray GetCameraToRay(GameObject cam)
 	{
-        // ƒJƒƒ‰¨ƒJ[ƒ\ƒ‹(ƒ[ƒ‹ƒhÀ•WŒn)‚ÌƒŒƒC‚ğæ“¾
+        // ã‚«ãƒ¡ãƒ©â†’ã‚«ãƒ¼ã‚½ãƒ«(ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ç³»)ã®ãƒ¬ã‚¤ã‚’å–å¾—
 		Vector2 pos = m_rectTransform.anchoredPosition;
         Camera camdata = cam.GetComponent<Camera>();
-        Debug.Log(camdata.transform.name);
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
 
+    public GameObject SelectJank
+    {
+        get { return m_lastPointJunk; }
+    }
+
 	public GameObject GetAttachJunk()
 	{
-		//--- ƒJƒƒ‰‚ğæ“¾
+		//--- ã‚«ãƒ¡ãƒ©ã‚’å–å¾—
 		GameObject cam = GameObject.Find("JointCamera");
-		if (cam == null) return null;    // ƒJƒƒ‰‚ª–³‚¯‚ê‚Îˆ—‚µ‚È‚¢
+		if (cam == null) return null;    // ã‚«ãƒ¡ãƒ©ãŒç„¡ã‘ã‚Œã°å‡¦ç†ã—ãªã„
 
-		//--- ƒŒƒC‚Å“–‚½‚è”»’è‚ğæ‚é
+		//--- ãƒ¬ã‚¤ã§å½“ãŸã‚Šåˆ¤å®šã‚’å–ã‚‹
 		Ray ray = GetCameraToRay(cam);
 		RaycastHit hit;
-		// “ü‚êq‚ğíŒ¸‚·‚éˆ×‚É”Û’è‚Å”»’è
-		if (Physics.Raycast(ray, out hit)) // ƒJ[ƒ\ƒ‹‚ªw‚·•¨‚ğæ“¾
+		// å…¥ã‚Œå­ã‚’å‰Šæ¸›ã™ã‚‹ç‚ºã«å¦å®šã§åˆ¤å®š
+		if (Physics.Raycast(ray, out hit)) // ã‚«ãƒ¼ã‚½ãƒ«ãŒæŒ‡ã™ç‰©ã‚’å–å¾—
 		{
 			if (hit.transform.GetComponents<FixedJoint>().Length <= 0) return null;
 			if (hit.transform.tag == "Jank") return hit.transform.gameObject;

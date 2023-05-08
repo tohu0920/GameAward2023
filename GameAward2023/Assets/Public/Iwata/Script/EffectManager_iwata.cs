@@ -5,6 +5,7 @@ using UnityEngine;
 public enum EffectType
 {
     E_EFFECT_KIND_JET = 0,
+    E_EFFECT_KIND_EXPLOSION,
     E_EFFECT_KIND_MAX
 }
 
