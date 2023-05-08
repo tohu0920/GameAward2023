@@ -37,7 +37,6 @@ public class Water : MonoBehaviour
         // ”ÍˆÍ“à‚Ì•¨‘Ì‚É‘Î‚µ‚Ä‘¬“x‚ğŒ¸‘¬‚³‚¹‚é—Í‚ğ‰Á‚¦‚é
         if (other.attachedRigidbody != null)
         {
-            Debug.Log("ƒXƒ[");
             Vector3 slowForceVector = -other.attachedRigidbody.velocity.normalized * slowForce;
             other.attachedRigidbody.AddForce(slowForceVector, ForceMode.Acceleration);
         }

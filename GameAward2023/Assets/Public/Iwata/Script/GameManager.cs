@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //繧ｲ繝ｼ繝縺ｮ迥ｶ諷九・繝輔Λ繧ｰ
+    public static GameManager Instance { get; private set; }
+
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -13,27 +14,40 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_PLAY,
         E_GAME_STATUS_POUSE,
         E_GAME_STATUS_END,
-
+        
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //繝励Ξ繧､逕ｨ縺ｮ迺ｰ蠅・
-    [SerializeField] private Transform m_JointStage;       //邨・∩遶九※逕ｨ縺ｮ迺ｰ蠅・
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
-    [SerializeField] private eGameStatus m_GameStatus;  //繧ｲ繝ｼ繝縺ｮ迥ｶ諷・
-    [SerializeField] private eGameStatus m_lastGameStatus;  //繧ｲ繝ｼ繝縺ｮ迥ｶ諷・
+    [SerializeField] private Transform m_PlayStage;       
+    [SerializeField] private Transform m_JointStage;      
+
+    [SerializeField] private eGameStatus m_GameStatus;  
+    [SerializeField] private eGameStatus m_lastGameStatus;  
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //繧ｲ繝ｼ繝縺ｮ迥ｶ諷九・蛻晄悄蛹・
-        m_lastGameStatus = m_GameStatus;                    //蜑阪ヵ繝ｬ繝ｼ繝縺ｮ迥ｶ諷九ｒ菫晄戟
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     
+        m_lastGameStatus = m_GameStatus;                   
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_GameStatus != m_lastGameStatus)
+        Debug.Log(m_GameStatus);
+        if (m_GameStatus != m_lastGameStatus)
         {
             switch(m_lastGameStatus)
             {
@@ -92,6 +106,11 @@ public class GameManager : MonoBehaviour
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
                             core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
+                            break;
+
+                        case eGameStatus.E_GAME_STATUS_END:
+                            Debug.Log("ゲームクリア！");
+                            //SceneManager.LoadScene("ゲームクリア画面のシーン名");
                             break;
 
                     }

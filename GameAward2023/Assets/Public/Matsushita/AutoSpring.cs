@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoSpring : Metal
+public class AutoSpring : JankBase_iwata
 {
+    public float waitTime = 2f; // 最小値に達した後の待機時間
     public float maxHeight = 2f; // シリンダーの最大高さ
     public float minHeight = 0.5f; // シリンダーの最小高さ
     public float increasingSpeed = 3f; // 伸縮速度（伸びるとき）
@@ -11,17 +12,21 @@ public class AutoSpring : Metal
 
     private float currentHeight; // 現在の高さ
     private bool increasing = true; // 増加中かどうかを表すフラグ
+    private bool waiting = false; // 待機中かどうかを表すフラグ
+    private float timeSinceMinHeight = 0f; // 最小値に達してからの経過時間を保持する変数
+
+    public override void work()
+    {
+
+    }
 
     /// <summary>
     /// パラメーター配置
     /// </summary>
     /// <param name="paramList"></param>
-    public override void SetParam(List<float> paramList)
+    public void SetParam(List<float> paramList)
     {
-        maxHeight = paramList[0];
-        minHeight = paramList[1];
-        increasingSpeed = paramList[2];
-        decreasingSpeed = paramList[3];
+        waitTime = paramList[0];
     }
 
 
@@ -33,11 +38,11 @@ public class AutoSpring : Metal
     private void Update()
     {
         // 高さを変更
-        if (increasing)
+        if (increasing && !waiting)
         {
             currentHeight += increasingSpeed * Time.deltaTime; // 増加中
         }
-        else
+        else if (!increasing && !waiting)
         {
             currentHeight -= decreasingSpeed * Time.deltaTime; // 減少中
         }
@@ -47,10 +52,22 @@ public class AutoSpring : Metal
         {
             increasing = false;
         }
-        // 最小高さに達した場合、増加中のフラグを反転させる
+        // 最小高さに達した場合、増加中のフラグを反転させ、待機中のフラグを立てる
         else if (currentHeight <= minHeight)
         {
             increasing = true;
+            waiting = true;
+        }
+
+        // 最小値に達した後、一定時間待機してから再び伸び始める
+        if (waiting)
+        {
+            timeSinceMinHeight += Time.deltaTime;
+            if (timeSinceMinHeight >= waitTime)
+            {
+                waiting = false;
+                timeSinceMinHeight = 0f;
+            }
         }
 
         // シリンダーのスケールを変更する
