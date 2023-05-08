@@ -61,7 +61,7 @@ public class Core_Playing : ObjectBase
     {
         if (!m_Life) return;
 
-        float explosionForce = 150.0f; // ”š”­—Í
+        float explosionForce = 20.0f; // ”š”­—Í
         float explosionRadius = 5.0f; // ”š”­”¼Œa
         Vector3 explosionPosition = transform.Find("CoreCenter").position;
 

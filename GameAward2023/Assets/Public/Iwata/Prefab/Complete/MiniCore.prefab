@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 6112396962029954732}
   m_Layer: 0
   m_Name: MiniCore
-  m_TagString: Player
+  m_TagString: Jank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,8 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d67635b3c64b6d4193b443773d82ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 1
     m_minusZ: 1

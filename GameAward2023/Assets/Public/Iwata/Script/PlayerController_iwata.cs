@@ -110,7 +110,7 @@ public class PlayerController_iwata : MonoBehaviour
                             GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(1, 0, GM.JointStage.Find("Core"));
                         }
 
-                        //Lボタン
+                        //Rボタン
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton5))
                         {
                             GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(-1, 0, GM.JointStage.Find("Core"));

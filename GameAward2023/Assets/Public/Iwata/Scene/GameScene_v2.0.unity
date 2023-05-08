@@ -2762,10 +2762,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Booster_2.0 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1231922417521546961, guid: 41ad24a9a8e616a4eb9f93e97d185c0f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41ad24a9a8e616a4eb9f93e97d185c0f, type: 3}
 --- !u!4 &1748322017 stripped
@@ -3004,7 +3000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740002, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740003, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_RootOrder

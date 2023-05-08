@@ -327,8 +327,10 @@ public class CoreSetting_iwata : ObjectBase
     /// <summary>
     /// ‘g‚İ—§‚Ä‚é‚±‚Æ‚ª‚Å‚«‚é‚©”»’è‚·‚é
     /// </summary>
-    private void CheckCanAttach()
+    public void CheckCanAttach()
     {
+        Debug.Log(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform));
+        Debug.Log(m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform));
         if(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform) && m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform))
         {
             //Debug.Log("‚Å‚«‚é‚æ[");

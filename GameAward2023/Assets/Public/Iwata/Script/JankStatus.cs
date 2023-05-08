@@ -24,10 +24,10 @@ public class JankStatus : ObjectBase
         E_JANK_TAG_MAX
     }
 
-    [Tooltip("・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
+    [Tooltip("設置済みの時に使うフラグ")]
     [SerializeField] AttachFlag m_colliderFlags;    //・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
 
-    [Tooltip("・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
+    [Tooltip("仮置きの時に使うフラグ")]
     [SerializeField] AttachFlag m_collisionFlags;     //・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
 
     [SerializeField] eJankTag m_JankTag;
@@ -113,5 +113,4 @@ public class JankStatus : ObjectBase
     {
         get { return m_JankTag; }
     }
-
 }

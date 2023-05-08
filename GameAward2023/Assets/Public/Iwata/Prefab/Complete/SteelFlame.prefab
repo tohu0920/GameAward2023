@@ -76,8 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bbd09c23a4e944fa11c58e996a66ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 0
     m_minusZ: 0
@@ -86,8 +84,8 @@ MonoBehaviour:
     m_plusY: 0
     m_minusY: 0
   m_collisionFlags:
-    m_plusZ: 0
-    m_minusZ: 1
+    m_plusZ: 1
+    m_minusZ: 0
     m_plusX: 0
     m_minusX: 0
     m_plusY: 0
@@ -123,14 +121,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816227537070910221}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.0014340281, y: 0, z: 0.0189334}
   m_LocalScale: {x: 10, y: 10, z: 2.75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7794962432503830835}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &4730342949272510051
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -138,7 +136,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816227537070910221}
-  m_Mesh: {fileID: -4872966077515131385, guid: b832362bb2da3de49b1413eae4228db3, type: 3}
+  m_Mesh: {fileID: -4872966077515131385, guid: c5bd629e9847f5a4da62049620d2f796, type: 3}
 --- !u!23 &5663007048545618411
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -159,7 +157,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7068d7ac83bdea0448d89d7454ae6a18, type: 2}
+  - {fileID: -1294058508819152814, guid: c5bd629e9847f5a4da62049620d2f796, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,8 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29bbd09c23a4e944fa11c58e996a66ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 0
     m_minusZ: 0
