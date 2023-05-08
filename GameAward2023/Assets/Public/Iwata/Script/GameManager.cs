@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®ãƒ•ãƒ©ã‚°
+    //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ãEãƒ•ãƒ©ã‚°
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -17,16 +17,16 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //ãƒ—ãƒ¬ã‚¤ç”¨ã®ç’°å¢ƒ
-    [SerializeField] private Transform m_JointStage;       //çµ„ã¿ç«‹ã¦ç”¨ã®ç’°å¢ƒ
+    [SerializeField] private Transform m_PlayStage;        //ãƒ—ãƒ¬ã‚¤ç”¨ã®ç’°å¢E
+    [SerializeField] private Transform m_JointStage;       //çµE¿ç«‹ã¦ç”¨ã®ç’°å¢E
 
-    [SerializeField] private eGameStatus m_GameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
-    [SerializeField] private eGameStatus m_lastGameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
+    [SerializeField] private eGameStatus m_GameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…E
+    [SerializeField] private eGameStatus m_lastGameStatus;  //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…E
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã®åˆæœŸåŒ–
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ãEåˆæœŸåŒE
         m_lastGameStatus = m_GameStatus;                    //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’ä¿æŒ
     }
 
@@ -45,10 +45,21 @@ public class GameManager : MonoBehaviour
                             m_PlayStage.gameObject.SetActive(true);
                             Vector3 startpos = m_PlayStage.Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
-                            core.transform.Rotate(0.0f, -10.0f, 0.0f, Space.Self);
+                            // ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]Šp“x‚ğæ“¾‚·‚é
+                            Quaternion currentRotation = core.transform.rotation;
+
+                            // ƒIƒuƒWƒFƒNƒg‚ğY²ü‚è‚É‰ñ“]‚³‚¹‚é
+                            Quaternion targetRotation = Quaternion.AngleAxis(-10.0f, Vector3.up) * currentRotation;
+
+                            // ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚ğ“K—p‚·‚é
+                            core.transform.rotation = targetRotation;
+
+
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
+                            core.GetComponent<Core_Playing>().StartRot = targetRotation;
+                            core.GetComponent<Core_Playing>().StartFlag = true;
                             break;
                     }
                     break;
@@ -58,6 +69,7 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_JOINT:
                             m_JointStage.gameObject.SetActive(true);
                             m_PlayStage.gameObject.SetActive(false);
+                            m_PlayStage.Find("Core(Clone)").GetComponent<Core_Playing>().ResetPlayCore();
                             Destroy(m_PlayStage.Find("Core(Clone)").gameObject);
                             break;
                         case eGameStatus.E_GAME_STATUS_PLAY:
@@ -79,6 +91,7 @@ public class GameManager : MonoBehaviour
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
+                            core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
                             break;
 
                     }

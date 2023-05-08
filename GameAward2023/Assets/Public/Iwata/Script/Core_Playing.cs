@@ -2,35 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Core_Playing : MonoBehaviour
+public class Core_Playing : ObjectBase
 {
     [SerializeField] GameManager gm;
+    [SerializeField] static Quaternion startRot;
+    static bool start = false;
+    bool m_RotL = false;
+    bool m_RotR = false;
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        start = true;
     }
 
     private void FixedUpdate()
     {
-        if(gm.GameStatus == GameManager.eGameStatus.E_GAME_STATUS_PLAY)
+        switch(gm.GameStatus)
         {
-            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Parentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—ã™ã‚‹
-            JankBase_iwata[] scripts = GetComponentsInChildren<JankBase_iwata>();
+            case GameManager.eGameStatus.E_GAME_STATUS_ROT:
+                if(m_RotL)
+                {
+                    transform.Rotate(0.0f, 2.0f, 0.0f);
+                    m_RotL = false;
+                }
+                if(m_RotR)
+                {
+                    transform.Rotate(0.0f, -2.0f, 0.0f);
+                    m_RotR = false;
+                }
+                break;
+            case GameManager.eGameStatus.E_GAME_STATUS_PLAY:
+                // qƒIƒuƒWƒFƒNƒg‚©‚çParentƒNƒ‰ƒX‚ğŒp³‚µ‚½ƒXƒNƒŠƒvƒg‚ğæ“¾‚·‚é
+                JankBase_iwata[] scripts = GetComponentsInChildren<JankBase_iwata>();
 
-            // å–å¾—ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã®worké–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹
-            foreach (JankBase_iwata script in scripts)
-            {
-                script.work();
-            }
+                // æ“¾‚µ‚½ƒXƒNƒŠƒvƒg‚ÌworkŠÖ”‚ğÀs‚·‚é
+                foreach (JankBase_iwata script in scripts)
+                {
+                    script.work();
+                }
+                break;
         }
+    }
 
+    public void ResetPlayCore()
+    {
+        startRot = Quaternion.identity;
+        start = false;
+    }
+
+    public bool StartFlag
+    {
+        set { start = value; }
+        get { return start; }
+    }
+
+    public Quaternion StartRot
+    {
+        set { startRot = value; }
+        get { return startRot; }
+    }
+
+    public bool RotL
+    {
+        set { m_RotL = value; }
+    }
+
+    public bool RotR
+    {
+        set { m_RotR = value; }
     }
 }
