@@ -2,35 +2,122 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Core_Playing : MonoBehaviour
+public class Core_Playing : ObjectBase
 {
     [SerializeField] GameManager gm;
+    [SerializeField] static Quaternion startRot;
+    static bool start = false;
+    bool m_Life;
+    bool m_RotL = false;
+    bool m_RotR = false;
 
     // Start is called before the first frame update
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        start = true;
+        m_Life = true;
     }
 
     private void FixedUpdate()
     {
-        if(gm.GameStatus == GameManager.eGameStatus.E_GAME_STATUS_PLAY)
+        switch(gm.GameStatus)
         {
-            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰Parentã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—ã™ã‚‹
-            JankBase_iwata[] scripts = GetComponentsInChildren<JankBase_iwata>();
+            case GameManager.eGameStatus.E_GAME_STATUS_ROT:
+                if(m_RotL)
+                {
+                    transform.Rotate(0.0f, -2.0f, 0.0f, Space.World);
+                    m_RotL = false;
+                }
+                if(m_RotR)
+                {
+                    transform.Rotate(0.0f, 2.0f, 0.0f, Space.World);
+                    m_RotR = false;
+                }
+                break;
+            case GameManager.eGameStatus.E_GAME_STATUS_PLAY:
+                // qƒIƒuƒWƒFƒNƒg‚©‚çParentƒNƒ‰ƒX‚ğŒp³‚µ‚½ƒXƒNƒŠƒvƒg‚ğæ“¾‚·‚é
+                JankBase_iwata[] scripts = GetComponentsInChildren<JankBase_iwata>();
 
-            // å–å¾—ã—ãŸã‚¹ã‚¯ãƒªãƒ—ãƒˆã®worké–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹
-            foreach (JankBase_iwata script in scripts)
-            {
-                script.work();
-            }
+                // æ“¾‚µ‚½ƒXƒNƒŠƒvƒg‚ÌworkŠÖ”‚ğÀs‚·‚é
+                foreach (JankBase_iwata script in scripts)
+                {
+                    script.work();
+                }
+                break;
         }
 
+        Transform boxTransform = transform.Find("Core_Child0");
+        Vector3 cornerOffset = new Vector3(0.5f, -0.5f, 0.5f);
+        Vector3 cornerPosition;
+        cornerPosition = boxTransform.position + cornerOffset;
+        transform.Find("CoreCenter").position = cornerPosition;
     }
+
+    /// <summary>
+    /// ƒRƒA‚ğ”j‰ó‚µ‚Ä”š”­‚³‚¹‚é
+    /// </summary>
+    public void DestroyCore()
+    {
+        if (!m_Life) return;
+
+        float explosionForce = 150.0f; // ”š”­—Í
+        float explosionRadius = 5.0f; // ”š”­”¼Œa
+        Vector3 explosionPosition = transform.Find("CoreCenter").position;
+
+        foreach (Transform child in this.transform)
+        {
+            FixedJoint[] fixedJoints = child.GetComponents<FixedJoint>();
+            Rigidbody[] rb = child.GetComponents<Rigidbody>();
+
+            foreach(FixedJoint joint in fixedJoints)
+            {
+                Destroy(joint);
+            }
+
+            foreach(Rigidbody childrb in rb)
+            {
+                childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 1.0f, ForceMode.Impulse);
+            }
+        }
+        
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition);
+
+        m_Life = false;
+    }
+
+    public void ResetPlayCore()
+    {
+        startRot = Quaternion.identity;
+        start = false;
+        m_Life = true;
+    }
+
+    public bool StartFlag
+    {
+        set { start = value; }
+        get { return start; }
+    }
+
+    public Quaternion StartRot
+    {
+        set { startRot = value; }
+        get { return startRot; }
+    }
+
+    public bool RotL
+    {
+        set { m_RotL = value; }
+    }
+
+    public bool RotR
+    {
+        set { m_RotR = value; }
+    }
+
+    public bool Life
+    {
+        get { return m_Life; }
+    }
+
 }

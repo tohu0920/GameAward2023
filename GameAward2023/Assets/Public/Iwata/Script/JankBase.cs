@@ -12,7 +12,6 @@ public abstract class JankBase : JankStatus
     // Start is called before the first frame update
     protected void Start()
     {
-        base.Start();
         StartPos = transform.position;
         StartRot = transform.rotation;
     }

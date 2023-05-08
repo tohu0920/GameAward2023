@@ -7,13 +7,13 @@ public class MiniCore : JankBase_iwata
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /// <summary>
@@ -22,5 +22,12 @@ public class MiniCore : JankBase_iwata
     public override void work()
     {
 
+    }
+
+    public override List<float> GetParameterList()
+    {
+        List<float> list = new List<float>();
+
+        return list;
     }
 }

@@ -5,22 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.transform.root.name != "Core") return;
+        Debug.Log("Ç‘Ç¬Ç©Ç¡ÇΩ" + collision.transform.name);
 
-		SceneManager.LoadScene("GameScene");
+		if (collision.transform.name.Contains("Core_Child"))
+        {
+            if (!collision.transform.parent.GetComponent<Core_Playing>().Life) return;
+
+            Debug.Log("ÉSÅ[ÉãÇµÇΩ");
+            SceneManager.LoadScene("GameScene_v2.0");
+        }
+
 	}
 }
