@@ -14,8 +14,8 @@ enum E_RAY_HIT_STATE
 public class CursorController_araki : MonoBehaviour
 {
 	static RectTransform m_rectTransform;   // カーソルの座標情報
-    [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
-    [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
+    	[SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
+    	[SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference]PreviewCamera_araki m_previreCamera;
 
 	// Start is called before the first frame update
@@ -26,9 +26,9 @@ public class CursorController_araki : MonoBehaviour
 		m_lastPointJunk = null;
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
+    	// Update is called once per frame
+    	void Update()
+    	{
 		//--- プレビュー用ガラクタを生成
 		switch (CheckRayHitState())
 		{
@@ -133,8 +133,28 @@ public class CursorController_araki : MonoBehaviour
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
 
-    public GameObject SelectJank
-    {
-        get { return m_lastPointJunk; }
-    }
+	public GameObject GetAttachJunk()
+	{
+		//--- カメラを取得
+		GameObject cam = GameObject.Find("JointCamera");
+		if (cam == null) return null;    // カメラが無ければ処理しない
+
+		//--- レイで当たり判定を取る
+		Ray ray = GetCameraToRay(cam);
+		RaycastHit hit;
+		// 入れ子を削減する為に否定で判定
+		if (Physics.Raycast(ray, out hit)) // カーソルが指す物を取得
+		{
+			if (hit.transform.GetComponents<FixedJoint>().Length <= 0) return null;
+			if (hit.transform.tag == "Jank") return hit.transform.gameObject;
+		}
+
+		return null;
+	}
+
+	
+    	public GameObject SelectJank
+   	{
+        	get { return m_lastPointJunk; }
+    	}
 }
