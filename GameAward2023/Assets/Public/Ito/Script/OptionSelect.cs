@@ -18,12 +18,12 @@ public class OptionSelect : MonoBehaviour
     [SerializeReference] GameObject titleControle;
     [SerializeReference] AudioMixerSnapshot BGM;
 
-    public Slider bgmSlider;         // Sliderを格納する変数
-    public Slider SESlider;          // SEを格納する変数
+    [SerializeReference] public Slider bgmSlider;         // Sliderを格納する変数
+    [SerializeReference] public Slider SESlider;          // SEを格納する変数
     public AudioSource BGMSource;    // BGMを再生するAudioSourceを格納する変数
     public AudioSource SESourse;     // SE再生するAudioSourceを格納する変数    
 
-    public int SelectOptionNum; 
+    static public int SelectOptionNum; 
 
     // Start is called before the first frame update
     void Start()
@@ -33,24 +33,16 @@ public class OptionSelect : MonoBehaviour
         SEImage1 = GameObject.Find("SEImage1");         //光っていない
         SEImage2 = GameObject.Find("SEImage2");         //光っている
         ReadMeImage1 = GameObject.Find("ReadMeImage1"); //光っていない
-        ReadMeImage2 = GameObject.Find("ReadMeImage2"); //光っている        
-        //titleScreen = GameObject.Find("TitleCanvas");
-        //OptionScreen = GameObject.Find("OptionCanvas");
-        //titleControle = GameObject.Find("TitleControleObject");
-               
+        ReadMeImage2 = GameObject.Find("ReadMeImage2"); //光っている               
 
-        bgmSlider.value = 5.0f;
-        SESlider.value = 5.0f;
+        //bgmSlider.value = 5.0f;
+        //SESlider.value = 5.0f;
 
         SelectOptionNum = 0;
-
-        Debug.Log(OptionScreen == null);
-        Debug.Log(titleScreen == null);
-        Debug.Log(titleControle == null);
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {    
         //選択
         SelectOptionNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
@@ -64,14 +56,14 @@ public class OptionSelect : MonoBehaviour
                 //音量がひかっている
                 ChangeActive();               
 
-                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f; 
+                //bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f; 
                 break;
 
             case 1:
                 //効果音が光っている
                 ChangeActive();
 
-                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;              
+                //SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;              
                 break;
 
             case 2:
@@ -87,13 +79,11 @@ public class OptionSelect : MonoBehaviour
 
         if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
         {
-            //Debug.Log(titleControle == null);
-            //Debug.Log(titleScreen == null);
-            //Debug.Log(OptionScreen == null);
             titleControle.SetActive(true);
             titleScreen.SetActive(true);
             OptionScreen.SetActive(false);
 
+            Pose.activetoOption = false;
         }
     }
 
