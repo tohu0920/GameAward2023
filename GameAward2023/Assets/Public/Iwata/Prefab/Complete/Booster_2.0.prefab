@@ -76,8 +76,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baa71b2d7e71e34eb7632b71fd6d392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 0
     m_minusZ: 0
@@ -96,8 +94,8 @@ MonoBehaviour:
   m_StartPos: {x: 0, y: 0, z: 0}
   m_StartRot: {x: 0, y: 0, z: 0, w: 0}
   m_Origin: {fileID: 0}
-  m_boostForceRate: 500
-  m_maxSpeed: 5000
+  m_boostForceRate: 250
+  m_maxSpeed: 500
 --- !u!1 &1231922417521546960
 GameObject:
   m_ObjectHideFlags: 0
