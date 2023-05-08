@@ -2072,6 +2072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec5e912e939a3004bb306a7f41449d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_lastPointJunk: {fileID: 0}
+  m_previewJunk: {fileID: 0}
   m_previreCamera: {fileID: 1748322018}
 --- !u!1 &1270032152
 GameObject:
@@ -3024,6 +3026,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 809667241}
     m_Modifications:
+    - target: {fileID: 4005493934110740000, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740002, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_Name
       value: PreviewCamera_araki

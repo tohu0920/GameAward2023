@@ -11,4 +11,11 @@ public class JankBlock : JankBase_iwata
     {
 
     }
+
+    public override List<float> GetParameterList()
+    {
+        List<float> list = new List<float>();
+
+        return list;
+    }
 }

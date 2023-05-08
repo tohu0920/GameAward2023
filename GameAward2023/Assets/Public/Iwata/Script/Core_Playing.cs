@@ -59,7 +59,9 @@ public class Core_Playing : ObjectBase
     /// </summary>
     public void DestroyCore()
     {
-        float explosionForce = 30.0f; // ”š”­—Í
+        if (!m_Life) return;
+
+        float explosionForce = 150.0f; // ”š”­—Í
         float explosionRadius = 5.0f; // ”š”­”¼Œa
         Vector3 explosionPosition = transform.Find("CoreCenter").position;
 
@@ -78,7 +80,7 @@ public class Core_Playing : ObjectBase
                 childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 1.0f, ForceMode.Impulse);
             }
         }
-
+        
         EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition);
 
         m_Life = false;

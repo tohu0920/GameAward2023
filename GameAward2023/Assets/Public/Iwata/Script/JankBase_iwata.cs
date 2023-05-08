@@ -13,10 +13,14 @@ public abstract class JankBase_iwata : JankStatus
     /// </summary>
     public abstract void work();
 
+    /// <summary>
+    /// 各ジャンクのパラメータを取得する
+    /// </summary>
+    public abstract List<float> GetParameterList();
+
     // Start is called before the first frame update
     protected void Start()
     {
-        base.Start();
         m_StartPos = transform.position;      //初期座標を登録
         m_StartRot = transform.rotation;      //初期回転を登録
     }
@@ -73,17 +77,14 @@ public abstract class JankBase_iwata : JankStatus
         switch (nearestValue)
         {
             case 0:
-                Debug.Log("Z" + thiscollider.size.z);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.z / 2.0f;        //自分の半分ずらす
                 break;
             case 1:
-                Debug.Log("X" + thiscollider.size.x);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.x / 2.0f;        //自分の半分ずらす
                 break;
             case 2:
-                Debug.Log("Y" + thiscollider.size.y);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.y / 2.0f;        //自分の半分ずらす
                 break;

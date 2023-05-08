@@ -4911,6 +4911,7 @@ GameObject:
   - component: {fileID: 4583192249407774}
   - component: {fileID: 198139167139711314}
   - component: {fileID: 199364088026653688}
+  - component: {fileID: 1915327178561916873}
   m_Layer: 0
   m_Name: FX_Guard_final
   m_TagString: Untagged
@@ -4927,7 +4928,7 @@ Transform:
   m_GameObject: {fileID: 1138577158852914}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4327508439724058}
@@ -4955,7 +4956,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -9731,6 +9732,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1915327178561916873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138577158852914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2b56d56bca6d449a513193d1b8a039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1.5
 --- !u!1 &1191340003310572
 GameObject:
   m_ObjectHideFlags: 0

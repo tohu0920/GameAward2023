@@ -31,13 +31,7 @@ public class JankStatus : ObjectBase
     [SerializeField] AttachFlag m_collisionFlags;     //・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
 
     [SerializeField] eJankTag m_JankTag;
-
-    // Start is called before the first frame update
-    protected void Start()
-    {
-        base.Start();
-    }
-
+    
     /// <summary>
     /// 設置済みのオブジェクトの組み立てれる面かの判定
     /// </summary>

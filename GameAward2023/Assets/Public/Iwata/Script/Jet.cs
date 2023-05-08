@@ -31,9 +31,27 @@ public class Jet : JankBase_iwata
         {
             rigidbody.AddForce(boostFoce);	// ブースト処理
             //center.AddForce(boostFoce);	// ブースト処理
-        } 
+        }
 
-       //ジェットの炎のエフェクト表示
-       EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);
+        Vector3 effectPos = this.transform.position;
+        Vector3 direction = transform.forward;
+
+        // 少し後ろに移動する
+        Vector3 offset = -direction * 0.5f;
+        effectPos += offset;
+
+        //ジェットの炎のエフェクト表示
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos);
     }
+
+    public override List<float> GetParameterList()
+    {
+        List<float> list = new List<float>();
+
+        list.Add(m_boostForceRate);
+        list.Add(m_maxSpeed);
+
+        return list;
+    }
+
 }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態�E初期匁E
         m_lastGameStatus = m_GameStatus;                    //前フレームの状態を保持
+        ObjectBase.Start();
     }
 
     // Update is called once per frame

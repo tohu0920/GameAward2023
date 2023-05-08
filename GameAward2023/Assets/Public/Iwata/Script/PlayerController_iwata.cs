@@ -15,11 +15,11 @@ public class PlayerController_iwata : MonoBehaviour
                 switch (GM.JointStage.GetComponent<JointStageManager>().JSStatus)
                 {//ジャンクステージの状態に合わせた処理をする
                     case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT:   
-                        //十字ボタン
+                        //左スティック
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
-                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
-                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_PadX");
+                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
+                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
                             if (axisX != 0 || axisY != 0)
                             {
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().InputAxisCore(axisX, axisY);
@@ -47,6 +47,8 @@ public class PlayerController_iwata : MonoBehaviour
                         if(PadInput.GetKeyDown(KeyCode.JoystickButton1))
                         {
                             //カーソルからRayを出す
+                            //Ray ray = GM.JointStage.Find("JointCanvas").Find("Cursor").GetComponent<CursorController_araki>().GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
+
                             //ぶつかったやつの親がCoreじゃなければコンテニュー
                             //名前にCore_ChildかCoreCenterだったらコンテニュー
                             //コアコントローラーにリリースコアを作ってぶつかったのを消して、オリジンをアクティブに戻す
@@ -77,11 +79,11 @@ public class PlayerController_iwata : MonoBehaviour
 
 
                     case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT:
-                        //十字ボタン
+                        //左スティック
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
-                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
-                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_PadX");
+                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
+                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
                             if (axisX != 0 || axisY != 0)
                             {
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().InputAxisCore(axisX, axisY);

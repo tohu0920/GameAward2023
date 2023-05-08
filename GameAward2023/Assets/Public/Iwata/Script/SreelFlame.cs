@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SreelFlame : JankBase_iwata
 {
-    public int value = 5;
+    public int value = 5;   //UŒ‚‚µ‚½‚Æ‚«‚Ì•Ç‚ÉŠ|‚¯‚é”{—¦
     FixedJoint joint;
     
     /// <summary>
@@ -13,6 +13,13 @@ public class SreelFlame : JankBase_iwata
     public override void work()
     {
 
+    }
+
+    public override List<float> GetParameterList()
+    {
+        List<float> list = new List<float>();
+
+        return list;
     }
 
     private void OnCollisionEnter(Collision collision)
