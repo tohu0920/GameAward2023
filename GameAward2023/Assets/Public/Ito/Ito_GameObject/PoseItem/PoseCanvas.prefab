@@ -1,49 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1691517787910299677
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1806289273709672595}
-  - component: {fileID: 7068980307850755675}
-  m_Layer: 0
-  m_Name: PoseControleObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1806289273709672595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691517787910299677}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 209.44397, y: -25.889252, z: -1.3548131}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6526605411893371567}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7068980307850755675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691517787910299677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9275b8c8ec97f464fa8a6122055357d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5138368541683594454
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +13,7 @@ GameObject:
   - component: {fileID: 6106815682087880573}
   - component: {fileID: 6731391136305198882}
   m_Layer: 5
-  m_Name: GAMESETTING2
+  m_Name: Option2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +134,7 @@ GameObject:
   - component: {fileID: 6526605410533875618}
   - component: {fileID: 6526605410533875621}
   m_Layer: 5
-  m_Name: GAMESETTING
+  m_Name: Option
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b55452cea67c92b4e91c95483177572a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11508256d5888e54b9b157aa11ce4102, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -554,7 +510,6 @@ RectTransform:
   - {fileID: 2967441038133321620}
   - {fileID: 6526605412176526414}
   - {fileID: 3363718150065433090}
-  - {fileID: 1806289273709672595}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -637,7 +592,7 @@ GameObject:
   - component: {fileID: 6526605411945146068}
   - component: {fileID: 6526605411945146071}
   m_Layer: 5
-  m_Name: STAGESELECT
+  m_Name: StageSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,7 +725,7 @@ GameObject:
   - component: {fileID: 6526605412176526412}
   - component: {fileID: 6526605412176526415}
   m_Layer: 5
-  m_Name: BACKTITLE
+  m_Name: BackTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -915,7 +870,7 @@ GameObject:
   - component: {fileID: 2838790600808784931}
   - component: {fileID: 700900052797448475}
   m_Layer: 5
-  m_Name: STAGESELECT2
+  m_Name: StageSelect2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,7 +1003,7 @@ GameObject:
   - component: {fileID: 5011915362589518846}
   - component: {fileID: 2627353238838721460}
   m_Layer: 5
-  m_Name: BACKTITLE2
+  m_Name: BackTitle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
