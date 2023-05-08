@@ -133,4 +133,23 @@ public class CursorController_araki : MonoBehaviour
         Debug.Log(camdata.transform.name);
 		return camdata.ScreenPointToRay(new Vector3(pos.x + Screen.width / 2.0f, pos.y + Screen.height / 2.0f, 0.0f));
 	}
+
+	public GameObject GetAttachJunk()
+	{
+		//--- カメラを取得
+		GameObject cam = GameObject.Find("JointCamera");
+		if (cam == null) return null;    // カメラが無ければ処理しない
+
+		//--- レイで当たり判定を取る
+		Ray ray = GetCameraToRay(cam);
+		RaycastHit hit;
+		// 入れ子を削減する為に否定で判定
+		if (Physics.Raycast(ray, out hit)) // カーソルが指す物を取得
+		{
+			if (hit.transform.GetComponents<FixedJoint>().Length <= 0) return null;
+			if (hit.transform.tag == "Jank") return hit.transform.gameObject;
+		}
+
+		return null;
+	}
 }
