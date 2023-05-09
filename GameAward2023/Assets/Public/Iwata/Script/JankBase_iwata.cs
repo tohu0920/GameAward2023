@@ -100,7 +100,7 @@ public abstract class JankBase_iwata : JankStatus
         core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
         if (axisX != 0)
         {
-            transform.Rotate(0.0f, 90.0f * axisX, 0.0f, Space.World);
+            transform.Rotate(0.0f, -90.0f * axisX, 0.0f, Space.World);
         }
         else if(axisY != 0)
         {
