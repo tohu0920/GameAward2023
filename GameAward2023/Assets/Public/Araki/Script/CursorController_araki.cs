@@ -16,7 +16,8 @@ public class CursorController_araki : MonoBehaviour
 	static RectTransform m_rectTransform;   // カーソルの座標情報
     [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
-	[SerializeReference]PreviewCamera_araki m_previreCamera;
+	[SerializeReference] PreviewCamera_araki m_previreCamera;
+	JointStageManager m_jointStageManager;
 
 	// Start is called before the first frame update
 	void Start()
@@ -24,19 +25,22 @@ public class CursorController_araki : MonoBehaviour
 		m_rectTransform = GetComponent<RectTransform>();
 		m_rectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
 		m_lastPointJunk = null;
+		m_jointStageManager = transform.root.GetComponent<JointStageManager>();
 	}
 
     // Update is called once per frame
     void Update()
     {
+		if (m_jointStageManager.JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT) return;
+
 		//--- プレビュー用ガラクタを生成
 		switch (CheckRayHitState())
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				m_previreCamera.StartNoise();	// ノイズを再生		
+				m_previreCamera.StopNoise();	// ノイズを停止	
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
-				m_previreCamera.EndPreview();
+				m_previreCamera.StartNoise();	// プレビュー終了
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
