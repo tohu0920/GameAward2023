@@ -12,6 +12,8 @@ public class OptionSelect : MonoBehaviour
     private GameObject SEImage2;    
     private GameObject ReadMeImage1;
     private GameObject ReadMeImage2;
+
+    private bool activeOption;
     
     [SerializeReference] public GameObject titleScreen;
     [SerializeReference] public GameObject OptionScreen;
@@ -23,7 +25,7 @@ public class OptionSelect : MonoBehaviour
     public AudioSource BGMSource;    // BGMを再生するAudioSourceを格納する変数
     public AudioSource SESourse;     // SE再生するAudioSourceを格納する変数    
 
-    static public int SelectOptionNum; 
+    public int SelectOptionNum; 
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,8 @@ public class OptionSelect : MonoBehaviour
 
         //bgmSlider.value = 5.0f;
         //SESlider.value = 5.0f;
+
+        activeOption = true;
 
         SelectOptionNum = 0;
     }
@@ -77,14 +81,18 @@ public class OptionSelect : MonoBehaviour
                 break;              
         }
 
-        if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
+        if (PadInput.GetKeyDown(KeyCode.JoystickButton1) && activeOption && Pose.activePoseOption)
+        {
+            Pose.activePoseOption = false;
+            Pose.activePose = true;
+            OptionScreen.SetActive(false);
+        }
+        else if(PadInput.GetKeyDown(KeyCode.JoystickButton1) && activeOption)
         {
             titleControle.SetActive(true);
             titleScreen.SetActive(true);
             OptionScreen.SetActive(false);
-
-            Pose.activetoOption = false;
-        }
+        }      
     }
 
     /// <summary>

@@ -621,6 +621,18 @@ PrefabInstance:
       propertyPath: bgmSlider
       value: 
       objectReference: {fileID: 306385055}
+    - target: {fileID: 7602504307704643594, guid: 78e4ca47fbc1cb84fb833a598e270b90, type: 3}
+      propertyPath: titleScreen
+      value: 
+      objectReference: {fileID: 8105727082276721093, guid: f1afc16cda58f70498cdc65b9bd0fcc2, type: 3}
+    - target: {fileID: 7602504307704643594, guid: 78e4ca47fbc1cb84fb833a598e270b90, type: 3}
+      propertyPath: OptionScreen
+      value: 
+      objectReference: {fileID: 1230936305}
+    - target: {fileID: 7602504307704643594, guid: 78e4ca47fbc1cb84fb833a598e270b90, type: 3}
+      propertyPath: titleControle
+      value: 
+      objectReference: {fileID: 2050505819633508840, guid: 337bcbc91bca98f498264b483ad01e8a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78e4ca47fbc1cb84fb833a598e270b90, type: 3}
 --- !u!1 &631488419 stripped
