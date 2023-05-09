@@ -81,7 +81,7 @@ public class Core_Playing : ObjectBase
             }
         }
         
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition);
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
 
         m_Life = false;
     }
