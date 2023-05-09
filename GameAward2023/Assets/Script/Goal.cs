@@ -7,8 +7,6 @@ public class Goal : MonoBehaviour
 {
 	private void OnCollisionEnter(Collision collision)
 	{
-        Debug.Log("‚Ô‚Â‚©‚Á‚½" + collision.transform.name);
-
 		if (collision.transform.name.Contains("Core_Child"))
         {
             if (!collision.transform.parent.GetComponent<Core_Playing>().Life) return;

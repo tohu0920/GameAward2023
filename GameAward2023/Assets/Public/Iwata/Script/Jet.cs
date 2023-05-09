@@ -37,11 +37,11 @@ public class Jet : JankBase_iwata
         Vector3 direction = transform.forward;
 
         // 少し後ろに移動する
-        Vector3 offset = -direction * 0.5f;
+        Vector3 offset = -direction * 1f;
         effectPos += offset;
 
         //ジェットの炎のエフェクト表示
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos);
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
     }
 
     public override List<float> GetParameterList()

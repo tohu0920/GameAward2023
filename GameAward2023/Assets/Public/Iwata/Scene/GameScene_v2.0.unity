@@ -2176,10 +2176,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2085324700}
     m_Modifications:
-    - target: {fileID: 68640833930437489, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
     - target: {fileID: 1195492850400790133, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_Material
       value: 
@@ -2192,10 +2188,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: c0baa23c82e38504887663938380d866, type: 2}
-    - target: {fileID: 2557752432927081273, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
     - target: {fileID: 2831675402243344960, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_Material
       value: 
@@ -2256,10 +2248,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
-    - target: {fileID: 3696909359587467528, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: c0baa23c82e38504887663938380d866, type: 2}
     - target: {fileID: 4183809360533543788, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
       value: Connecter
@@ -2280,41 +2268,21 @@ PrefabInstance:
       propertyPath: PController
       value: 
       objectReference: {fileID: 376828732}
-    - target: {fileID: 5418464206917465169, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 5951447120872681089, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 6420761856636412510, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
+    - target: {fileID: 6275469592797134409, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6558007743817340512, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: c0baa23c82e38504887663938380d866, type: 2}
-    - target: {fileID: 6859104019866050329, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
     - target: {fileID: 6867311977461495727, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
       value: Connecter
       objectReference: {fileID: 0}
-    - target: {fileID: 7443896167595271672, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
-      objectReference: {fileID: 0}
     - target: {fileID: 7514928782619034922, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
       value: Connecter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7560261110420755244, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 12.46
       objectReference: {fileID: 0}
     - target: {fileID: 7933710619287100131, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
@@ -2794,10 +2762,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Booster_2.0 (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1231922417521546961, guid: 41ad24a9a8e616a4eb9f93e97d185c0f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41ad24a9a8e616a4eb9f93e97d185c0f, type: 3}
 --- !u!4 &1748322017 stripped
@@ -3036,7 +3000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740002, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740003, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_RootOrder

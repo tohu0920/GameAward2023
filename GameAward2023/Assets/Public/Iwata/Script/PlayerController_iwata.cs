@@ -49,6 +49,14 @@ public class PlayerController_iwata : MonoBehaviour
                             //カーソルからRayを出す
                             //Ray ray = GM.JointStage.Find("JointCanvas").Find("Cursor").GetComponent<CursorController_araki>().GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
 
+                            GameObject jank = GM.JointStage.Find("JointCanvas").Find("Cursor").GetComponent<CursorController_araki>().GetAttachJunk();
+
+                            if(jank)
+                            {
+                                jank.GetComponent<JankBase_iwata>().Orizin.SetActive(true);
+                                Destroy(jank);
+                            }
+
                             //ぶつかったやつの親がCoreじゃなければコンテニュー
                             //名前にCore_ChildかCoreCenterだったらコンテニュー
                             //コアコントローラーにリリースコアを作ってぶつかったのを消して、オリジンをアクティブに戻す
@@ -110,7 +118,7 @@ public class PlayerController_iwata : MonoBehaviour
                             GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(1, 0, GM.JointStage.Find("Core"));
                         }
 
-                        //Lボタン
+                        //Rボタン
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton5))
                         {
                             GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(-1, 0, GM.JointStage.Find("Core"));

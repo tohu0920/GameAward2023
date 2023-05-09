@@ -168,16 +168,38 @@ public class CoreSetting_iwata : ObjectBase
             m_rotateFrameCnt = 0;   // 回転フレームをリセット
             if (m_rotFlag == RotateFlag.E_ROTATE_FLAG_NULL) return;
 
+            
+            float hogepos = 0f;      //基準になるための座標
+            switch (m_rotFlag)
+            {
+                case RotateFlag.E_ROTATE_FLAG_R:        //右に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_L:        //左に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_U:        //上に回転する
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //基準のX軸の座標を取得
+                    break;
+
+                case RotateFlag.E_ROTATE_FLAG_D:
+                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x;
+                    break;
+            }
+
+
             m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
-            float hogepos;      //基準になるための座標
             int nextnum = 0;    //回転後の選択面の添え字を検索用
             List<int> numList = new List<int>();
+
+            Debug.Log("Index:" + m_SelectFaceNum);
 
             //回転の向きに応じた処理を行う
             switch (m_rotFlag)
             {
                 case RotateFlag.E_ROTATE_FLAG_R:        //右に回転する
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
                         if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
@@ -195,7 +217,6 @@ public class CoreSetting_iwata : ObjectBase
                     break;
 
                 case RotateFlag.E_ROTATE_FLAG_L:        //左に回転する
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.y;      //基準のY軸の座標を取得
                     
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
@@ -214,7 +235,6 @@ public class CoreSetting_iwata : ObjectBase
                     break;
 
                 case RotateFlag.E_ROTATE_FLAG_U:        //上に回転する
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x; ;      //基準のX軸の座標を取得
 
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
@@ -233,7 +253,6 @@ public class CoreSetting_iwata : ObjectBase
                     break;
 
                 case RotateFlag.E_ROTATE_FLAG_D:
-                    hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x;
 
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
@@ -327,7 +346,7 @@ public class CoreSetting_iwata : ObjectBase
     /// <summary>
     /// 組み立てることができるか判定する
     /// </summary>
-    private void CheckCanAttach()
+    public void CheckCanAttach()
     {
         if(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform) && m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform))
         {
