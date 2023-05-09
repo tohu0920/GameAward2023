@@ -18,10 +18,10 @@ public class Pose : MonoBehaviour
     private GameObject Title2;
 
     private int poseNum;            //ポーズ画面選択判定用
-    private bool activePose;        //ポーズ画面の表示判定用
 
+    static public bool activePose;        //ポーズ画面の表示判定用
     static public bool activetoStage;     //ステージ確認画面表示判定
-    static public bool activetoOption;    //オプション表示判定
+    static public bool activePoseOption;  //オプション表示判定
     static public bool activetoTitle;     //タイトル確認画面表示判定
 
     private void Start()
@@ -84,37 +84,26 @@ public class Pose : MonoBehaviour
             }         
         }
         
-        //表示されている画面のみ(どれか一つに入る)
+        //表示されている画面のみ動作(どちらかに入る)
         //ポーズ画面のみなら全てスルー
         if(activetoStage)
         {
-            activePose = false;
-
             YNChoice.Update();
 
             if(!activetoStage)
             {
                 checkStage.SetActive(false);
-            }
-        }
-        if(activetoOption)
-        {
-            activePose = false;
-
-            if (!activetoOption)
-            {
-                optionScreen.SetActive(false);
+                activePose = true;
             }
         }
         if(activetoTitle)
         {
-            activePose = false;
-
             YNChoice.Update();
 
             if (!activetoTitle)
             {
                 checkTitle.SetActive(false);
+                activePose = true;
             }
         }
     }
@@ -133,7 +122,7 @@ public class Pose : MonoBehaviour
                 break;
 
             case 1:
-                activetoOption = true;
+                activePoseOption = true;
 
                 //オプション画面表示
                 optionScreen.SetActive(true);
