@@ -3022,9 +3022,49 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 809667241}
     m_Modifications:
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_Looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_SkipOnDrop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_AspectRatio
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_WaitForFirstFrame
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_TargetCamera3DLayout
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_EnabledAudioTracks.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110739999, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740000, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005493934110740001, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
+      propertyPath: m_Depth
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740002, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_Name
