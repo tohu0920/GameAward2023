@@ -291,7 +291,7 @@ public class CoreSetting_iwata : ObjectBase
         if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
         {
             m_rotateY += ROTATION * axisX;  // 角度を設定
-            m_rotateX += ROTATION * axisY;  // 角度を設定
+            m_rotateX -= ROTATION * axisY;  // 角度を設定
             m_rotateFrameCnt = 1;	// 最初のカウント
         }
         else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
@@ -385,6 +385,7 @@ public class CoreSetting_iwata : ObjectBase
             FixedJoint comp = m_AttachJank.AddComponent<FixedJoint>();
             comp.connectedBody = m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<Rigidbody>();
             comp.breakForce = m_BreakForce;
+            m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().ConnectedChild = m_AttachJank;
             m_AttachJank = null;
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;
