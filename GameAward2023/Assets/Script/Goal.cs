@@ -11,9 +11,8 @@ public class Goal : MonoBehaviour
         {
             if (!collision.transform.parent.GetComponent<Core_Playing>().Life) return;
 
-            Debug.Log("ƒS[ƒ‹‚µ‚½");
-            SceneManager.LoadScene("GameScene_v2.0");
+            Debug.Log("Æ’SÂ[Æ’â€¹â€šÂµâ€šÂ½");
+            m_GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
-
-	}
+    }
 }
