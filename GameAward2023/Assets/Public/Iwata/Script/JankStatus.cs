@@ -15,18 +15,25 @@ public class JankStatus : ObjectBase
         public bool m_minusY;
     }
 
-    [Tooltip("・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
-    [SerializeField] AttachFlag m_colliderFlags;    //・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
-
-    [Tooltip("・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO")]
-    [SerializeField] AttachFlag m_collisionFlags;     //・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
-
-    // Start is called before the first frame update
-    protected void Start()
+    public enum eJankTag
     {
-        base.Start();
+        E_JANK_TAG_NORMAL = 0,
+        E_JANK_TAG_CORE,
+        E_JANK_TAG_METAL,
+        E_JANK_TAG_DRUM,
+        E_JANK_TAG_MAX
     }
 
+    [Tooltip("設置済みの時に使うフラグ")]
+    [SerializeField] AttachFlag m_colliderFlags;    //・ｽ・ｽ・ｽﾂゑｿｽ・ｽﾄゑｿｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
+
+    [Tooltip("仮置きの時に使うフラグ")]
+    [SerializeField] AttachFlag m_collisionFlags;     //・ｽ・ｽ・ｽ・ｽ・ｽ・ｽt・ｽ・ｽ・ｽ骼橸ｿｽﾉ使・ｽ・ｽ・ｽt・ｽ・ｽ・ｽO
+
+    [SerializeField] eJankTag m_JankTag;
+
+    protected List<GameObject> m_ConnectedChild = new List<GameObject>();      //このジャンクにつけられたジャンクを登録する
+    
     /// <summary>
     /// 設置済みのオブジェクトの組み立てれる面かの判定
     /// </summary>
@@ -103,4 +110,30 @@ public class JankStatus : ObjectBase
 
         return rotVector;
     }
+
+    public void DestroyChild()
+    {
+        foreach(GameObject child in m_ConnectedChild)
+        {
+            child.GetComponent<JankStatus>().DestroyChild();
+            child.GetComponent<JankBase_iwata>().Orizin.SetActive(true);
+            Destroy(child);
+        }
+    }
+
+    public eJankTag JankTag
+    {
+        get { return m_JankTag; }
+    }
+
+    public GameObject ConnectedChild
+    {
+        set { m_ConnectedChild.Add(value); }
+    }
+
+    public List<GameObject> ConnectedChildList
+    {
+        get { return m_ConnectedChild; }
+    }
+
 }

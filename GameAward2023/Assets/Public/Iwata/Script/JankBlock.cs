@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class JankBlock : JankBase_iwata
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// ジャンクブロックの動き
     /// </summary>
     public override void work()
     {
 
+    }
+
+    public override List<float> GetParameterList()
+    {
+        List<float> list = new List<float>();
+
+        return list;
     }
 }

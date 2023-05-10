@@ -39,8 +39,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     
-        m_lastGameStatus = m_GameStatus;                   
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ç¹§ï½²ç¹ï½¼ç¹ç¸ºï½®è¿¥ï½¶è«·ä¹ãƒ»è›»æ™„æ‚„è›¹ãƒ»
+        m_lastGameStatus = m_GameStatus;                    //èœ‘é˜ªãƒµç¹ï½¬ç¹ï½¼ç¹ç¸ºï½®è¿¥ï½¶è«·ä¹ï½’è«æ™„æˆŸ
+        ObjectBase.Start();
     }
 
     // Update is called once per frame
@@ -57,15 +58,15 @@ public class GameManager : MonoBehaviour
                         case eGameStatus.E_GAME_STATUS_ROT:
                             m_JointStage.gameObject.SetActive(false);
                             m_PlayStage.gameObject.SetActive(true);
-                            Vector3 startpos = m_PlayStage.Find("Start").transform.position;
+                            Vector3 startpos = m_PlayStage.Find("StageObject").Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
-                            // ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]Šp“x‚ğæ“¾‚·‚é
+                            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢è§’åº¦ã‚’å–å¾—ã™ã‚‹
                             Quaternion currentRotation = core.transform.rotation;
 
-                            // ƒIƒuƒWƒFƒNƒg‚ğY²ü‚è‚É‰ñ“]‚³‚¹‚é
+                            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’Yè»¸å‘¨ã‚Šã«å›è»¢ã•ã›ã‚‹
                             Quaternion targetRotation = Quaternion.AngleAxis(-10.0f, Vector3.up) * currentRotation;
 
-                            // ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚ğ“K—p‚·‚é
+                            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã‚’é©ç”¨ã™ã‚‹
                             core.transform.rotation = targetRotation;
 
 
@@ -100,7 +101,7 @@ public class GameManager : MonoBehaviour
                     {
                         case eGameStatus.E_GAME_STATUS_ROT:
                             Destroy(m_PlayStage.Find("Core(Clone)").gameObject);
-                            Vector3 startpos = m_PlayStage.Find("Start").transform.position;
+                            Vector3 startpos = m_PlayStage.Find("StageObject").Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, Quaternion.identity);
                             core.transform.parent = m_PlayStage.transform;
                             Destroy(core.GetComponent<CoreSetting_iwata>());
@@ -109,8 +110,8 @@ public class GameManager : MonoBehaviour
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
-                            Debug.Log("ƒQ[ƒ€ƒNƒŠƒAI");
-                            //SceneManager.LoadScene("ƒQ[ƒ€ƒNƒŠƒA‰æ–Ê‚ÌƒV[ƒ“–¼");
+                            Debug.Log("ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ï¼");
+                            //SceneManager.LoadScene("ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ç”»é¢ã®ã‚·ãƒ¼ãƒ³å");
                             break;
 
                     }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ObjectBase : MonoBehaviour
 {
-    [SerializeField] public AudioManager AudioMane;
-    [SerializeField] public EffectManager_iwata EffectMane;
+    [SerializeField] public static AudioManager AudioMane;
+    [SerializeField] public static EffectManager_iwata EffectMane;
 
     // Start is called before the first frame update
-    protected void Start()
+    public static void Start()
     {
         AudioMane = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         EffectMane = GameObject.Find("EffectManager").GetComponent<EffectManager_iwata>();
