@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //ゲームの状態�Eフラグ
+    public static GameManager Instance { get; private set; }
+
     public enum eGameStatus
     {
         E_GAME_STATUS_START = 0,
@@ -13,28 +14,41 @@ public class GameManager : MonoBehaviour
         E_GAME_STATUS_PLAY,
         E_GAME_STATUS_POUSE,
         E_GAME_STATUS_END,
-
+        
         E_GAME_STATUS_MAX
     }
 
-    [SerializeField] private Transform m_PlayStage;        //プレイ用の環墁E
-    [SerializeField] private Transform m_JointStage;       //絁E��立て用の環墁E
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
-    [SerializeField] private eGameStatus m_GameStatus;  //ゲームの状慁E
-    [SerializeField] private eGameStatus m_lastGameStatus;  //ゲームの状慁E
+    [SerializeField] private Transform m_PlayStage;       
+    [SerializeField] private Transform m_JointStage;      
+
+    [SerializeField] private eGameStatus m_GameStatus;  
+    [SerializeField] private eGameStatus m_lastGameStatus;  
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態�E初期匁E
-        m_lastGameStatus = m_GameStatus;                    //前フレームの状態を保持
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //繧ｲ繝ｼ繝縺ｮ迥ｶ諷九・蛻晄悄蛹・
+        m_lastGameStatus = m_GameStatus;                    //蜑阪ヵ繝ｬ繝ｼ繝縺ｮ迥ｶ諷九ｒ菫晄戟
         ObjectBase.Start();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(m_GameStatus != m_lastGameStatus)
+        Debug.Log(m_GameStatus);
+        if (m_GameStatus != m_lastGameStatus)
         {
             switch(m_lastGameStatus)
             {
@@ -46,13 +60,13 @@ public class GameManager : MonoBehaviour
                             m_PlayStage.gameObject.SetActive(true);
                             Vector3 startpos = m_PlayStage.Find("StageObject").Find("Start").transform.position;
                             GameObject core = Instantiate(m_JointStage.Find("Core").gameObject, startpos, m_JointStage.Find("Core").rotation);
-                            // �I�u�W�F�N�g�̉�]�p�x���擾����
+                            // オブジェクトの回転角度を取得する
                             Quaternion currentRotation = core.transform.rotation;
 
-                            // �I�u�W�F�N�g��Y������ɉ�]������
+                            // オブジェクトをY軸周りに回転させる
                             Quaternion targetRotation = Quaternion.AngleAxis(-10.0f, Vector3.up) * currentRotation;
 
-                            // �I�u�W�F�N�g�̉�]��K�p����
+                            // オブジェクトの回転を適用する
                             core.transform.rotation = targetRotation;
 
 
@@ -93,6 +107,11 @@ public class GameManager : MonoBehaviour
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
                             core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
+                            break;
+
+                        case eGameStatus.E_GAME_STATUS_END:
+                            Debug.Log("ゲームクリア！");
+                            //SceneManager.LoadScene("ゲームクリア画面のシーン名");
                             break;
 
                     }
