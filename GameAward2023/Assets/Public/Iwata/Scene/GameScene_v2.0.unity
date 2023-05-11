@@ -1939,7 +1939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1150569276
 Transform:
   m_ObjectHideFlags: 0
@@ -2084,26 +2084,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 1530863731}
---- !u!1 &1231999294 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3670739068523945410, guid: 97c8d28cca2c1db44b3b39761ca0f57f, type: 3}
-  m_PrefabInstance: {fileID: 8628745682883639779}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1231999299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231999294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec5e912e939a3004bb306a7f41449d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lastPointJunk: {fileID: 0}
-  m_previewJunk: {fileID: 0}
-  m_previreCamera: {fileID: 1748322018}
 --- !u!1 &1270032152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,10 +2288,6 @@ PrefabInstance:
     - target: {fileID: 6867311977461495727, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
       value: Connecter
-      objectReference: {fileID: 0}
-    - target: {fileID: 7352655607947872930, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
-      propertyPath: m_Mass
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7514928782619034922, guid: 2f166a4b498ae1c4aa9829abfe67bae1, type: 3}
       propertyPath: m_TagString
@@ -3481,14 +3457,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2085324700}
     m_Modifications:
-    - target: {fileID: 3670739068523945436, guid: 97c8d28cca2c1db44b3b39761ca0f57f, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3670739069706952837, guid: 97c8d28cca2c1db44b3b39761ca0f57f, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5083674085950323732, guid: 97c8d28cca2c1db44b3b39761ca0f57f, type: 3}
+      propertyPath: m_previreCamera
+      value: 
+      objectReference: {fileID: 1748322018}
     - target: {fileID: 8628745682021958035, guid: 97c8d28cca2c1db44b3b39761ca0f57f, type: 3}
       propertyPath: m_Pivot.x
       value: 0

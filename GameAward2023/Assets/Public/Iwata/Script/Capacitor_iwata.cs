@@ -12,9 +12,11 @@ public class Capacitor_iwata : MonoBehaviour
         switch (collision.transform.GetComponent<JankStatus>().JankTag)
         {
             case JankStatus.eJankTag.E_JANK_TAG_CORE:
+                Debug.Log(collision.transform.name);
                 core.GetComponent<Core_Playing>().DestroyCore();
                 break;
             case JankStatus.eJankTag.E_JANK_TAG_METAL:
+                Debug.Log(collision.transform.name);
                 core.GetComponent<Core_Playing>().DamageCore(collision.transform);
                 break;
         }

@@ -90,9 +90,10 @@ public class Core_Playing : ObjectBase
     {
         if (!m_Life) return;
 
-        float explosionForce = 35.0f; // ”š”­—Í
-        float explosionRadius = 2.0f; // ”š”­”¼Œa
+        float explosionForce = 50.0f; // ”š”­—Í
+        float explosionRadius = 30.0f; // ”š”­”¼Œa
         Vector3 explosionPosition = target.position;
+        explosionPosition.y += 0.5f;
 
         Destroy(target.GetComponent<FixedJoint>());
 
