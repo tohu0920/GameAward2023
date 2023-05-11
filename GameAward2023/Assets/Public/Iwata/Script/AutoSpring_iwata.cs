@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AutoSpring : JankBase_iwata
+public class AutoSpring_iwata : JankBase_iwata
 {
     public float waitTime = 2f; // 最小値に達した後の待機時間
     public float maxHeight = 2f; // シリンダーの最大高さ
@@ -15,38 +15,13 @@ public class AutoSpring : JankBase_iwata
     private bool waiting = false; // 待機中かどうかを表すフラグ
     private float timeSinceMinHeight = 0f; // 最小値に達してからの経過時間を保持する変数
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        base.Start();
+    }
+    
     public override void work()
-    {
-
-    }
-
-    /// <summary>
-    /// 各ジャンクのパラメータを取得する
-    /// </summary>
-    public override List<float> GetParam()
-    {
-        List<float> list = new List<float>();
-
-        list.Add(waitTime);
-
-        return list;
-    }
-
-    /// <summary>
-    /// パラメーター配置
-    /// </summary>
-    /// <param name="paramList"></param>
-    public override void SetParam(List<float> paramList)
-    {
-        waitTime = paramList[0];
-    }
-
-    private void Start()
-    {
-        currentHeight = minHeight; // 初期値を設定
-    }
-
-    private void Update()
     {
         // 高さを変更
         if (increasing && !waiting)
@@ -82,6 +57,27 @@ public class AutoSpring : JankBase_iwata
         }
 
         // シリンダーのスケールを変更する
-        transform.localScale = new Vector3(1f, currentHeight, 1f);
+        transform.Find("Povit").localScale = new Vector3(1f, currentHeight, 1f);
+    }
+
+    /// <summary>
+    /// 各ジャンクのパラメータを取得する
+    /// </summary>
+    public override List<float> GetParam()
+    {
+        List<float> list = new List<float>();
+
+        list.Add(waitTime);
+
+        return list;
+    }
+
+    /// <summary>
+    /// パラメーター配置
+    /// </summary>
+    /// <param name="paramList"></param>
+    public override void SetParam(List<float> paramList)
+    {
+        waitTime = paramList[0];
     }
 }

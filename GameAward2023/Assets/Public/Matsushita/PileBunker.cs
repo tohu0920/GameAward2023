@@ -19,19 +19,22 @@ public class PileBunker : JankBase_iwata
 
     }
 
+    public override List<float> GetParam()
+    {
+        List<float> list = new List<float>();
+
+        return list;
+    }
+
+    public override void SetParam(List<float> paramList)
+    {
+
+    }
+
     void Start()
     {
         needleTransform = transform.GetChild(0);
         StartCoroutine(MoveNeedle());
-    }
-
-    /// <summary>
-    /// パラメーター配置
-    /// </summary>
-    /// <param name="paramList"></param>
-    public void SetParam(List<float> paramList)
-    {
-        speed = paramList[0];
     }
 
 

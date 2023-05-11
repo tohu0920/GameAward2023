@@ -2,48 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spring_Matusita : JankBase_iwata
+public class Spring_iwata : JankBase_iwata
 {
     public float springForce = 300.0f; // 跳ね返りの強さ
     public float minDot = 0.9f; // 面衝突判定の閾値
     public float extraForce = 100.0f; //追加の力
-
+    
     private BoxCollider boxCollider;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     public override void work()
     {
-
+        
     }
 
+    /// <summary>
+    /// 各ジャンクのパラメータを取得する
+    /// </summary>
     public override List<float> GetParam()
     {
         List<float> list = new List<float>();
-
+        
         return list;
     }
 
-    public override void SetParam(List<float> paramList)
-    {
-
-    }
-
-    void Start()
-    {
-        // Box Colliderを取得
-        boxCollider = GetComponent<BoxCollider>();
-        // 当たり判定を有効化
-        boxCollider.isTrigger = false;
-    }
-
-    //---------------------------------------------------
     /// <summary>
     /// パラメーター配置
     /// </summary>
     /// <param name="paramList"></param>
-    //public override void SetParam(List<float> paramList)
-    //{
-    //}
-    //-----------------------------
+    public override void SetParam(List<float> paramList)
+    {
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -111,4 +105,3 @@ public class Spring_Matusita : JankBase_iwata
         }
     }
 }
-

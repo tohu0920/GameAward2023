@@ -20,6 +20,7 @@ public class JankStatus : ObjectBase
         E_JANK_TAG_NORMAL = 0,
         E_JANK_TAG_CORE,
         E_JANK_TAG_METAL,
+        E_JANK_TAG_RUBBER,
         E_JANK_TAG_DRUM,
         E_JANK_TAG_MAX
     }

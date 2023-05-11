@@ -44,7 +44,7 @@ public class Jet : JankBase_iwata
         EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
     }
 
-    public override List<float> GetParameterList()
+    public override List<float> GetParam()
     {
         List<float> list = new List<float>();
 
@@ -53,5 +53,10 @@ public class Jet : JankBase_iwata
 
         return list;
     }
-
+    
+    public override void SetParam(List<float> paramList)
+    {
+        m_boostForceRate = paramList[0];
+        m_maxSpeed = paramList[1];
+    }
 }
