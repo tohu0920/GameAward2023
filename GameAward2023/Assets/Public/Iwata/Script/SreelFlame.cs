@@ -15,11 +15,16 @@ public class SreelFlame : JankBase_iwata
 
     }
 
-    public override List<float> GetParameterList()
+    public override List<float> GetParam()
     {
         List<float> list = new List<float>();
 
         return list;
+    }
+    
+    public override void SetParam(List<float> paramList)
+    {
+
     }
 
     private void OnCollisionEnter(Collision collision)
