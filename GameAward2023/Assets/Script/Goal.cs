@@ -17,4 +17,15 @@ public class Goal : MonoBehaviour
             GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.name.Contains("Core_Child"))
+        {
+            if (!other.transform.parent.GetComponent<Core_Playing>().Life) return;
+
+            Debug.Log("ƒS[ƒ‹‚µ‚½");
+            GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
+        }
+    }
 }
