@@ -5,28 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    private GameManager m_GameManager;
+    [SerializeField] GameManager GM;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // GameManager‚ğ’T‚·
-        m_GameManager = FindObjectOfType<GameManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("‚Ô‚Â‚©‚Á‚½" + collision.transform.name);
-        if (collision.transform.name.Contains("Core_Child"))
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.transform.name.Contains("Core_Child"))
         {
-            Debug.Log("ƒS[ƒ‹‚µ‚½");
-            m_GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
+            if (!collision.transform.parent.GetComponent<Core_Playing>().Life) return;
+
+            Debug.Log("Æ’SÂ[Æ’â€¹â€šÂµâ€šÂ½");
+            GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
     }
 }

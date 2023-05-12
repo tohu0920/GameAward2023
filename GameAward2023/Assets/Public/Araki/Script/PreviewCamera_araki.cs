@@ -5,9 +5,10 @@ using UnityEngine.Video;
 
 public class PreviewCamera_araki: MonoBehaviour
 {
-	VideoPlayer m_videoPlayer;
-	int m_freamCnt;
-	bool m_isEndNoise;
+	VideoPlayer m_videoPlayer;	// 動画操作用
+	int m_freamCnt;				// フレームカウント
+	bool m_isEndNoise;			// ノイズ終了の瞬間
+	bool m_isStopRequest;		// ノイズ停止のリクエスト
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,7 @@ public class PreviewCamera_araki: MonoBehaviour
 		m_videoPlayer = GetComponent<VideoPlayer>();
 		m_freamCnt = 0;
 		m_isEndNoise = false;
-		gameObject.SetActive(false);
+		m_isStopRequest = false;
 	}
 
     // Update is called once per frame
@@ -23,35 +24,39 @@ public class PreviewCamera_araki: MonoBehaviour
     {
 		m_isEndNoise = false;
 		if(!m_videoPlayer.isPlaying) return;
+		if (!m_isStopRequest) return;
 
 		m_freamCnt++;	// フレームをカウント
 
 		//--- 1秒でノイズを終了
-		if (m_freamCnt > 60)
+		if (m_freamCnt > 30)
 		{
 			m_freamCnt = 0;                 // カウントをリセット
 			m_videoPlayer.Stop();			// ノイズ動画を停止
 			m_isEndNoise = true;            // ノイズ終了フラグを立てる
+			m_isStopRequest = false;
 		}
     }
 
 	/// <summary>
-	/// ノイズを再生
+	/// ノイズを停止(30フレーム後)
 	/// </summary>
-	public void StartNoise()
+	public void StopNoise()
 	{
-		gameObject.SetActive(true);		// 自信を有効化
-		m_videoPlayer.Play();			// ノイズ動画を再生
-
 		m_freamCnt = 0;	// カウントをリセット
+		m_isStopRequest = true;
 	}
 
 	/// <summary>
-	/// プレビュー用カメラの無効化
+	/// ノイズを再開
 	/// </summary>
-	public void EndPreview()
+	public void StartNoise()
 	{
-		gameObject.SetActive(false);	// 自信を無効化
+		m_videoPlayer.Play();	// ノイズを再生
+
+		// ノイズ停止リクエストを削除
+		m_isStopRequest = false;
+		m_freamCnt = 0;
 	}
 
 	public bool isEndNoise

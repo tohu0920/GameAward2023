@@ -21,14 +21,25 @@ public class AutoSpring : JankBase_iwata
     }
 
     /// <summary>
+    /// 各ジャンクのパラメータを取得する
+    /// </summary>
+    public override List<float> GetParam()
+    {
+        List<float> list = new List<float>();
+
+        list.Add(waitTime);
+
+        return list;
+    }
+
+    /// <summary>
     /// パラメーター配置
     /// </summary>
     /// <param name="paramList"></param>
-    public void SetParam(List<float> paramList)
+    public override void SetParam(List<float> paramList)
     {
         waitTime = paramList[0];
     }
-
 
     private void Start()
     {

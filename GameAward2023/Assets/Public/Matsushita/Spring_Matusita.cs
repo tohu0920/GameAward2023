@@ -15,6 +15,18 @@ public class Spring_Matusita : JankBase_iwata
 
     }
 
+    public override List<float> GetParam()
+    {
+        List<float> list = new List<float>();
+
+        return list;
+    }
+
+    public override void SetParam(List<float> paramList)
+    {
+
+    }
+
     void Start()
     {
         // Box Colliderを取得
@@ -23,13 +35,15 @@ public class Spring_Matusita : JankBase_iwata
         boxCollider.isTrigger = false;
     }
 
+    //---------------------------------------------------
     /// <summary>
     /// パラメーター配置
     /// </summary>
     /// <param name="paramList"></param>
-    public override void SetParam(List<float> paramList)
-    {
-    }
+    //public override void SetParam(List<float> paramList)
+    //{
+    //}
+    //-----------------------------
 
     void OnCollisionEnter(Collision collision)
     {

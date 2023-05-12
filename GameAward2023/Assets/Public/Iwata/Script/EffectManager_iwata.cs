@@ -5,6 +5,7 @@ using UnityEngine;
 public enum EffectType
 {
     E_EFFECT_KIND_JET = 0,
+    E_EFFECT_KIND_EXPLOSION,
     E_EFFECT_KIND_MAX
 }
 
@@ -18,30 +19,16 @@ public class EffectInfo
 
 public class EffectManager_iwata : MonoBehaviour
 {
-
-
     public List<EffectInfo> effectList;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void PlayEffect(EffectType type, Vector3 position)
+    
+    public void PlayEffect(EffectType type, Vector3 position, Transform parent)
     {
         EffectInfo effectInfo = effectList.Find(effect => effect.type == type);
 
         if (effectInfo != null)
         {
             GameObject effectInstance = Instantiate(effectInfo.effectPrefab, position, Quaternion.identity);
-            // エフェクトを再生するための追加の処理をここに記述することができます。
+            effectInstance.transform.parent = parent;
         }
         else
         {
