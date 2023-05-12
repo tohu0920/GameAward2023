@@ -16,7 +16,13 @@ public abstract class JankBase_iwata : JankStatus
     /// <summary>
     /// 各ジャンクのパラメータを取得する
     /// </summary>
-    public abstract List<float> GetParameterList();
+    public abstract List<float> GetParam();
+
+    /// <summary>
+    /// 各ジャンクのパラメータを設定する
+    /// </summary>
+    /// <param name="paramList">設定するパラメータのリスト</param>
+    public abstract void SetParam(List<float> paramList);
 
     // Start is called before the first frame update
     protected void Start()

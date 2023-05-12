@@ -1785,7 +1785,7 @@ MonoBehaviour:
   mainselectScreen: {fileID: 1460936945}
   subselsectScreen: {fileID: 1454782164}
   Empty: {fileID: 1665752346}
-  Scene: {fileID: 102900000, guid: 0b3efa24e8681e142b042391734631f3, type: 3}
+  Scene: GameScene_v2.0
 --- !u!4 &984305345
 Transform:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class InputTest : MonoBehaviour
 
 		this.transform.position = pos;
 
-		if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
-			LoadStageData.CreateStage("testData");
+		//if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+		//	LoadStageData.CreateStage("testData");
 	}
 }

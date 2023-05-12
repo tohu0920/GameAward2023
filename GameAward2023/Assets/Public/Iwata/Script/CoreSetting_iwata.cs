@@ -22,7 +22,7 @@ public class CoreSetting_iwata : ObjectBase
         E_ROTATE_FLAG_U,
         E_ROTATE_FLAG_D,
 
-        E_ROTATE_FLAG_Y_MAX
+        E_ROTATE_FLAG_MAX
     }
     
     const float ROTATION = 90.0f;   // 回転角度
@@ -68,7 +68,7 @@ public class CoreSetting_iwata : ObjectBase
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //--- 回転中
         if (m_rotateFrameCnt > 0)
@@ -97,7 +97,13 @@ public class CoreSetting_iwata : ObjectBase
 
             // 組み立てられない面はスルー
             // 手前に物があったらスキップ
-            if (Physics.Raycast(ray, out hit, 10.0f)) continue;
+            if (Physics.Raycast(ray, out hit, 10.0f))
+            {
+                if (hit.transform.gameObject != m_AttachJank)    //当たったのが仮置きしているの以外なら
+                {
+                    continue;
+                }
+            }
             
 
             //Transformの情報登録
@@ -139,7 +145,7 @@ public class CoreSetting_iwata : ObjectBase
                 return a.Trans.position.x.CompareTo(b.Trans.position.x);
             }
         });
-
+        
         return attachFaces;
     }
 
@@ -188,21 +194,19 @@ public class CoreSetting_iwata : ObjectBase
                     hogepos = m_AttachFaces[m_SelectFaceNum].Trans.position.x;
                     break;
             }
-
-
+            
             m_AttachFaces = GetAttachFace();    // 次の組み立てられる面を取得
             int nextnum = 0;    //回転後の選択面の添え字を検索用
             List<int> numList = new List<int>();
-
-            Debug.Log("Index:" + m_SelectFaceNum);
-
+            
             //回転の向きに応じた処理を行う
             switch (m_rotFlag)
             {
                 case RotateFlag.E_ROTATE_FLAG_R:        //右に回転する
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        //Debug.Log(m_AttachFaces[i].Trans.name + ":" + Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos));
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.2f) continue;       //検索した面と基準のY座標を比較する
 
                         numList.Add(i);
                     }
@@ -210,6 +214,7 @@ public class CoreSetting_iwata : ObjectBase
 
                     foreach(int child in numList)
                     {
+                        Debug.Log(m_AttachFaces[child].Trans.name);
                         if (m_AttachFaces[nextnum].Trans.position.x > m_AttachFaces[child].Trans.position.x) nextnum = child;      //今の候補の面の座標より右に検索した面があるなら候補を変える
                     }
 
@@ -220,7 +225,8 @@ public class CoreSetting_iwata : ObjectBase
                     
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos));
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.y - hogepos) > 0.2f) continue;       //検索した面と基準のY座標を比較する
 
                         numList.Add(i);
                     }
@@ -228,6 +234,7 @@ public class CoreSetting_iwata : ObjectBase
 
                     foreach (int child in numList)
                     {
+                        Debug.Log(m_AttachFaces[child].Trans.name);
                         if (m_AttachFaces[nextnum].Trans.position.x < m_AttachFaces[child].Trans.position.x) nextnum = child;      //今の候補の面の座標より右に検索した面があるなら候補を変える
                     }
                     
@@ -238,7 +245,8 @@ public class CoreSetting_iwata : ObjectBase
 
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos));
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.2f) continue;       //検索した面と基準のY座標を比較する
 
                         numList.Add(i);
                     }
@@ -246,6 +254,7 @@ public class CoreSetting_iwata : ObjectBase
 
                     foreach (int child in numList)
                     {
+                        Debug.Log(m_AttachFaces[child].Trans.name);
                         if (m_AttachFaces[nextnum].Trans.position.y > m_AttachFaces[child].Trans.position.y) nextnum = child;      //今の候補の面の座標より右に検索した面があるなら候補を変える
                     }
 
@@ -256,7 +265,8 @@ public class CoreSetting_iwata : ObjectBase
 
                     for (int i = 0; i < m_AttachFaces.Count; i++)
                     {
-                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.05f) continue;       //検索した面と基準のY座標を比較する
+                        Debug.Log(m_AttachFaces[i].Trans.name + ":" + Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos));
+                        if (Mathf.Abs(m_AttachFaces[i].Trans.position.x - hogepos) > 0.2f) continue;       //検索した面と基準のY座標を比較する
 
                         numList.Add(i);
                     }
@@ -274,9 +284,7 @@ public class CoreSetting_iwata : ObjectBase
             m_SelectFaceNum = nextnum;
             m_AttachJank.GetComponent<JankBase_iwata>().PutJank(m_AttachFaces[m_SelectFaceNum].Trans, this.transform);
             CheckCanAttach();
-
-            //---------------------
-
+            
             m_rotFlag = RotateFlag.E_ROTATE_FLAG_NULL;
         }
     }
@@ -339,7 +347,6 @@ public class CoreSetting_iwata : ObjectBase
             {
                 m_rotFlag = RotateFlag.E_ROTATE_FLAG_U;
             }
-            //m_isDepath = true;
         }
     }
 

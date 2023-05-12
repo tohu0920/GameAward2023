@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Booster_Matusita : Metal
+public class Booster_matusita : JankBase_iwata
 {
-
     [SerializeReference] float m_boostForceRate;
     [SerializeReference] float m_maxSpeed;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     /// <summary>
     /// パラメーター配置
@@ -24,24 +17,45 @@ public class Booster_Matusita : Metal
         m_maxSpeed = paramList[1];
     }
 
+    public override List<float> GetParam()
+    {
+        List<float> list = new List<float>();
+
+        list.Add(m_boostForceRate);
+        list.Add(m_maxSpeed);
+
+        return list;
+    }
+
+    public override void work()
+    {
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        base.Start();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        //--- 現在のスピードを取得
-        Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
-        float currentSpeed = rigidbody.velocity.magnitude;
+        //if (GSManager.transform.GetComponent<GameStatusManager>().GameStatus == GameStatusManager.eGameStatus.E_GAME_STATUS_PLAY)
+        //{
+        //    if (!this.transform.parent.name.Contains("Core")) return;
 
-        // ブースト用のベクトルを計算
-        Vector3 boostFoce = this.transform.forward.normalized * m_boostForceRate;
+        //    //--- 現在のスピードを取得
+        //    Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
+        //    float currentSpeed = rigidbody.velocity.magnitude;
 
-        // 最大速度以下の時のみ処理する
-        if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);   // ブースト処理
-    }
-    /// <summary>
-    /// 釘コンクリートにあたったとき
-    /// </summary>
-    public override void HitNailConcrete()
-    {
+        //    // ブースト用のベクトルを計算
+        //    Vector3 boostFoce = this.transform.forward.normalized * m_boostForceRate;
 
+        //    // 最大速度以下の時のみ処理する
+        //    if (currentSpeed < m_maxSpeed) rigidbody.AddForce(boostFoce);	// ブースト処理
+
+        //    EffectManager.GetComponent<EffectManager_iwata>().PlayEffect(EffectType.E_EFFECT_KIND_JET, this.transform.position);
+        //}
     }
 }

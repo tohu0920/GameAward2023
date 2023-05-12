@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class MiniCore : JankBase_iwata
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// ジャンクブロックの動き
     /// </summary>
@@ -24,10 +12,15 @@ public class MiniCore : JankBase_iwata
 
     }
 
-    public override List<float> GetParameterList()
+    public override List<float> GetParam()
     {
         List<float> list = new List<float>();
 
         return list;
+    }
+
+    public override void SetParam(List<float> paramList)
+    {
+
     }
 }

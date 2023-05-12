@@ -32,19 +32,18 @@ public class JunkList
 	public List<JunkData> m_junks;
 }
 
-public static class LoadStageData
+public static class LoadStageData_araki
 {
 	/// <summary>
-	/// 読み込んだステージを作成
+	/// ステージ上にオブジェクトを設置
 	/// </summary>
-	public static void CreateStage(string fileName)
+	public static void SettingStageObjects(string fileName)
 	{
 		//--- jsonファイルの読み込み
 		ObjectList list;
 		LoadJsonFile(fileName, out list);
 
 		//--- 読み込んだデータを基に処理
-		//foreach (CreateData obj in list.m_objects)
 		foreach (ObjectData obj in list.m_objects)
 		{
 			//--- データを作成
