@@ -75,10 +75,14 @@ public static class LoadStageData_araki
 
 			// オブジェクトを生成
 			GameObject gameObject = (GameObject)GameObject.Instantiate(prefab, pos, rot);	
-#if false	//TODO:JunkBaseにSetParam()を作成したら解禁
-			JunkBase junkBase = gameObject.GetComponent<JunkBase>();
-			junkBase.SetParam(junk.m_params);	// パラメータを設定
-#endif
+
+			//--- パラメータを設定
+			List<float> param = new List<float>();
+			for (int i = 0; i < junk.m_params.Length; i++)
+				param.Add(junk.m_params[i]);
+
+			JankBase_iwata junkBase = gameObject.GetComponent<JankBase_iwata>();
+			junkBase.SetParam(param);	// パラメータを設定
 		}
 	}
 
