@@ -82,7 +82,11 @@ public static class LoadStageData_araki
 				param.Add(junk.m_params[i]);
 
 			JankBase_iwata junkBase = gameObject.GetComponent<JankBase_iwata>();
-			junkBase.SetParam(param);	// パラメータを設定
+			junkBase.SetParam(param);   // パラメータを設定
+
+			//--- 親をJankに設定
+			GameObject junkPparent = GameObject.Find("Jank");
+			gameObject.transform.SetParent(junkPparent.transform);
 		}
 	}
 
