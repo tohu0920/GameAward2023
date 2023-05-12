@@ -18,6 +18,8 @@ public class CursorController_araki : MonoBehaviour
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference] PreviewCamera_araki m_previreCamera;
 	JointStageManager m_jointStageManager;
+    private float axisX = 0;
+    private float axisY = 0;
 
 	// Start is called before the first frame update
 	void Start()
@@ -59,24 +61,30 @@ public class CursorController_araki : MonoBehaviour
 				break;
 		}
 
-		//--- 移動処理
-		Vector2 pos = m_rectTransform.anchoredPosition;
-		pos.x += PadInput.GetAxis("Horizontal_R") * 7.5f;
-		pos.y += PadInput.GetAxis("Vertical_R") * 7.5f;
-
-		//--- 画面外に出ていくのを防ぐ(左画面のみ移動可能)
-		if (pos.x >  Screen.width / 2.0f) pos.x =  Screen.width / 2.0f;
-		if (pos.x < -Screen.width / 2.0f) pos.x = -Screen.width / 2.0f;
-		if (pos.y >  Screen.height / 2.0f) pos.y =  Screen.height / 2.0f;
-		if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
-
-		m_rectTransform.anchoredPosition = pos;	// カーソルの位置を確定
+        axisX = PadInput.GetAxis("Horizontal_R");
+        axisY = PadInput.GetAxis("Vertical_R");
 	}
 
-	/// <summary>
-	/// カーソルとガラクタの衝突状況を取得
-	/// </summary>
-	E_RAY_HIT_STATE CheckRayHitState()
+    private void FixedUpdate()
+    {
+        //--- 移動処理
+        Vector2 pos = m_rectTransform.anchoredPosition;
+        pos.x += axisX * 7.5f;
+        pos.y += axisY * 7.5f;
+
+        //--- 画面外に出ていくのを防ぐ(左画面のみ移動可能)
+        if (pos.x > Screen.width / 2.0f) pos.x = Screen.width / 2.0f;
+        if (pos.x < -Screen.width / 2.0f) pos.x = -Screen.width / 2.0f;
+        if (pos.y > Screen.height / 2.0f) pos.y = Screen.height / 2.0f;
+        if (pos.y < -Screen.height / 2.0f) pos.y = -Screen.height / 2.0f;
+
+        m_rectTransform.anchoredPosition = pos;	// カーソルの位置を確定
+    }
+
+    /// <summary>
+    /// カーソルとガラクタの衝突状況を取得
+    /// </summary>
+    E_RAY_HIT_STATE CheckRayHitState()
 	{
 		//--- カメラを取得
 		GameObject cam = GameObject.Find("JointCamera");

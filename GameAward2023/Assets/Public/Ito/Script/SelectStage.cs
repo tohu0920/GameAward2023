@@ -22,7 +22,7 @@ public class SelectStage : MonoBehaviour
     [SerializeReference] GameObject mainselectScreen;
     [SerializeReference] GameObject subselsectScreen;
     [SerializeReference] GameObject Empty;
-    [SerializeReference] Object Scene;
+    [SerializeReference] string Scene;
 
     public static int SelectNum;            //ステージ選択用
     public static int unlockstage1Num = 0;　//ステージ解放用
@@ -107,7 +107,7 @@ public class SelectStage : MonoBehaviour
                     if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage1;
-                        SceneManager.LoadScene(Scene.name);                        
+                        SceneManager.LoadScene(Scene);                        
                     }
                 }
 
@@ -131,7 +131,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage2;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -154,7 +154,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage3;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -177,7 +177,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage4;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -200,7 +200,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage5;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 
@@ -224,7 +224,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage6;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -247,7 +247,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage7;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -270,7 +270,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage8;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -293,7 +293,7 @@ public class SelectStage : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                     {
                         LoadSceneNum = (int)StageSelect.Stage9;
-                        SceneManager.LoadScene(Scene.name);
+                        SceneManager.LoadScene(Scene);
                     }
                 }
                 break;
@@ -318,7 +318,7 @@ public class SelectStage : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     LoadSceneNum = (int)StageSelect.Stage10;
-                    SceneManager.LoadScene(Scene.name);
+                    SceneManager.LoadScene(Scene);
                 }
             }
         }

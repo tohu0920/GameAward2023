@@ -68,7 +68,7 @@ public class CoreSetting_iwata : ObjectBase
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //--- ‰ñ“]’†
         if (m_rotateFrameCnt > 0)

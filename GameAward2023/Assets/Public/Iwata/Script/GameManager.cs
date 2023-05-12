@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -110,7 +111,7 @@ public class GameManager : MonoBehaviour
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            //SceneManager.LoadScene("ゲームクリア画面のシーン名");
+                            SceneManager.LoadScene("GameScene_v2.0");
                             break;
 
                     }

@@ -1828,6 +1828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02200ca4d31343349841189016108ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 0}
 --- !u!4 &1100010770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1525148323204812027, guid: f2b1baf82f8a7b846b12404246b7a437, type: 3}
@@ -3022,50 +3023,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 809667241}
     m_Modifications:
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_Looping
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_SkipOnDrop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_AspectRatio
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_WaitForFirstFrame
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_TargetCamera3DLayout
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739998, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_EnabledAudioTracks.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110739999, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110740000, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4005493934110740001, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
-      propertyPath: m_Depth
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4005493934110740002, guid: d148d69ae2fee134193e8d8e3c9d8546, type: 3}
       propertyPath: m_Name
       value: PreviewCamera_araki
