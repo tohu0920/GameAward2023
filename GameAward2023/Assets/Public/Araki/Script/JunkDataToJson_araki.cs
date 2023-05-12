@@ -33,8 +33,12 @@ public class JunkDataToJson_araki : MonoBehaviour
 			data.m_rot[0] = child.localRotation.x;
 			data.m_rot[1] = child.localRotation.y;
 			data.m_rot[2] = child.localRotation.z;
-			data.m_params = new float[2/*何らかの方法で取得してきたパラメータのリストの長さ*/];
-			// for()でデータを格納する
+
+			// パラメータの取得
+			List<float> param = child.GetComponent<JankBase_iwata>().GetParam();
+			data.m_params = new float[param.Count];
+			for (int j = 0; j < param.Count; j++)
+				data.m_params[j] = param[j];
 
 			m_list.m_junks.Add(data); // リストに追加
 		}
