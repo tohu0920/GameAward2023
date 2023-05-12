@@ -16,7 +16,7 @@ public class EditorPutBlockWallObject : Editor
         if (GUILayout.Button("Block更新"))
         {
             var hoge = target as PutBlockWallObject;
-            hoge.Export();
+            hoge.Deploy();
         }
     }
 }
