@@ -43,16 +43,25 @@ public static class LoadStageData_araki
 		ObjectList list;
 		LoadJsonFile(fileName, out list);
 
+		// ガラクタを保持する親オブジェクト
+		GameObject stageObjectPparent = GameObject.Find("StageObject");
+
 		//--- 読み込んだデータを基に処理
 		foreach (ObjectData obj in list.m_objects)
 		{
 			//--- データを作成
 			Object prefab = Resources.Load<Object>("Prefabs/" + obj.m_name);
 			Vector3 pos = new Vector3(obj.m_pos[0], obj.m_pos[1], obj.m_pos[2]);
-			Quaternion rot = Quaternion.Euler(0.0f, obj.m_rotY, 0.0f);	// X.Z回転は必要ない
+			Quaternion rot = Quaternion.Euler(0.0f, obj.m_rotY, 0.0f);  // X.Z回転は必要ない
 
 			// オブジェクトを生成
-			GameObject.Instantiate(prefab, pos, rot);
+			GameObject stageObject = (GameObject)GameObject.Instantiate(prefab, pos, rot);
+
+			// 親オブジェクトが無い場合は処理しない
+			if (stageObjectPparent == null) continue;
+
+			// 親をJankに設定
+			stageObject.transform.SetParent(stageObjectPparent.transform);
 		}
 	}
 
@@ -64,6 +73,9 @@ public static class LoadStageData_araki
 		//--- jsonファイルの読み込み
 		JunkList list;
 		LoadJsonFile(fileName, out list);
+		
+		// ガラクタを保持する親オブジェクト
+		GameObject junkPparent = GameObject.Find("Jank");
 
 		//--- 読み込んだデータを基に処理
 		foreach (JunkData junk in list.m_junks)
@@ -84,8 +96,10 @@ public static class LoadStageData_araki
 			JankBase_iwata junkBase = gameObject.GetComponent<JankBase_iwata>();
 			junkBase.SetParam(param);   // パラメータを設定
 
-			//--- 親をJankに設定
-			GameObject junkPparent = GameObject.Find("Jank");
+			// 親オブジェクトが無い場合は処理しない
+			if (junkPparent == null) continue;
+
+			// 親をJankに設定
 			gameObject.transform.SetParent(junkPparent.transform);
 		}
 	}
