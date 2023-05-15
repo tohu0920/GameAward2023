@@ -6,7 +6,7 @@ public class GoalDisconect : MonoBehaviour
 { 
     void Update()
     {
-        if (GameManager.Instance.GetCurrentGameStatus() != GameManager.eGameStatus.E_GAME_STATUS_END)
+        if (GameManager.Instance.GameStatus != GameManager.eGameStatus.E_GAME_STATUS_END)
             return;
 
         // "fixjoint"でつながっているオブジェクトを取得
