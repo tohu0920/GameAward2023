@@ -22,7 +22,7 @@ public class GoalArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Player"))
+        if (other.transform.CompareTag("Core") || other.transform.CompareTag("Player"))
         {
             m_GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
