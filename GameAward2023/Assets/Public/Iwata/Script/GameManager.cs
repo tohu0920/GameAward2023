@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
                             for (int i = stageObject.childCount - 1; i >= 0; i--)
                             {
                                 Debug.Log(stageObject.GetChild(i).name);
+                                if (stageObject.GetChild(i).name == "Start") continue;
                                 Destroy(stageObject.GetChild(i).gameObject);
                             }
                             LoadStageData_araki.SettingStageObjects("TestStage");
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            SceneManager.LoadScene("GameScene_v2.0");
+                            //SceneManager.LoadScene("GameScene_v2.0");
                             break;
 
                     }
