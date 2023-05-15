@@ -39,11 +39,10 @@ public class CursorController_araki : ObjectBase
 		switch (CheckRayHitState())
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-                AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
-                m_previreCamera.StopNoise();	// ノイズを停止	
+				m_previreCamera.StartNoise();	// ノイズ開始	
+        AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
-				m_previreCamera.StartNoise();	// プレビュー終了
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
