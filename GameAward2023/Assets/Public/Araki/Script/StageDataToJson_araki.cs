@@ -20,34 +20,44 @@ public class StageDataToJson_araki : MonoBehaviour
 		for (int i = 0; i < this.transform.childCount; ++i)
 		{
 			// 子を取得
-			Transform child = this.transform.GetChild(i);
+			Transform obj = this.transform.GetChild(i);
 
-			//--- データを格納
+			// データ格納用変数
 			ObjectData data = new ObjectData();
-			data.m_pos = new float[3];
-			data.m_name = child.name;
-			data.m_pos[0] = child.position.x;
-			data.m_pos[1] = child.position.y;
-			data.m_pos[2] = child.position.z;
-			data.m_rotY = child.localRotation.y;
-			data.m_rotY = child.localEulerAngles.y;
+			
+			//--- オブジェクトの子の情報を全て取得
+			IEnumerable<Transform> children = obj.GetComponentsInChildren<Transform>(true);
+			data.m_name = obj.name;
+			data.m_pos = new float[children.Count() * 3];
+			data.m_rot = new float[children.Count() * 3];
+			int j = 0;
+			foreach (Transform child in children)
+			{
+				//--- 座標
+				data.m_pos[j * 3 + 0] = child.position.x;
+				data.m_pos[j * 3 + 1] = child.position.y;
+				data.m_pos[j * 3 + 2] = child.position.z;
 
+				//--- 回転
+				data.m_rot[j * 3 + 0] = child.localEulerAngles.x;
+				data.m_rot[j * 3 + 1] = child.localEulerAngles.y;
+				data.m_rot[j * 3 + 2] = child.localEulerAngles.z;
+
+				j++;
+			}
 			m_list.m_objects.Add(data);	// リストに追加
 		}
-
-		StreamWriter sw;
 
 		// データをjsonに変換
 		string json = JsonUtility.ToJson(m_list);
 
 		// jsonファイルに書き込み(Resourcesファイルに格納)
 		string filePath = Application.dataPath + "/Resources/" + m_fileName + ".json";
+		StreamWriter sw;
 		sw = new StreamWriter(filePath, false);
 		sw.Write(json);
 		sw.Flush();
 		sw.Close();
-
-		Debug.Log("ファイルの出力に成功しました。");
 	}
 
 	// Update is called once per frame
