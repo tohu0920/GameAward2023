@@ -107,11 +107,22 @@ public class GameManager : MonoBehaviour
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
                             core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
+                            Debug.Log("リスタート");
+                            Debug.Log(PlayStage.Find("StageObject").childCount);
+                            Transform stageObject = PlayStage.Find("StageObject");
+                            // 逆順で子オブジェクトを削除
+                            for (int i = stageObject.childCount - 1; i >= 0; i--)
+                            {
+                                Debug.Log(stageObject.GetChild(i).name);
+                                if (stageObject.GetChild(i).name == "Start") continue;
+                                Destroy(stageObject.GetChild(i).gameObject);
+                            }
+                            LoadStageData_araki.SettingStageObjects("TestStage");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            SceneManager.LoadScene("GameScene_v2.0");
+                            //SceneManager.LoadScene("GameScene_v2.0");
                             break;
 
                     }
