@@ -39,10 +39,9 @@ public class CursorController_araki : MonoBehaviour
 		switch (CheckRayHitState())
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				m_previreCamera.StopNoise();	// ノイズを停止	
+				m_previreCamera.StartNoise();	// ノイズ開始	
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
-				m_previreCamera.StartNoise();	// プレビュー終了
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
