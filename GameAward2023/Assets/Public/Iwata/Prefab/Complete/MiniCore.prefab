@@ -94,7 +94,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 6170566900651086570, guid: 8610e51ba0b5d1841babecb1416d183e, type: 3}
-  - {fileID: 2100000, guid: 7f923689059320c4a9f1e806a2b44272, type: 2}
+  - {fileID: 4883859244475504229, guid: 0f4c008693ce2cd40b19599f833064cc, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 6112396962029954732}
   m_Layer: 0
   m_Name: MiniCore
-  m_TagString: Player
+  m_TagString: Jank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,8 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d67635b3c64b6d4193b443773d82ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 1
     m_minusZ: 1

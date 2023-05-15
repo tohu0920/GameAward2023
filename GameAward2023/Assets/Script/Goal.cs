@@ -5,17 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
+    [SerializeField] GameManager GM;
+
 	private void OnCollisionEnter(Collision collision)
 	{
-        Debug.Log("‚Ô‚Â‚©‚Á‚½" + collision.transform.name);
-
 		if (collision.transform.name.Contains("Core_Child"))
         {
             if (!collision.transform.parent.GetComponent<Core_Playing>().Life) return;
 
-            Debug.Log("ƒS[ƒ‹‚µ‚½");
-            SceneManager.LoadScene("GameScene_v2.0");
+            Debug.Log("Æ’SÂ[Æ’â€¹â€šÂµâ€šÂ½");
+            GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
+    }
 
-	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.name.Contains("Core_Child"))
+        {
+            if (!other.transform.parent.GetComponent<Core_Playing>().Life) return;
+
+            Debug.Log("Æ’SÂ[Æ’â€¹â€šÂµâ€šÂ½");
+            GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
+        }
+    }
 }

@@ -61,7 +61,7 @@ public class Core_Playing : ObjectBase
     {
         if (!m_Life) return;
 
-        float explosionForce = 150.0f; // ”š”­—Í
+        float explosionForce = 20.0f; // ”š”­—Í
         float explosionRadius = 5.0f; // ”š”­”¼Œa
         Vector3 explosionPosition = transform.Find("CoreCenter").position;
 
@@ -77,13 +77,37 @@ public class Core_Playing : ObjectBase
 
             foreach(Rigidbody childrb in rb)
             {
-                childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 1.0f, ForceMode.Impulse);
+                childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 0.0f, ForceMode.Impulse);
             }
         }
         
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition);
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
 
         m_Life = false;
+    }
+
+    public void DamageCore(Transform target)
+    {
+        if (!m_Life) return;
+
+        float explosionForce = 50.0f; // ”š”­—Í
+        float explosionRadius = 30.0f; // ”š”­”¼Œa
+        Vector3 explosionPosition = target.position;
+        explosionPosition.y += 0.5f;
+
+        Destroy(target.GetComponent<FixedJoint>());
+
+        foreach (Transform child in this.transform)
+        {
+            Rigidbody[] rb = child.GetComponents<Rigidbody>();
+            
+            foreach (Rigidbody childrb in rb)
+            {
+                childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 0.0f, ForceMode.Impulse);
+            }
+        }
+        
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
     }
 
     public void ResetPlayCore()

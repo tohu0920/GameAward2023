@@ -5,16 +5,16 @@ using UnityEditor;
 
 public class ChangeAllChildrenTag : MonoBehaviour
 {
-    [MenuItem("MyTools/Change All Children Tag")]
+    //[MenuItem("MyTools/Change All Children Tag")]
     static void ChangeTag()
     {
         // ヒエラルキー上で選択した全ての要素
-        Transform[] transforms = Selection.transforms;
+        //Transform[] transforms = Selection.transforms;
 
-        foreach (Transform transform in transforms)
-        {
-            GetChildren(transform);
-        }
+        //foreach (Transform transform in transforms)
+        //{
+        //    GetChildren(transform);
+        //}
     }
 
     static void GetChildren(Transform transform)

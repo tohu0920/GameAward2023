@@ -15,7 +15,7 @@ public class PutBlockWallObject : MonoBehaviour
     private GameObject[,,] blocks;
 
 
-    public void Export()
+    public void Deploy()
     {
         //ブロックの生成情報を保持するための変数を初期化
         blocks = new GameObject[Size.x + 1, Size.y + 1, Size.z + 1];
@@ -28,6 +28,8 @@ public class PutBlockWallObject : MonoBehaviour
             Transform child = transform.GetChild(0);
             DestroyImmediate(child.gameObject);
         }
+
+        transform.eulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 
         //生成して配置していく
         for (int z = 0; z < Size.z; z++)

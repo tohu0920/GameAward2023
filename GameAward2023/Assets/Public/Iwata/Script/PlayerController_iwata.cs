@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController_iwata : MonoBehaviour
 {
     [SerializeField] private GameManager GM;
+    int axisX = 0;
+    int axisY = 0;
 
     // Update is called once per frame
     void Update()
@@ -18,8 +20,8 @@ public class PlayerController_iwata : MonoBehaviour
                         //左スティック
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
-                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
-                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
+                            axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
+                            axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
                             if (axisX != 0 || axisY != 0)
                             {
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().InputAxisCore(axisX, axisY);
@@ -43,32 +45,18 @@ public class PlayerController_iwata : MonoBehaviour
 
                         }
 
-                        ////Bボタン
+                        //Bボタン
                         if(PadInput.GetKeyDown(KeyCode.JoystickButton1))
                         {
-                            //カーソルからRayを出す
-                            //Ray ray = GM.JointStage.Find("JointCanvas").Find("Cursor").GetComponent<CursorController_araki>().GetCameraToRay(GM.JointStage.Find("JointCamera").gameObject);
+                            GameObject jank = GM.JointStage.Find("JointCanvas").Find("Cursor").GetComponent<CursorController_araki>().GetAttachJunk();
 
-                            //ぶつかったやつの親がCoreじゃなければコンテニュー
-                            //名前にCore_ChildかCoreCenterだったらコンテニュー
-                            //コアコントローラーにリリースコアを作ってぶつかったのを消して、オリジンをアクティブに戻す
+                            if(jank)
+                            {
+                                jank.GetComponent<JankStatus>().DestroyChild();
+                                jank.GetComponent<JankBase_iwata>().Orizin.SetActive(true);
+                                Destroy(jank);
+                            }
                         }
-
-                        //if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
-                        //{
-                        //    if (!GM.JointStage.Find("Preview").gameObject.activeSelf)
-                        //    {
-                                
-                        //    }
-                        //    else
-                        //    {
-                        //        GM.JointStage.Find("Jank").GetComponent<JankController>().ReturnJank();
-                        //        GM.JointStage.Find("Preview").gameObject.SetActive(false);
-                        //    }
-                        //}
-                        //------------------
-                        //常時選択している面があるわけじゃないからRemoveどうしよう
-                        //-------------------------------
 
                         //Xボタン
                         if (PadInput.GetKeyDown(KeyCode.JoystickButton2))
@@ -76,14 +64,13 @@ public class PlayerController_iwata : MonoBehaviour
                             GM.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_ROT;
                         }
                         break;
-
-
+                        
                     case JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT:
                         //左スティック
                         if (GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().m_rotateFrameCnt <= 0)
                         {
-                            int axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
-                            int axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
+                            axisX = AxisInput.GetAxisRawRepeat("Horizontal_L");
+                            axisY = AxisInput.GetAxisRawRepeat("Vertical_L");
                             if (axisX != 0 || axisY != 0)
                             {
                                 GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().InputAxisCore(axisX, axisY);
@@ -104,16 +91,12 @@ public class PlayerController_iwata : MonoBehaviour
                             GM.JointStage.GetComponent<JointStageManager>().JSStatus = JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT;
                         }
 
-                        //Lボタン
-                        if (PadInput.GetKeyDown(KeyCode.JoystickButton4))
+                        //十字ボタン
+                        axisX = AxisInput.GetAxisRawRepeat("Horizontal_PadX");
+                        axisY = AxisInput.GetAxisRawRepeat("Vertical_PadX");
+                        if(axisX != 0 || axisY != 0)
                         {
-                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(1, 0, GM.JointStage.Find("Core"));
-                        }
-
-                        //Lボタン
-                        if (PadInput.GetKeyDown(KeyCode.JoystickButton5))
-                        {
-                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(-1, 0, GM.JointStage.Find("Core"));
+                            GM.JointStage.Find("Core").GetComponent<CoreSetting_iwata>().AttachJank.GetComponent<JankBase_iwata>().RotJank(axisX, axisY, GM.JointStage.Find("Core"));
                         }
                         break;
                         

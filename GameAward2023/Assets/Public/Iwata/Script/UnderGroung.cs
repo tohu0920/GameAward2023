@@ -20,9 +20,6 @@ public class UnderGroung : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.collider.name);
-        Debug.Log(collision.transform.parent.name);
-
         if(collision.transform.parent.name == "Core(Clone)")
         {
             collision.transform.parent.GetComponent<Core_Playing>().DestroyCore();

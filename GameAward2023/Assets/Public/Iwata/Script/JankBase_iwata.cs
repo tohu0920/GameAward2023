@@ -16,7 +16,13 @@ public abstract class JankBase_iwata : JankStatus
     /// <summary>
     /// 各ジャンクのパラメータを取得する
     /// </summary>
-    public abstract List<float> GetParameterList();
+    public abstract List<float> GetParam();
+
+    /// <summary>
+    /// 各ジャンクのパラメータを設定する
+    /// </summary>
+    /// <param name="paramList">設定するパラメータのリスト</param>
+    public abstract void SetParam(List<float> paramList);
 
     // Start is called before the first frame update
     protected void Start()
@@ -100,12 +106,13 @@ public abstract class JankBase_iwata : JankStatus
         core.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
         if (axisX != 0)
         {
-            transform.Rotate(0.0f, 90.0f * axisX, 0.0f, Space.World);
+            transform.Rotate(0.0f, -90.0f * axisX, 0.0f, Space.World);
         }
         else if(axisY != 0)
         {
             transform.Rotate(90.0f * axisY, 0.0f, 0.0f, Space.World);
         }
+        core.GetComponent<CoreSetting_iwata>().CheckCanAttach();
         Vector3 pos = trans.transform.position;     //付ける面の座標取得
         BoxCollider thiscollider = GetComponent<BoxCollider>();
         BoxCollider corecollider = trans.GetComponent<BoxCollider>();
@@ -128,17 +135,14 @@ public abstract class JankBase_iwata : JankStatus
         switch (nearestValue)
         {
             case 0:
-                Debug.Log("Z" + thiscollider.size.z);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.z / 2.0f;        //自分の半分ずらす
                 break;
             case 1:
-                Debug.Log("X" + thiscollider.size.x);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.x / 2.0f;        //自分の半分ずらす
                 break;
             case 2:
-                Debug.Log("Y" + thiscollider.size.y);
                 pos.z -= corecollider.size.z / 2.0f;     //付ける面の大きさの半分ずらす
                 pos.z -= thiscollider.size.y / 2.0f;        //自分の半分ずらす
                 break;
