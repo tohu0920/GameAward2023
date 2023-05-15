@@ -21,10 +21,12 @@ public class KariShaderScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F))
         {
             Cube.material.SetInt("_ColorFlag",  colorFlagValue ? 0 : 1);
+            colorFlagValue = !colorFlagValue;
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
             Cube.material.SetInt("_CraftFlag",  craftFlagValue ? 0 : 1);
+            craftFlagValue = !craftFlagValue;
         }
 
     }
