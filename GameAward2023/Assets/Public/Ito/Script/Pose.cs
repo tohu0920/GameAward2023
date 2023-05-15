@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Pose : MonoBehaviour
 {
-    [SerializeReference] private GameObject poseScreen;
     [SerializeReference] private GameObject optionScreen;
     [SerializeReference] private GameObject checkStage;
     [SerializeReference] private GameObject checkTitle;
@@ -33,7 +32,6 @@ public class Pose : MonoBehaviour
         Title   = GameObject.Find("BackTitle");
         Title2  = GameObject.Find("BackTitle2");
 
-        poseScreen.SetActive(false);
         optionScreen.SetActive(false);
         checkStage.SetActive(false);
         checkTitle.SetActive(false);
@@ -43,28 +41,8 @@ public class Pose : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (!activePose && PadInput.GetKeyDown(KeyCode.JoystickButton2))
-        {
-            //ゲームシーンの停止
-            Time.timeScale = 0;
-            //ポーズ画面の表示  
-            poseScreen.SetActive(true);
-            //表示判定の更新
-            activePose = true;
-        }
-
-        if (activePose && PadInput.GetKeyDown(KeyCode.JoystickButton1))
-        {
-            //ポーズ画面の非表示  
-            poseScreen.SetActive(false);
-            //ゲームシーンの再生
-            Time.timeScale = 1;
-            //表示判定の更新
-            activePose = false;
-        }
-
-        if(activePose)
+    {        
+        if (activePose)
         {
             //選択の更新
             poseNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX");
@@ -174,6 +152,25 @@ public class Pose : MonoBehaviour
                 Title.SetActive(false);
                 Title2.SetActive(true);
                 break;
-        }
+        }        
+    }
+
+    /// <summary>
+    /// この関数を呼び出すScriptでSirializeRefarenceでposeCanvasを取得しから
+    /// オンオフ切り替えるのと同時に呼び出すこと
+    /// </summary>
+    static public void ActivePoseSCreen()
+    {
+        //ゲームシーンの停止
+        Time.timeScale = 0;
+        //表示判定の更新
+        activePose = true;
+    }
+    static public void NonActivePoseSCreen()
+    {
+        //ゲームシーンの再生
+        Time.timeScale = 1;
+        //表示判定の更新
+        activePose = false;
     }
 }
