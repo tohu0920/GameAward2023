@@ -169,4 +169,13 @@ public class CursorController_araki : ObjectBase
 
 		return null;
 	}
+
+	private void OnDisable()
+	{
+		if (m_previewJunk == null) return;
+
+		//--- スタートしたらプレビュー用ガラクタを削除する
+		Destroy(m_previewJunk);
+		m_previewJunk = null;
+	}
 }
