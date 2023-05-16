@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DestroyParent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Transform parent;
+
+    private void Awake()
     {
-        
+        if(!parent)
+        {
+            parent = GameObject.Find("PlayStage").transform.Find("StageObject").transform;
+        }
     }
 
     // Update is called once per frame
@@ -15,7 +19,7 @@ public class DestroyParent : MonoBehaviour
     {
         if(!this.GetComponent<FixedJoint>())
         {
-            this.gameObject.transform.parent = null;
+            this.gameObject.transform.parent = parent;
             // Rigidbodyコンポーネントを取得
             Rigidbody rb = GetComponent<Rigidbody>();
 

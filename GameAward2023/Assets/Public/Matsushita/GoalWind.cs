@@ -9,7 +9,7 @@ public class GoalWind : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (GameManager.Instance.GetCurrentGameStatus() != GameManager.eGameStatus.E_GAME_STATUS_END)
+        if (GameManager.Instance.GameStatus != GameManager.eGameStatus.E_GAME_STATUS_END)
                 return;
 
         if (other.CompareTag("Player"))

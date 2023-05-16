@@ -107,11 +107,17 @@ public class GameManager : MonoBehaviour
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
                             core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
+                            Transform stageobject = PlayStage.Find("StageObject");
+                            for (int i = stageobject.childCount - 1; i >= 0; i--)
+                            {
+                                Destroy(stageobject.GetChild(i).gameObject);
+                            }
+                            LoadStageData_araki.SettingJunks("Test_araki");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            SceneManager.LoadScene("GameScene_v2.0");
+                            //SceneManager.LoadScene("GameScene_v2.0");
                             break;
 
                     }

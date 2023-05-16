@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1874703467174267}
   - component: {fileID: 1874703467174268}
+  - component: {fileID: 3105507916222795005}
   m_Layer: 0
   m_Name: GoalWind
   m_TagString: Untagged
@@ -44,9 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd18f6434199258449779236d5ce397b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WIND_FORCE: 1000
-  WIND_RANGE: 30
-  DISTANCE_ATTENUATION: 1
-  WIDTH: 5
-  HEIGHT: 5
-  windSurface: {fileID: 1874703467174267}
+  target: {fileID: 0}
+  forceAmount: 1000
+--- !u!65 &3105507916222795005
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874703467174265}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
