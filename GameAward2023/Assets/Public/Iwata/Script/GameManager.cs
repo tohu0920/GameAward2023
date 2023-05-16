@@ -110,9 +110,9 @@ public class GameManager : MonoBehaviour
                             Transform stageobject = PlayStage.Find("StageObject");
                             for (int i = stageobject.childCount - 1; i >= 0; i--)
                             {
-                                Debug.Log(stageobject.GetChild(i).name);
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
+                            LoadStageData_araki.SettingJunks("Test_araki");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
