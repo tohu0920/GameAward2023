@@ -40,9 +40,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //繧ｲ繝ｼ繝縺ｮ迥ｶ諷九・蛻晄悄蛹・
-        m_lastGameStatus = m_GameStatus;                    //蜑阪ヵ繝ｬ繝ｼ繝縺ｮ迥ｶ諷九ｒ菫晄戟
-        ObjectBase.Start();
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態
+        m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
+        ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
+        //ここでステージとガラクタをロードする
     }
 
     // Update is called once per frame
@@ -112,12 +113,11 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
-                            LoadStageData_araki.SettingJunks("Test_araki");
+                            LoadStageData_araki.SettingStageObjects("0-0Stage");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            //SceneManager.LoadScene("GameScene_v2.0");
                             break;
 
                     }
