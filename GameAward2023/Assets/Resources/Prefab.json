@@ -1,0 +1,60 @@
+{
+  "m_objects": [
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "ガラクタブロック",
+      "m_categoriz": "基礎",
+      "m_property": "金属",
+      "m_explnation": "バランスを取ッタリ。コアを守ッタリデキる。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "鉄骨",
+      "m_categoriz": "攻撃",
+      "m_property": "金属",
+      "m_explnation": "前二付けるト破壊デキる"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "タイヤ",
+      "m_categoriz": "スプリング",
+      "m_property": "ゴム",
+      "m_explnation": "壁や障害物二当たると跳ね返る。釘に当たるト破裂してシマウ。蓄電器はキかナイ。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "ジェットブースター",
+      "m_categoriz": "ジェット",
+      "m_property": "金属",
+      "m_explnation": "コアを動かすタメに必要。２個並べるト真っスグ進めル。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "ミニコア",
+      "m_categoriz": "コア",
+      "m_property": "金属",
+      "m_explnation": "コアと同じデ、ガラクタが組み立てられル。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "ドラム缶",
+      "m_categoriz": "特殊",
+      "m_property": "爆発",
+      "m_explnation": "燃エテいるドラム缶に触れるト爆発してミスにナル。ソレ以外は基礎として使エル。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "パイルパンカー",
+      "m_categoriz": "金属",
+      "m_property": "金属",
+      "m_explnation": "パイルが打ち出されるノデ破壊力抜群。性能二差がアル。"
+    },
+    {
+      "m_prefabName": "prefabName",
+      "m_junkName": "ばね",
+      "m_categoriz": "スプリング",
+      "m_property": "金属",
+      "m_explnation": "常時伸び縮みシテいる。性能二差がアル。"
+    }
+  ]
+}
