@@ -35,7 +35,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform m_JointStage;      
 
     [SerializeField] private eGameStatus m_GameStatus;  
-    [SerializeField] private eGameStatus m_lastGameStatus;  
+    [SerializeField] private eGameStatus m_lastGameStatus;
+
+    static string szStage;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,10 @@ public class GameManager : MonoBehaviour
         m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
+        szStage = "1" + "-" + SelectStage.SelectNum + "Stage";
+        Debug.Log(szStage);
+        LoadStageData_araki.SettingStageObjects(szStage);
+        PlayStage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -113,11 +119,12 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
-                            LoadStageData_araki.SettingStageObjects("0-0Stage");
+                            LoadStageData_araki.SettingStageObjects(szStage);
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
+                            StartCoroutine(DelayedProcess());
                             break;
 
                     }
@@ -127,6 +134,15 @@ public class GameManager : MonoBehaviour
 
             m_lastGameStatus = m_GameStatus;
         }
+    }
+
+    IEnumerator DelayedProcess()
+    {
+        yield return new WaitForSeconds(3); // 3秒待つ
+
+        SelectStage.SelectNum++;
+        SceneManager.LoadScene("GameScene_v2.0");
+        
     }
 
     public Transform PlayStage
