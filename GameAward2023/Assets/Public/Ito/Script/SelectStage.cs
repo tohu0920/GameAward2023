@@ -24,7 +24,7 @@ public class SelectStage : MonoBehaviour
     [SerializeReference] GameObject Empty;
     [SerializeReference] string Scene;
 
-    public static int SelectNum;            //ステージ選択用
+    public static int SelectNum = 1;            //ステージ選択用
     public static int unlockstage1Num = 0;　//ステージ解放用
     public static int LoadSceneNum = 0;     //ステージロード用
 

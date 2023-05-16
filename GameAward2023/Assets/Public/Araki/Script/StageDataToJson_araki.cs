@@ -16,6 +16,8 @@ public class StageDataToJson_araki : MonoBehaviour
 		m_list = new ObjectList();
 		m_list.m_objects = new List<ObjectData>();
 
+        Debug.Log(m_fileName + "の生成を開始");
+
 		//--- 子の情報をリストに格納
 		for (int i = 0; i < this.transform.childCount; ++i)
 		{
@@ -51,14 +53,19 @@ public class StageDataToJson_araki : MonoBehaviour
 		// データをjsonに変換
 		string json = JsonUtility.ToJson(m_list);
 
-		// jsonファイルに書き込み(Resourcesファイルに格納)
-		string filePath = Application.dataPath + "/Resources/" + m_fileName + ".json";
+        Debug.Log(m_fileName + "の書き込み開始");
+
+        // jsonファイルに書き込み(Resourcesファイルに格納)
+        string filePath = Application.dataPath + "/Resources/" + m_fileName + ".json";
 		StreamWriter sw;
 		sw = new StreamWriter(filePath, false);
 		sw.Write(json);
 		sw.Flush();
 		sw.Close();
-	}
+
+
+        Debug.Log(m_fileName + "の生成を終了");
+    }
 
 	// Update is called once per frame
 	void Update()
