@@ -300,7 +300,8 @@ public class CoreSetting_iwata : ObjectBase
         {
             m_rotateY += ROTATION * axisX;  // 角度を設定
             m_rotateX -= ROTATION * axisY;  // 角度を設定
-            m_rotateFrameCnt = 1;	// 最初のカウント
+            m_rotateFrameCnt = 1;   // 最初のカウント
+            AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_PREV_KEYMOVE);
         }
         else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
         {
@@ -397,6 +398,7 @@ public class CoreSetting_iwata : ObjectBase
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;
             Debug.Log("いいね");
+            AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_ASSEMBLE);
             return true;
         }
         else

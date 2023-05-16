@@ -11,7 +11,7 @@ enum E_RAY_HIT_STATE
 	NOT_HIT	//当たっていない
 }
 
-public class CursorController_araki : MonoBehaviour
+public class CursorController_araki : ObjectBase
 {
 	static RectTransform m_rectTransform;   // カーソルの座標情報
     [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
@@ -39,18 +39,19 @@ public class CursorController_araki : MonoBehaviour
 		switch (CheckRayHitState())
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				m_previreCamera.StopNoise();	// ノイズを停止	
+				m_previreCamera.StartNoise();	// ノイズ開始	
+        AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
-				m_previreCamera.StartNoise();	// プレビュー終了
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
 			case E_RAY_HIT_STATE.STAY:
 				if (!m_previreCamera.isEndNoise) break;
 
-				//--- ノイズが終わったらガラクタを生成
-				m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
+                //--- ノイズが終わったらガラクタを生成
+                AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_MONITORON);
+                m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
 					new Vector3(1114.4f, 0.0f, 2.5f), Quaternion.identity);
 				// 動作を固定
 				m_previewJunk.GetComponent<Rigidbody>().constraints

@@ -8,7 +8,7 @@ public class ObjectData
 {
 	public string m_name;
 	public float[] m_pos;
-	public float m_rotY;
+	public float[] m_rot;
 }
 
 [System.Serializable]
@@ -50,18 +50,38 @@ public static class LoadStageData_araki
 		foreach (ObjectData obj in list.m_objects)
 		{
 			//--- データを作成
-			Object prefab = Resources.Load<Object>("Prefabs/" + obj.m_name);
-			Vector3 pos = new Vector3(obj.m_pos[0], obj.m_pos[1], obj.m_pos[2]);
-			Quaternion rot = Quaternion.Euler(0.0f, obj.m_rotY, 0.0f);  // X.Z回転は必要ない
+			Object objData = Resources.Load<Object>("Prefabs/" + obj.m_name);
 
-			// オブジェクトを生成
-			GameObject stageObject = (GameObject)GameObject.Instantiate(prefab, pos, rot);
+			GameObject prefab = (GameObject)objData;
+
+			//--- オブジェクトの子の情報を全て取得
+			IEnumerable<Transform> children = prefab.GetComponentsInChildren<Transform>(true);
+			int j = 0;
+			foreach (Transform child in children)
+			{
+				//--- 座標
+				child.position = new Vector3(
+					obj.m_pos[j * 3 + 0], obj.m_pos[j * 3 + 1], obj.m_pos[j * 3 + 2]);
+
+				//--- 回転
+				child.localEulerAngles = new Vector3(
+					obj.m_rot[j * 3 + 0], obj.m_rot[j * 3 + 1], obj.m_rot[j * 3 + 2]);
+
+				j++;
+			}
+
+			//--- オブジェクトを生成
+			Transform prefabData = prefab.transform;
+			GameObject stageObject = (GameObject)GameObject.Instantiate(
+				objData, prefabData.position, prefabData.localRotation);
 
 			// 親オブジェクトが無い場合は処理しない
 			if (stageObjectPparent == null) continue;
 
 			// 親をJankに設定
 			stageObject.transform.SetParent(stageObjectPparent.transform);
+
+			stageObject.name = prefab.name;	// 名前をプレハブと一致させる
 		}
 	}
 
