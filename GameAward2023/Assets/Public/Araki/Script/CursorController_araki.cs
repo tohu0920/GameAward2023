@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //--- レイの衝突状況の遷移
 enum E_RAY_HIT_STATE
@@ -18,8 +19,9 @@ public class CursorController_araki : ObjectBase
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference] PreviewCamera_araki m_previreCamera;
 	JointStageManager m_jointStageManager;
-    private float axisX = 0;
-    private float axisY = 0;
+    float axisX = 0.0f;
+    float axisY = 0.0f;
+	bool m_isHighSpeed = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -52,7 +54,7 @@ public class CursorController_araki : ObjectBase
                 //--- ノイズが終わったらガラクタを生成
                 AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_MONITORON);
                 m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
-					new Vector3(1114.4f, 0.0f, 2.5f), Quaternion.identity);
+					new Vector3(), Quaternion.identity);
 				// 動作を固定
 				m_previewJunk.GetComponent<Rigidbody>().constraints
 					= RigidbodyConstraints.FreezeAll;
@@ -64,14 +66,25 @@ public class CursorController_araki : ObjectBase
 
         axisX = PadInput.GetAxis("Horizontal_R");
         axisY = PadInput.GetAxis("Vertical_R");
+
+		//--- カーソルの移動速度切り替え
+		if (!PadInput.GetKeyDown(KeyCode.JoystickButton9)) return;
+		m_isHighSpeed = !m_isHighSpeed;
+
+		//--- カーソルの色を変更
+		Image image = GetComponent<Image>();
+		if(m_isHighSpeed) image.color = new Color32(0, 255, 255, 255);	// 水色
+		else image.color = new Color32(255, 0, 0, 255);					// 赤色
 	}
 
     private void FixedUpdate()
     {
-        //--- 移動処理
-        Vector2 pos = m_rectTransform.anchoredPosition;
-        pos.x += axisX * 7.5f;
-        pos.y += axisY * 7.5f;
+		float speed = m_isHighSpeed ? 9.0f : 5.5f;
+
+		//--- 移動処理
+		Vector2 pos = m_rectTransform.anchoredPosition;
+        pos.x += axisX * speed;
+        pos.y += axisY * speed;
 
         //--- 画面外に出ていくのを防ぐ(左画面のみ移動可能)
         if (pos.x > Screen.width / 2.0f) pos.x = Screen.width / 2.0f;
@@ -168,5 +181,14 @@ public class CursorController_araki : ObjectBase
 		}
 
 		return null;
+	}
+
+	private void OnDisable()
+	{
+		if (m_previewJunk == null) return;
+
+		//--- スタートしたらプレビュー用ガラクタを削除する
+		Destroy(m_previewJunk);
+		m_previewJunk = null;
 	}
 }
