@@ -10,6 +10,7 @@ public class Core_Playing : ObjectBase
     bool m_Life;
     bool m_RotL = false;
     bool m_RotR = false;
+    GameObject[] m_Body;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,24 @@ public class Core_Playing : ObjectBase
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         start = true;
         m_Life = true;
+        m_Body = FindObjectsWithName("Core_Child");
+    }
+
+    GameObject[] FindObjectsWithName(string searchString)
+    {
+        // 子オブジェクトの中から名前に特定の文字列を含むオブジェクトを取得する
+        Transform[] childTransforms = GetComponentsInChildren<Transform>();
+        List<GameObject> objectsWithName = new List<GameObject>();
+
+        foreach (Transform child in childTransforms)
+        {
+            if (child.gameObject.name.Contains(searchString))
+            {
+                objectsWithName.Add(child.gameObject);
+            }
+        }
+
+        return objectsWithName.ToArray();
     }
 
     private void FixedUpdate()
@@ -142,6 +161,11 @@ public class Core_Playing : ObjectBase
     public bool Life
     {
         get { return m_Life; }
+    }
+
+    public GameObject[] Body
+    {
+        get { return m_Body; }
     }
 
 }

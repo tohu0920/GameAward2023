@@ -20,7 +20,6 @@ public class Jet : JankBase_iwata
     {
        //--- 現在のスピードを取得
        Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
-       Rigidbody center = this.transform.parent.Find("CoreCenter").GetComponent<Rigidbody>();
        float currentSpeed = rigidbody.velocity.magnitude;
 
        // ブースト用のベクトルを計算

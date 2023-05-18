@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private eGameStatus m_GameStatus;  
     [SerializeField] private eGameStatus m_lastGameStatus;
 
+    [SerializeField] private bool m_Debug = false;
+
     static string szStage;
 
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
+        if (m_Debug) return;
         szStage = "1" + "-" + SelectStage.SelectNum + "Stage";
         Debug.Log(szStage);
         LoadStageData_araki.SettingStageObjects(szStage);
