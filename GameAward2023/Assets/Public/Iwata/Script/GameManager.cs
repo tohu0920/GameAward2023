@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
         if (m_Debug) return;
-        szStage = "1" + "-" + SelectStage.SelectNum + "Stage";
-        Debug.Log(szStage);
+        szStage = "1" + "-" + SelectStage.SelectNum + ".Stage";
+        Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage);
         PlayStage.gameObject.SetActive(false);
     }
