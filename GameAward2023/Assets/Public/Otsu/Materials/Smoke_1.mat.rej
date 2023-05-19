@@ -1,0 +1,11 @@
+diff a/GameAward2023/Assets/Public/Otsu/Materials/Smoke_1.mat b/GameAward2023/Assets/Public/Otsu/Materials/Smoke_1.mat	(rejected hunks)
+@@ -24,7 +24,9 @@
+   m_Shader: {fileID: 4800000, guid: b7839dad95683814aa64166edc107ae2, type: 3}
+   m_ValidKeywords:
+   - _EMISSION
++  - _FADING_ON
+   - _NORMALMAP
++  - _SOFTPARTICLES_ON
+   - _SURFACE_TYPE_TRANSPARENT
+   m_InvalidKeywords:
+   - _ALPHABLEND_ON
