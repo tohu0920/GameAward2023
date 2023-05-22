@@ -32,12 +32,14 @@ public class GameManager : MonoBehaviour
 
         m_PlayStage = GameObject.Find("PlayStage").transform;
         m_JointStage = GameObject.Find("JointStage").transform;
+        m_Option = GameObject.Find("PoseCanvas").transform;
     }
 
     [SerializeField] private static Transform m_PlayStage;       
     [SerializeField] private static Transform m_JointStage;      
+    [SerializeField] private static Transform m_Option;      
 
-    [SerializeField] private static eGameStatus m_GameStatus;  
+    [SerializeField] private static eGameStatus m_GameStatus;
     [SerializeField] private static eGameStatus m_lastGameStatus;
 
     [SerializeField] private bool m_Debug = false;
@@ -52,10 +54,11 @@ public class GameManager : MonoBehaviour
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
         if (m_Debug) return;
-        szStage = "1" + "-" + SelectStage.SelectNum + ".STAGE";
+        szStage = "1" + "-" + WorldSelect_Ito.SelectNum + ".STAGE";
         Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage);
-        PlayStage.gameObject.SetActive(false);
+        m_PlayStage.gameObject.SetActive(false);
+        m_Option.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
