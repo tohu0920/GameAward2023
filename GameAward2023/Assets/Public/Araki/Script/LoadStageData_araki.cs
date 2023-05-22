@@ -51,7 +51,6 @@ public static class LoadStageData_araki
 		{
 			//--- データを作成
 			Object objData = Resources.Load<Object>("Prefabs/" + obj.m_name);
-
 			GameObject prefab = (GameObject)objData;
 
 			//--- オブジェクトの子の情報を全て取得
