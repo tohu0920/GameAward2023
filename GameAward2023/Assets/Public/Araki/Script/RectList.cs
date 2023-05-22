@@ -31,22 +31,16 @@ public class RectList : MonoBehaviour
 		currentImage.sprite = image;
 	}
 
-	public List<RectTransform> rectList
+	/// <summary>
+	/// 画像のスケール変更
+	/// </summary>
+	/// <param name="index">区画番号</param>
+	/// <param name="scale">スケール</param>
+	public void SetSizeImage(int index, float scale)
 	{
-		get {
-			List<RectTransform>list = new List<RectTransform>();
-
-			//--- 子のRectTransformをリスト化
-			int childCnt = transform.childCount;
-			for (int i = 0; i < childCnt; i++)
-			{
-				RectTransform rect = transform.GetChild(i).GetComponent<RectTransform>();
-				if (rect == null) continue;
-
-				list.Add(rect);
-			}
-
-			return list;
-		}
+		if (index >= m_rectList.Count) return;
+		RectTransform rect = m_rectList[index].GetComponent<RectTransform>();
+		if (rect == null) return;
+		rect.localScale = new Vector3(scale, scale, scale);
 	}
 }
