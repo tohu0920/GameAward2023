@@ -39,7 +39,7 @@ public class RectList : MonoBehaviour
 		currentImage.sprite = image;
 	}
 
-	List<RectTransform> rectList
+	public List<RectTransform> rectList
 	{
 		get {
 			List<RectTransform>list = new List<RectTransform>();
