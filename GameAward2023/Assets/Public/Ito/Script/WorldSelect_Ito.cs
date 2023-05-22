@@ -37,19 +37,18 @@ public class WorldSelect_Ito : MonoBehaviour
     private GameObject WorldCtrlObj;
     private GameObject StageCtrlObj;
 
-    public static int WSelectNum;           //ステージ選択用
-    public static int unlockstage1Num = 0;　//ステージ解放用
-    public static int LoadSceneNum = 0;     //ステージロード用
+    public int unlockstage1Num = 0;　//ステージ解放用
+    public int LoadSceneNum = 0;     //ステージロード用
+    public static WorldNum worldNum;
+    public static StageNum stageNum;
+
     private string Scene;
 
-    private int oldNum;
+    private int oldSelectNum;
     private bool activeWorld;
     private bool activeStage;
 
-    private Image[,] ImageBox = new Image[3 , 9];   
-
-    private static WorldNum worldNum;
-    private static StageNum stageNum;
+    private RectList ImageRectChange;
 
     public int SSelectNum;
 
@@ -57,13 +56,12 @@ public class WorldSelect_Ito : MonoBehaviour
     void Start()
     {
         //コントロールオブジェクト
-        WorldCtrlObj = GameObject.Find("WSelectCtrlObj");
-        StageCtrlObj = GameObject.Find("SSelectCtrlObj");        
+        StageCtrlObj = GameObject.Find("StageCtrlObj");
+        ImageRectChange = W3Stage.GetComponent<RectList>();
 
-        //初期化
-        WSelectNum = 0;       
+        //初期化      
         SSelectNum = 0;
-        oldNum = 99;
+        oldSelectNum = 99;
         unlockstage1Num = 1;
         activeWorld = true;
         activeStage = false;
@@ -98,13 +96,13 @@ public class WorldSelect_Ito : MonoBehaviour
         worldNum += AxisInput.GetAxisRawRepeat("Vertical_PadX");
 
         //ステージ選択をループせずに止める
-        if (WSelectNum == -1)
+        if (worldNum == WorldNum.World1 - 1)
         {
-            WSelectNum = 0;
+           worldNum = WorldNum.World1;
         }
-        if (WSelectNum == 3)
+        if (worldNum == WorldNum.World2 + 1)
         {
-            WSelectNum = 2;
+            worldNum = WorldNum.World3;
         }
 
         //ワールドの変更
@@ -174,6 +172,8 @@ public class WorldSelect_Ito : MonoBehaviour
         switch (stageNum)
         {
             case StageNum.Stage1:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 1)
                 {
@@ -183,9 +183,13 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+
+                oldSelectNum = 1;
                 break;
 
-            case StageNum.Stage2:                
+            case StageNum.Stage2:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 2)
                 {
@@ -195,9 +199,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 2;
                 break;
 
-            case StageNum.Stage3:                
+            case StageNum.Stage3:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 3)
                 {
@@ -207,9 +214,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 3;
                 break;
 
-            case StageNum.Stage4:                
+            case StageNum.Stage4:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 4)
                 {
@@ -219,9 +229,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 4;
                 break;
 
-            case StageNum.Stage5:                
+            case StageNum.Stage5:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 5)
                 {
@@ -231,9 +244,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 5;
                 break;
 
-            case StageNum.Stage6:               
+            case StageNum.Stage6:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 6)
                 {
@@ -243,9 +259,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 6;
                 break;
 
-            case StageNum.Stage7:                
+            case StageNum.Stage7:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 7)
                 {
@@ -255,9 +274,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 7;
                 break;
 
-            case StageNum.Stage8:                
+            case StageNum.Stage8:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 8)
                 {
@@ -267,9 +289,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 8;
                 break;
 
-            case StageNum.Stage9:                
+            case StageNum.Stage9:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 9)
                 {
@@ -279,9 +304,12 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 9;
                 break;
 
-            case StageNum.Stage10:                
+            case StageNum.Stage10:
+                ImageRectChange.SetSizeImage(1, 1.5f);
+                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 10)
                 {
@@ -291,6 +319,7 @@ public class WorldSelect_Ito : MonoBehaviour
                         SceneManager.LoadScene(Scene);
                     }
                 }
+                oldSelectNum = 10;
                 break;
         }
 
