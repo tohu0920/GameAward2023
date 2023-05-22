@@ -9,6 +9,8 @@ public class PreviewJunk_araki : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		// プレビュー用の座標を設定
+		transform.position = new Vector3(1114.4f, 0.0f, 2.5f);
 		m_rotY = 0.0f;
     }
 
@@ -17,5 +19,6 @@ public class PreviewJunk_araki : MonoBehaviour
     {
 		transform.eulerAngles = new Vector3(0.0f, m_rotY, 0.0f);
 		m_rotY += 1.0f;
+		GetComponent<JankBase_iwata>().work();
 	}
 }
