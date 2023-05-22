@@ -17,14 +17,50 @@ public class EffectInfo
 }
 
 
+
 public class EffectManager_iwata : MonoBehaviour
 {
-    public List<EffectInfo> effectList;
-    
-    public void PlayEffect(EffectType type, Vector3 position, Transform parent)
-    {
-        EffectInfo effectInfo = effectList.Find(effect => effect.type == type);
+    public static EffectManager_iwata instance;
 
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    [SerializeField] public List<EffectInfo> effectList = new List<EffectInfo>();
+
+    public static Dictionary<EffectType, string> EffectTypeNames = new Dictionary<EffectType, string>()
+    {
+        { EffectType.E_EFFECT_KIND_JET,         "JET" },
+        { EffectType.E_EFFECT_KIND_EXPLOSION,   "EXPLOSION" },
+        { EffectType.E_EFFECT_KIND_MAX,         "MAX" },
+    };
+
+    public static string EffectTypeToString(EffectType effectType)
+    {
+        if (EffectTypeNames.ContainsKey(effectType))
+        {
+            return EffectTypeNames[effectType];
+        }
+        else
+        {
+            return effectType.ToString();
+        }
+    }
+
+    public static void PlayEffect(EffectType type, Vector3 position, Transform parent)
+    {
+        EffectInfo effectInfo = instance.effectList.Find(effect => effect.type == type);
+         
         if (effectInfo != null)
         {
             GameObject effectInstance = Instantiate(effectInfo.effectPrefab, position, Quaternion.identity);

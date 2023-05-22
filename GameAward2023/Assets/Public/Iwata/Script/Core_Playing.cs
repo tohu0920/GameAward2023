@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Core_Playing : ObjectBase
 {
-    [SerializeField] GameManager gm;
+    //[SerializeField] GameManager gm;
     [SerializeField] static Quaternion startRot;
     static bool start = false;
     bool m_Life;
@@ -15,7 +15,7 @@ public class Core_Playing : ObjectBase
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         start = true;
         m_Life = true;
         m_Body = FindObjectsWithName("Core_Child");
@@ -40,7 +40,7 @@ public class Core_Playing : ObjectBase
 
     private void FixedUpdate()
     {
-        switch(gm.GameStatus)
+        switch(GameManager.GameStatus)
         {
             case GameManager.eGameStatus.E_GAME_STATUS_ROT:
                 if(m_RotL)
@@ -100,7 +100,7 @@ public class Core_Playing : ObjectBase
             }
         }
         
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
 
         m_Life = false;
     }
@@ -125,8 +125,8 @@ public class Core_Playing : ObjectBase
                 childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 0.0f, ForceMode.Impulse);
             }
         }
-        
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
+
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
     }
 
     public void ResetPlayCore()

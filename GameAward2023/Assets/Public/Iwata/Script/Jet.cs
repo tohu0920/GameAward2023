@@ -40,7 +40,7 @@ public class Jet : JankBase_iwata
         effectPos += offset;
 
         //ジェットの炎のエフェクト表示
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
     }
 
     public override List<float> GetParam()
