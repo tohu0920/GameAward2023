@@ -29,20 +29,33 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        m_PlayStage = GameObject.Find("PlayStage").transform;
+        m_JointStage = GameObject.Find("JointStage").transform;
     }
 
-    [SerializeField] private Transform m_PlayStage;       
-    [SerializeField] private Transform m_JointStage;      
+    [SerializeField] private static Transform m_PlayStage;       
+    [SerializeField] private static Transform m_JointStage;      
 
-    [SerializeField] private eGameStatus m_GameStatus;  
-    [SerializeField] private eGameStatus m_lastGameStatus;  
+    [SerializeField] private static eGameStatus m_GameStatus;  
+    [SerializeField] private static eGameStatus m_lastGameStatus;
+
+    [SerializeField] private bool m_Debug = false;
+
+    static string szStage;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //繧ｲ繝ｼ繝縺ｮ迥ｶ諷九・蛻晄悄蛹・
-        m_lastGameStatus = m_GameStatus;                    //蜑阪ヵ繝ｬ繝ｼ繝縺ｮ迥ｶ諷九ｒ菫晄戟
-        ObjectBase.Start();
+        m_GameStatus = eGameStatus.E_GAME_STATUS_JOINT;     //ゲームの状態
+        m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
+        ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
+        //ここでステージとガラクタをロードする
+        if (m_Debug) return;
+        szStage = "1" + "-" + SelectStage.SelectNum + ".STAGE";
+        Debug.Log(szStage + "をよみこみます");
+        LoadStageData_araki.SettingStageObjects(szStage);
+        PlayStage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -107,11 +120,17 @@ public class GameManager : MonoBehaviour
                             Destroy(core.GetComponent<CoreSetting_iwata>());
                             core.AddComponent<Core_Playing>();
                             core.transform.rotation = core.GetComponent<Core_Playing>().StartRot;
+                            Transform stageobject = PlayStage.Find("StageObject");
+                            for (int i = stageobject.childCount - 1; i >= 0; i--)
+                            {
+                                Destroy(stageobject.GetChild(i).gameObject);
+                            }
+                            LoadStageData_araki.SettingStageObjects(szStage);
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
                             Debug.Log("ゲームクリア！");
-                            SceneManager.LoadScene("GameScene_v2.0");
+                            StartCoroutine(DelayedProcess());
                             break;
 
                     }
@@ -123,18 +142,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Transform PlayStage
+    IEnumerator DelayedProcess()
+    {
+        yield return new WaitForSeconds(3); // 3秒待つ
+
+        SelectStage.SelectNum++;
+        SceneManager.LoadScene("GameScene_v2.0");
+    }
+
+    public static Transform PlayStage
     {
         get { return m_PlayStage; }
     }
 
-    public Transform JointStage
+    public static Transform JointStage
     {
         get { return m_JointStage; }
     }
 
 
-    public eGameStatus GameStatus
+    public static eGameStatus GameStatus
     {
         get { return m_GameStatus; }
         set { m_GameStatus = value; }

@@ -296,14 +296,14 @@ public class CoreSetting_iwata : ObjectBase
     /// <param name="axisY">縦入力</param>
     public void InputAxisCore(int axisX, int axisY)
     {
-        if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
+        if(GameManager.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_SELECT)
         {
             m_rotateY += ROTATION * axisX;  // 角度を設定
             m_rotateX -= ROTATION * axisY;  // 角度を設定
             m_rotateFrameCnt = 1;   // 最初のカウント
-            AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_PREV_KEYMOVE);
+            AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_PREV_KEYMOVE);
         }
-        else if(GM.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
+        else if(GameManager.JointStage.GetComponent<JointStageManager>().JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT)
         {
             this.transform.Rotate(0.0f, -10.0f, 0.0f, Space.World);      //コアの傾きを一時的に0，0，0に戻す
             Vector3 pos = m_AttachFaces[m_SelectFaceNum].Trans.position;
@@ -398,7 +398,7 @@ public class CoreSetting_iwata : ObjectBase
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;
             Debug.Log("いいね");
-            AudioMane.PlaySE(AudioManager.SEKind.E_SE_KIND_ASSEMBLE);
+            AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_ASSEMBLE);
             return true;
         }
         else
