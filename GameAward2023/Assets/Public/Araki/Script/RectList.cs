@@ -5,19 +5,11 @@ using UnityEngine.UI;
 
 public class RectList : MonoBehaviour
 {
-	List<GameObject> m_rectList;
+	[SerializeReference] List<GameObject> m_rectList;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		m_rectList = new List<GameObject>();
-
-		//--- Žq‚ÌRectTransform‚ðƒŠƒXƒg‰»
-		int childCnt = transform.childCount;
-		for (int i = 0; i < childCnt; i++)
-		{
-			m_rectList.Add(transform.GetChild(i).gameObject);
-		}
 	}
 
 	// Update is called once per frame
