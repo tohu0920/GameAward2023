@@ -31,7 +31,7 @@ public class RectList : MonoBehaviour
 	/// </summary>
 	/// <param name="index">‹æ‰æ”Ô†</param>
 	/// <param name="image">‰æ‘œƒf[ƒ^</param>
-	void ChangeImage(int index, Sprite image)
+	public void ChangeImage(int index, Sprite image)
 	{
 		if (index >= m_rectList.Count) return;
 		Image currentImage = m_rectList[index].GetComponent<Image>();
