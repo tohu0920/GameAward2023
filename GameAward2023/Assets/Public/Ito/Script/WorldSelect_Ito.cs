@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WorldSelect_Ito : MonoBehaviour
 {
@@ -10,6 +12,20 @@ public class WorldSelect_Ito : MonoBehaviour
         World2,     //第２階層
         World3,     //第１階層
     }
+    public enum StageNum
+    {
+        Stage1,     //ステージ１
+        Stage2,     //ステージ２
+        Stage3,     //ステージ３
+        Stage4,     //ステージ４
+        Stage5,     //ステージ５
+        Stage6,     //ステージ６
+        Stage7,     //ステージ７
+        Stage8,     //ステージ８
+        Stage9,     //ステージ９
+        Stage10,    //ステージ１０
+        Max,
+    }
 
     [SerializeReference] GameObject World1;
     [SerializeReference] GameObject World2;
@@ -17,90 +33,292 @@ public class WorldSelect_Ito : MonoBehaviour
     [SerializeReference] GameObject W1Stage;
     [SerializeReference] GameObject W2Stage;
     [SerializeReference] GameObject W3Stage;
-    [SerializeReference] GameObject WorldCtrlObj;
-    [SerializeReference] GameObject StageCtrlObj;
 
+    private GameObject WorldCtrlObj;
+    private GameObject StageCtrlObj;
 
-    public int SelectNum;
-    static WorldNum worldNum;
+    public static int WSelectNum;           //ステージ選択用
+    public static int unlockstage1Num = 0;　//ステージ解放用
+    public static int LoadSceneNum = 0;     //ステージロード用
+    private string Scene;
 
+    private int oldNum;
+    private bool activeWorld;
+    private bool activeStage;
+
+    private Image[,] ImageBox = new Image[3 , 9];   
+
+    private static WorldNum worldNum;
+    private static StageNum stageNum;
+
+    public int SSelectNum;
 
     // Start is called before the first frame update
     void Start()
     {
-        SelectNum = 0;
+        //コントロールオブジェクト
+        WorldCtrlObj = GameObject.Find("WSelectCtrlObj");
+        StageCtrlObj = GameObject.Find("SSelectCtrlObj");        
+
+        //初期化
+        WSelectNum = 0;       
+        SSelectNum = 0;
+        oldNum = 99;
+        unlockstage1Num = 1;
+        activeWorld = true;
+        activeStage = false;
+
+        //シーン遷移するステージ名
+        Scene = "Ito_KariGameScene";
     }
 
     // Update is called once per frame
     void Update()
     {
-        SelectNum += AxisInput.GetAxisRawRepeat("Vertical_PadX");
-
-        if (SelectNum == -1)
+        //ポーズ画面なら実行
+        if(activeWorld)
+            WorldSelect();
+        
+        //決定した画面の表示
+        if(PadInput.GetKeyDown(KeyCode.JoystickButton0))
         {
-            SelectNum = 0;
-        }
-        if (SelectNum == 3)
-        {
-            SelectNum = 2;
+            activeWorld = false;
+            ActiveStageList();
         }
 
+        if(activeStage)
+        {
+            SelectStage();
+        }
+    }
+
+    private void WorldSelect()
+    {
+        //ステージ選択の入力処理
+        worldNum += AxisInput.GetAxisRawRepeat("Vertical_PadX");
+
+        //ステージ選択をループせずに止める
+        if (WSelectNum == -1)
+        {
+            WSelectNum = 0;
+        }
+        if (WSelectNum == 3)
+        {
+            WSelectNum = 2;
+        }
+
+        //ワールドの変更
         WorldChange();
-
-        if(PadInput.GetKeyDown(KeyCode.Joystick1Button0))
-        { 
-            switch (SelectNum)
-            {
-                case 0:                       
-                    W1Stage.SetActive(true);
-                    World1.SetActive(false);
-                    WorldCtrlObj.SetActive(false);
-                    worldNum = WorldNum.World1;
-                    break;
-
-                case 1:
-                    W2Stage.SetActive(true);
-                    World2.SetActive(false);
-                    WorldCtrlObj.SetActive(false);
-                    worldNum = WorldNum.World2;
-                    break;
-
-                case 2:
-                    W3Stage.SetActive(true);
-                    World3.SetActive(false);
-                    WorldCtrlObj.SetActive(false);
-                    worldNum = WorldNum.World3;
-                    break;            
-            }
-        }
     }
 
     private void WorldChange()
     {
-        switch (SelectNum)
+        switch (worldNum)
         {
-            case 0:
+            case WorldNum.World1:
                 World1.SetActive(true);
                 World2.SetActive(false);
                 World3.SetActive(false);
                 break;
 
-            case 1:
+            case WorldNum.World2:
                 World1.SetActive(false);
                 World2.SetActive(true);
                 World3.SetActive(false);
                 break;
 
-            case 2:
+            case WorldNum.World3:
                 World1.SetActive(false);
                 World2.SetActive(false);
-                World3.SetActive(true);                
+                World3.SetActive(true);
                 break;
         }
     }
 
-    public static WorldNum GetWorld()
+    private void ActiveStageList()
     {
-        return worldNum;
+        switch(worldNum)
+        {
+            case WorldNum.World1:
+                World1.SetActive(false);
+                W1Stage.SetActive(true);
+                break;
+
+            case WorldNum.World2:
+                World2.SetActive(false);
+                W2Stage.SetActive(true);
+                break;
+
+            case WorldNum.World3:
+                World2.SetActive(false);
+                W2Stage.SetActive(true);
+                break;
+        }
+        activeStage = true;
+    }
+
+    private void SelectStage()
+    {
+        stageNum += AxisInput.GetAxisRawRepeat("Horizontal_PadX");
+        stageNum -= AxisInput.GetAxisRawRepeat("Vertical_PadX") * 5;
+
+        if (stageNum == StageNum.Stage1 - 1)
+        {
+            stageNum = StageNum.Stage10;
+        }
+        if (stageNum == StageNum.Stage10 + 1)
+        {
+            stageNum = StageNum.Stage1;
+        }
+
+        switch (stageNum)
+        {
+            case StageNum.Stage1:
+
+                if (unlockstage1Num >= 1)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage1;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage2:                
+
+                if (unlockstage1Num >= 2)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage2;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage3:                
+
+                if (unlockstage1Num >= 3)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage3;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage4:                
+
+                if (unlockstage1Num >= 4)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage4;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage5:                
+
+                if (unlockstage1Num >= 5)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage5;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage6:               
+
+                if (unlockstage1Num >= 6)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage6;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage7:                
+
+                if (unlockstage1Num >= 7)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage7;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage8:                
+
+                if (unlockstage1Num >= 8)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage8;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage9:                
+
+                if (unlockstage1Num >= 9)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage9;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+
+            case StageNum.Stage10:                
+
+                if (unlockstage1Num >= 10)
+                {
+                    if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                    {
+                        LoadSceneNum = (int)StageNum.Stage10;
+                        SceneManager.LoadScene(Scene);
+                    }
+                }
+                break;
+        }
+
+        if (PadInput.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            ReturnWorld();
+        }
+    }
+
+    private void ReturnWorld()
+    {
+        switch (worldNum)
+        {
+            case WorldNum.World1:
+                World1.SetActive(true);
+                W1Stage.SetActive(false);
+                break;
+
+            case WorldNum.World2:
+                World2.SetActive(true);
+                W2Stage.SetActive(false);
+                break;
+
+            case WorldNum.World3:
+                World2.SetActive(true);
+                W2Stage.SetActive(false);
+                break;
+        }
+        activeStage = false;
     }
 }
