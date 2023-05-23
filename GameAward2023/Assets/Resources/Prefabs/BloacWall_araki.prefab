@@ -11,11 +11,7 @@ GameObject:
   - component: {fileID: 8493724628275377309}
   - component: {fileID: 3620651348767309608}
   - component: {fileID: 8864712254054565820}
-  - component: {fileID: 2383573324522599802}
-  - component: {fileID: 959880184426696576}
   - component: {fileID: 3107197761725457434}
-  - component: {fileID: 5632145096113269973}
-  - component: {fileID: 4456095026315440453}
   - component: {fileID: 852810722834563625}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -67,22 +63,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2383573324522599802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218349643589111425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &959880184426696576
+--- !u!114 &3107197761725457434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,52 +74,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 218349643589111425}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &3107197761725457434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218349643589111425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &5632145096113269973
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218349643589111425}
-  m_ConnectedBody: {fileID: 2933816858829819771}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &4456095026315440453
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 218349643589111425}
-  m_ConnectedBody: {fileID: 1580646904528786456}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &852810722834563625
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -162,10 +102,7 @@ GameObject:
   - component: {fileID: 7004109481573400970}
   - component: {fileID: 485086238465783661}
   - component: {fileID: 1580646904528786456}
-  - component: {fileID: 8601778027159663507}
-  - component: {fileID: 5203225651190853027}
   - component: {fileID: 8865327015612633899}
-  - component: {fileID: 6558272609157564294}
   - component: {fileID: 7681880336816770057}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -217,22 +154,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8601778027159663507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031321850893728878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &5203225651190853027
+--- !u!114 &8865327015612633899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,37 +165,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031321850893728878}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &8865327015612633899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031321850893728878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &6558272609157564294
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1031321850893728878}
-  m_ConnectedBody: {fileID: 4874479376773103265}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &7681880336816770057
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -297,11 +193,7 @@ GameObject:
   - component: {fileID: 7781421939972629121}
   - component: {fileID: 1895545284243650278}
   - component: {fileID: 7332308379835811304}
-  - component: {fileID: 7151238536681988680}
-  - component: {fileID: 150797849424473335}
   - component: {fileID: 5086184346729200335}
-  - component: {fileID: 1131732216576412769}
-  - component: {fileID: 403037064487147052}
   - component: {fileID: 8650070430219111289}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -353,22 +245,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7151238536681988680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908896334994408481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &150797849424473335
+--- !u!114 &5086184346729200335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -377,52 +256,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1908896334994408481}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &5086184346729200335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908896334994408481}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &1131732216576412769
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908896334994408481}
-  m_ConnectedBody: {fileID: 1580646904528786456}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &403037064487147052
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908896334994408481}
-  m_ConnectedBody: {fileID: 5405335455578232710}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &8650070430219111289
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -448,10 +284,7 @@ GameObject:
   - component: {fileID: 8831882949073887388}
   - component: {fileID: 252556971719162742}
   - component: {fileID: 5405335455578232710}
-  - component: {fileID: 4648160244277396400}
-  - component: {fileID: 3185350131508919734}
   - component: {fileID: 3256214595623424313}
-  - component: {fileID: 2717521680125010460}
   - component: {fileID: 7703045015564742983}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -503,22 +336,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4648160244277396400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161177218074888485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &3185350131508919734
+--- !u!114 &3256214595623424313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -527,37 +347,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2161177218074888485}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &3256214595623424313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161177218074888485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &2717521680125010460
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161177218074888485}
-  m_ConnectedBody: {fileID: 4874479376773103265}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &7703045015564742983
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -583,11 +375,7 @@ GameObject:
   - component: {fileID: 1832752812068623369}
   - component: {fileID: 7574484504372487297}
   - component: {fileID: 5388437051801035719}
-  - component: {fileID: 680178149676036463}
-  - component: {fileID: 1534152951365830606}
   - component: {fileID: 3165672716414685643}
-  - component: {fileID: 8014400377797008880}
-  - component: {fileID: 2899424881349761556}
   - component: {fileID: 517003832806819766}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -639,22 +427,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &680178149676036463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311891585719508534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &1534152951365830606
+--- !u!114 &3165672716414685643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -663,52 +438,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3311891585719508534}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &3165672716414685643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311891585719508534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &8014400377797008880
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311891585719508534}
-  m_ConnectedBody: {fileID: 2933816858829819771}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &2899424881349761556
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311891585719508534}
-  m_ConnectedBody: {fileID: 5405335455578232710}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &517003832806819766
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -734,8 +466,6 @@ GameObject:
   - component: {fileID: 7090426828437637424}
   - component: {fileID: 5340380204833591173}
   - component: {fileID: 4874479376773103265}
-  - component: {fileID: 7605261756989302165}
-  - component: {fileID: 7491660364090306817}
   - component: {fileID: 2903557635065562008}
   - component: {fileID: 2815592264671189776}
   m_Layer: 0
@@ -788,34 +518,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7605261756989302165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4861395406075821651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &7491660364090306817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4861395406075821651}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
 --- !u!114 &2903557635065562008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,7 +527,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4861395406075821651}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
@@ -892,10 +596,7 @@ GameObject:
   - component: {fileID: 1064385850177275452}
   - component: {fileID: 6899884189817818698}
   - component: {fileID: 2933816858829819771}
-  - component: {fileID: 5732631034721991848}
-  - component: {fileID: 3768196562151600747}
   - component: {fileID: 5114473681612957820}
-  - component: {fileID: 6029211743887480727}
   - component: {fileID: 923698892147989254}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -947,22 +648,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5732631034721991848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118989766926239381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &3768196562151600747
+--- !u!114 &5114473681612957820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -971,37 +659,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8118989766926239381}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &5114473681612957820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118989766926239381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &6029211743887480727
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8118989766926239381}
-  m_ConnectedBody: {fileID: 4874479376773103265}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &923698892147989254
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1027,12 +687,7 @@ GameObject:
   - component: {fileID: 1872578361061913278}
   - component: {fileID: 4409233714662939015}
   - component: {fileID: 4790614978175088581}
-  - component: {fileID: 7329414784537102329}
-  - component: {fileID: 8991358992101625247}
   - component: {fileID: 3111016434763840805}
-  - component: {fileID: 3264120966157278010}
-  - component: {fileID: 5490447075910191408}
-  - component: {fileID: 8021614674255657616}
   - component: {fileID: 5438638045094065802}
   m_Layer: 0
   m_Name: BloacWallObject
@@ -1084,22 +739,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7329414784537102329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951958216208272745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361686c1b6340974fa97a9eb820c7a45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Num: 0
---- !u!114 &8991358992101625247
+--- !u!114 &3111016434763840805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1108,67 +750,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8951958216208272745}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8785f8850f16c4198fee25c4055007, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Endure: 500
---- !u!114 &3111016434763840805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951958216208272745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ff6cd7c3ea796f49b3d3cf969ed24a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!138 &3264120966157278010
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951958216208272745}
-  m_ConnectedBody: {fileID: 8864712254054565820}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &5490447075910191408
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951958216208272745}
-  m_ConnectedBody: {fileID: 5388437051801035719}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &8021614674255657616
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951958216208272745}
-  m_ConnectedBody: {fileID: 7332308379835811304}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_BreakForce: 100
-  m_BreakTorque: 100
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!136 &5438638045094065802
 CapsuleCollider:
   m_ObjectHideFlags: 0

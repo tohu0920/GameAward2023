@@ -41,6 +41,8 @@ public class Spring_iwata : JankBase_iwata
 
     void OnCollisionEnter(Collision collision)
     {
+        if (GameManager.GameStatus != GameManager.eGameStatus.E_GAME_STATUS_PLAY) return;
+
         // 衝突したオブジェクトがBox Colliderを持つ場合、各面での当たり判定を取得
         if (collision.gameObject.GetComponent<BoxCollider>())
         {
