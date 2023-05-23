@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
         if (m_Debug) return;
-        szStage = "1" + "-" + WorldSelect_Ito.SelectNum + ".STAGE";
+        szStage = (WorldSelect_Ito.worldNum + 1) + "-" + (WorldSelect_Ito.stageNum + 1) + ".STAGE";
         Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage);
         m_PlayStage.gameObject.SetActive(false);
@@ -149,7 +149,16 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3); // 3秒待つ
 
-        SelectStage.SelectNum++;
+        WorldSelect_Ito.stageNum++;
+        if(WorldSelect_Ito.stageNum == WorldSelect_Ito.StageNum.Max)
+        {
+            WorldSelect_Ito.stageNum = WorldSelect_Ito.StageNum.Stage1;
+            WorldSelect_Ito.worldNum--;
+            if(WorldSelect_Ito.worldNum == WorldSelect_Ito.WorldNum.World3)
+            {
+                Debug.Log("全クリ");
+            }
+        }
         SceneManager.LoadScene("GameScene_v2.0");
     }
 
