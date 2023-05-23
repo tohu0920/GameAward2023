@@ -19,13 +19,12 @@ Shader "Custom/ColorShader"
 		#pragma surface surf Standard fullforwardshadows
 
 		// Use shader model 3.0 target, to get nicer looking lighting
-		#pragma target 3.0		
+		#pragma target 3.0
 
 		//
 		#pragma multi_compile _ENABLE_FLAG
 
 		sampler2D _MainTex;
-
 
 		struct Input
 		{
@@ -64,19 +63,19 @@ Shader "Custom/ColorShader"
 				if (_CraftFlag)
 				{
 					// 青色
-					o.Albedo.rgb *= fixed3(0.2, 0.2, 0.85);
+					o.Albedo.rgb = fixed3(0, 0, 1);
 				}
 				else
 				{
 					// 赤色
-					o.Albedo.rgb *= fixed3(0.85, 0.2, 0.2);
+					o.Albedo.rgb = fixed3(1, 0, 0);
 				}
 			}
-			//else
-			//{
-			//	// 白色
-			//	o.Albedo.rgb += fixed3(1, 1, 1);
-			//}
+			else
+			{
+				// 白色
+				o.Albedo.rgb = fixed3(1, 1, 1);
+			}
 			#endif
 		}
 		ENDCG

@@ -29,18 +29,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        m_PlayStage = GameObject.Find("PlayStage").transform;
-        m_JointStage = GameObject.Find("JointStage").transform;
     }
 
-    [SerializeField] private static Transform m_PlayStage;       
-    [SerializeField] private static Transform m_JointStage;      
+    [SerializeField] private Transform m_PlayStage;       
+    [SerializeField] private Transform m_JointStage;      
 
-    [SerializeField] private static eGameStatus m_GameStatus;  
-    [SerializeField] private static eGameStatus m_lastGameStatus;
-
-    [SerializeField] private bool m_Debug = false;
+    [SerializeField] private eGameStatus m_GameStatus;  
+    [SerializeField] private eGameStatus m_lastGameStatus;
 
     static string szStage;
 
@@ -51,9 +46,8 @@ public class GameManager : MonoBehaviour
         m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
-        if (m_Debug) return;
-        szStage = "1" + "-" + SelectStage.SelectNum + ".STAGE";
-        Debug.Log(szStage + "をよみこみます");
+        szStage = "1" + "-" + SelectStage.SelectNum + "Stage";
+        Debug.Log(szStage);
         LoadStageData_araki.SettingStageObjects(szStage);
         PlayStage.gameObject.SetActive(false);
     }
@@ -148,20 +142,21 @@ public class GameManager : MonoBehaviour
 
         SelectStage.SelectNum++;
         SceneManager.LoadScene("GameScene_v2.0");
+        
     }
 
-    public static Transform PlayStage
+    public Transform PlayStage
     {
         get { return m_PlayStage; }
     }
 
-    public static Transform JointStage
+    public Transform JointStage
     {
         get { return m_JointStage; }
     }
 
 
-    public static eGameStatus GameStatus
+    public eGameStatus GameStatus
     {
         get { return m_GameStatus; }
         set { m_GameStatus = value; }

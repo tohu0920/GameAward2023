@@ -76,15 +76,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.52
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.52
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.52
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -129,7 +129,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1673219e874e4e84f93946b9e93e2103, type: 2}
+      objectReference: {fileID: 2100000, guid: caf9400cbfc47be4f8e95b5f4c6924e1, type: 2}
     - target: {fileID: 919132149155446097, guid: 92cfc80133277454ca6d05bfb348516c, type: 3}
       propertyPath: m_Name
       value: mountains of junk

@@ -52,7 +52,7 @@ public class TitleController : MonoBehaviour
             {
                 select = SelectCursor_Title.E_SELECT_CURSOR_TITLE_PLAY;
             }
-            AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
+            AM.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
         }
         else if(axisY > 0)
         {
@@ -62,7 +62,7 @@ public class TitleController : MonoBehaviour
             {
                 select = SelectCursor_Title.E_SELECT_CURSOR_TITLE_END;
             }
-            AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
+            AM.PlaySE(AudioManager.SEKind.E_SE_KIND_SELECT);
         }
 
         if(update)

@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class FadeImage : MonoBehaviour
 {
+
     public float fadeTime = 3.0f; // フェードにかける時間（秒）
     private float currentTime = 0.0f; // 現在の経過時間
 
-    [SerializeReference] private Image BlindFadeImage;
+    private Image BlindFadeImage;
     private float Alpha = 0.0f;
     public bool isFade = false;
     public bool isClear = false;
@@ -22,21 +23,16 @@ public class FadeImage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void Fade()
-    {
         if (Input.GetKeyDown(KeyCode.Space) && BlindFadeImage.color.a == 0.0f)
         {
             isFade = true;
         }
 
-        if (isFade == true)
+        if(isFade == true)
         {
             //α値を計算する
             Alpha = Mathf.Clamp01(currentTime / fadeTime);
-
+            
             //カラーの更新
             BlindFadeImage.color = new Color(BlindFadeImage.color.r, BlindFadeImage.color.g, BlindFadeImage.color.b, Alpha);
 

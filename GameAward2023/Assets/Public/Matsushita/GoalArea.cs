@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GoalArea : MonoBehaviour
 {
+    private GameManager m_GameManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        // GameManager‚ð’T‚·
+        m_GameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -33,7 +37,7 @@ public class GoalArea : MonoBehaviour
                 float explosionRadius = 5.0f; // ”š”­”¼Œa
                 parent.GetChild(i).transform.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, parent.GetChild(i).transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
             }
-            GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
+            m_GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }
     }
 }

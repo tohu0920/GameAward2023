@@ -4,43 +4,24 @@ using UnityEngine;
 
 public class Core_Playing : ObjectBase
 {
-    //[SerializeField] GameManager gm;
+    [SerializeField] GameManager gm;
     [SerializeField] static Quaternion startRot;
     static bool start = false;
     bool m_Life;
     bool m_RotL = false;
     bool m_RotR = false;
-    GameObject[] m_Body;
 
     // Start is called before the first frame update
     void Start()
     {
-        //gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         start = true;
         m_Life = true;
-        m_Body = FindObjectsWithName("Core_Child");
-    }
-
-    GameObject[] FindObjectsWithName(string searchString)
-    {
-        // 子オブジェクトの中から名前に特定の文字列を含むオブジェクトを取得する
-        Transform[] childTransforms = GetComponentsInChildren<Transform>();
-        List<GameObject> objectsWithName = new List<GameObject>();
-
-        foreach (Transform child in childTransforms)
-        {
-            if (child.gameObject.name.Contains(searchString))
-            {
-                objectsWithName.Add(child.gameObject);
-            }
-        }
-
-        return objectsWithName.ToArray();
     }
 
     private void FixedUpdate()
     {
-        switch(GameManager.GameStatus)
+        switch(gm.GameStatus)
         {
             case GameManager.eGameStatus.E_GAME_STATUS_ROT:
                 if(m_RotL)
@@ -100,7 +81,7 @@ public class Core_Playing : ObjectBase
             }
         }
         
-        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
 
         m_Life = false;
     }
@@ -125,8 +106,8 @@ public class Core_Playing : ObjectBase
                 childrb.AddExplosionForce(explosionForce, explosionPosition, explosionRadius, 0.0f, ForceMode.Impulse);
             }
         }
-
-        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
+        
+        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_EXPLOSION, explosionPosition, this.transform);
     }
 
     public void ResetPlayCore()
@@ -161,11 +142,6 @@ public class Core_Playing : ObjectBase
     public bool Life
     {
         get { return m_Life; }
-    }
-
-    public GameObject[] Body
-    {
-        get { return m_Body; }
     }
 
 }
