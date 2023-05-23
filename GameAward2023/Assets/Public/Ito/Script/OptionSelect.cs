@@ -60,14 +60,16 @@ public class OptionSelect : MonoBehaviour
                 //音量がひかっている
                 ChangeActive();               
 
-                //bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f; 
+                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
+                //AudioManager.BGMVolume();
                 break;
 
             case 1:
                 //効果音が光っている
                 ChangeActive();
 
-                //SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;              
+                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
+                //AudioManager.SEVolume();
                 break;
 
             case 2:

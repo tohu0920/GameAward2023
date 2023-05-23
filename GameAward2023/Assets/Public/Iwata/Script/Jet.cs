@@ -20,7 +20,6 @@ public class Jet : JankBase_iwata
     {
        //--- 現在のスピードを取得
        Rigidbody rigidbody = this.transform.GetComponent<Rigidbody>();
-       Rigidbody center = this.transform.parent.Find("CoreCenter").GetComponent<Rigidbody>();
        float currentSpeed = rigidbody.velocity.magnitude;
 
        // ブースト用のベクトルを計算
@@ -41,7 +40,7 @@ public class Jet : JankBase_iwata
         effectPos += offset;
 
         //ジェットの炎のエフェクト表示
-        EffectMane.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
     }
 
     public override List<float> GetParam()
