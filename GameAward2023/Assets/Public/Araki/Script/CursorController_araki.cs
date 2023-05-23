@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //--- レイの衝突状況の遷移
-enum E_RAY_HIT_STATE
+public enum E_RAY_HIT_STATE
 {
 	ENTER,	//当たった瞬間
 	EXIT,	//離れた瞬間
@@ -22,9 +22,10 @@ public class CursorController_araki : ObjectBase
     float axisX = 0.0f;
     float axisY = 0.0f;
 	bool m_isHighSpeed = false;
+    E_RAY_HIT_STATE m_state;
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
 	{
 		m_rectTransform = GetComponent<RectTransform>();
 		m_rectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
@@ -37,8 +38,9 @@ public class CursorController_araki : ObjectBase
     {
 		if (m_jointStageManager.JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT) return;
 
-		//--- プレビュー用ガラクタを生成
-		switch (CheckRayHitState())
+        //--- プレビュー用ガラクタを生成
+        m_state = CheckRayHitState();
+        switch (m_state)
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
 				m_previreCamera.StartNoise();	// ノイズ開始	
@@ -191,4 +193,10 @@ public class CursorController_araki : ObjectBase
 		Destroy(m_previewJunk);
 		m_previewJunk = null;
 	}
+
+    public E_RAY_HIT_STATE state
+    {
+        get { return m_state; }
+    }
+
 }
