@@ -8,13 +8,14 @@ public class WorldSelect_Ito : MonoBehaviour
 {
     public enum WorldNum
     {
-        World1,     //‘æ‚RŠK‘w
-        World2,     //‘æ‚QŠK‘w
-        World3,     //‘æ‚PŠK‘w
+        World3 = 1,     //‘æ‚RŠK‘w
+        World2,         //‘æ‚QŠK‘w
+        World1,         //‘æ‚PŠK‘w
+        MAX
     }
     public enum StageNum
     {
-        Stage1,     //ƒXƒe[ƒW‚P
+        Stage1 = 1,     //ƒXƒe[ƒW‚P
         Stage2,     //ƒXƒe[ƒW‚Q
         Stage3,     //ƒXƒe[ƒW‚R
         Stage4,     //ƒXƒe[ƒW‚S
@@ -48,7 +49,7 @@ public class WorldSelect_Ito : MonoBehaviour
     private bool activeWorld;
     private bool activeStage;
 
-    private RectList ImageRectChange;
+    private RectList RectChange;
 
     public int SSelectNum;
 
@@ -57,7 +58,7 @@ public class WorldSelect_Ito : MonoBehaviour
     {
         //ƒRƒ“ƒgƒ[ƒ‹ƒIƒuƒWƒFƒNƒg
         StageCtrlObj = GameObject.Find("StageCtrlObj");
-        ImageRectChange = W3Stage.GetComponent<RectList>();
+        RectChange = W3Stage.GetComponent<RectList>();
 
         //‰Šú‰»      
         SSelectNum = 0;
@@ -172,8 +173,8 @@ public class WorldSelect_Ito : MonoBehaviour
         switch (stageNum)
         {
             case StageNum.Stage1:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 1)
                 {
@@ -188,8 +189,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage2:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 2)
                 {
@@ -203,8 +204,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage3:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 3)
                 {
@@ -218,8 +219,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage4:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 4)
                 {
@@ -233,8 +234,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage5:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 5)
                 {
@@ -248,8 +249,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage6:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 6)
                 {
@@ -263,8 +264,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage7:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 7)
                 {
@@ -278,8 +279,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage8:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 8)
                 {
@@ -293,8 +294,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage9:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 9)
                 {
@@ -308,8 +309,8 @@ public class WorldSelect_Ito : MonoBehaviour
                 break;
 
             case StageNum.Stage10:
-                ImageRectChange.SetSizeImage(1, 1.5f);
-                ImageRectChange.SetSizeImage(oldSelectNum, 2.0f);
+                RectChange.SetSizeImage(1, 1.5f);
+                RectChange.SetSizeImage(oldSelectNum, 2.0f);
 
                 if (unlockstage1Num >= 10)
                 {
