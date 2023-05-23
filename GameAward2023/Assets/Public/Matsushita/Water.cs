@@ -34,7 +34,6 @@ public class Water : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.name + "‚ª…‚É‚ ‚½‚Á‚½");
         // ”ÍˆÍ“à‚Ì•¨‘Ì‚É‘Î‚µ‚Ä‘¬“x‚ğŒ¸‘¬‚³‚¹‚é—Í‚ğ‰Á‚¦‚é
         if (other.attachedRigidbody != null)
         {

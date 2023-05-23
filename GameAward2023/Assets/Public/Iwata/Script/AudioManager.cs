@@ -6,14 +6,14 @@ public class AudioManager : MonoBehaviour
 {
     public enum BGMKind
     {
-        E_BGM_KIND_TITLE = 0,   //  0
-        E_BGM_KIND_STAGE1,      //  1
+        E_BGM_KIND_TITLE = 0,
+        E_BGM_KIND_STAGE1,
         E_BGM_KIND_MAX
     }
     public enum SEKind
     {
-        E_SE_KIND_SELECT = 0,   //  2
-        E_SE_KIND_HOGE,         //  3
+        E_SE_KIND_SELECT = 0,
+        E_SE_KIND_HOGE,         
         E_SE_KIND_KEYMOVE,      //  4 "タイトル、オプション画面、ステージ選択でのキー入力の際に再生する。"
         E_SE_KIND_KETTEI,       //  5 "タイトル、オプション画面、ステージ選択での操作の決定をする際に再生。"
         E_SE_KIND_CANCEL,       //  6 "タイトル、オプション画面、ステージ選択での操作を戻るをする際に再生。"
@@ -32,68 +32,14 @@ public class AudioManager : MonoBehaviour
         E_SE_KIND_MAX
     }
 
-    public static Dictionary<BGMKind, string> BgmTypeNames = new Dictionary<BGMKind, string>()
-    {
-        { BGMKind.E_BGM_KIND_TITLE,     "TITLE" },
-        { BGMKind.E_BGM_KIND_STAGE1,    "STAGE1" },
-        { BGMKind.E_BGM_KIND_MAX,       "MAX" },
-    };
-
-    public static Dictionary<SEKind, string> SeTypeNames = new Dictionary<SEKind, string>()
-    {
-        { SEKind.E_SE_KIND_SELECT,          "SELECT" },
-        { SEKind.E_SE_KIND_HOGE,            "HOGE" },
-        { SEKind.E_SE_KIND_KEYMOVE,         "KEYMOVE" },
-        { SEKind.E_SE_KIND_KETTEI,          "KETTEI" },
-        { SEKind.E_SE_KIND_CANCEL,          "CANCEL" },
-        { SEKind.E_SE_KIND_BEEP,            "BEEP" },
-        { SEKind.E_SE_KIND_GAMESTART,       "GAMESTART" },
-        { SEKind.E_SE_KIND_ASSEMBLE,        "ASSEMBLE" },
-        { SEKind.E_SE_KIND_PREV_KEYMOVE,    "PREV_KEYMOVE" },
-        { SEKind.E_SE_KIND_NOISE,           "NOISE" },
-        { SEKind.E_SE_KIND_MONITORON,       "MONITORON" },
-        { SEKind.E_SE_KIND_MONITOROFF,      "MONITOROFF" },
-        { SEKind.E_SE_KIND_OPTION,          "OPTION" },
-        { SEKind.E_SE_KIND_WIND,            "WIND" },
-        { SEKind.E_SE_KIND_FIRE,            "FIRE" },
-        { SEKind.E_SE_KIND_HARETU,          "HARETU" },
-        { SEKind.E_SE_KIND_EXPLOTION,       "EXPLOTION" },
-        { SEKind.E_SE_KIND_MAX,             "MAX" },
-        
-    };
-
-    public static string BGMTypeToString(BGMKind BGMType)
-    {
-        if (BgmTypeNames.ContainsKey(BGMType))
-        {
-            return BgmTypeNames[BGMType];
-        }
-        else
-        {
-            return BGMType.ToString();
-        }
-    }
-
-    public static string SETypeToString(SEKind SeType)
-    {
-        if (SeTypeNames.ContainsKey(SeType))
-        {
-            return SeTypeNames[SeType];
-        }
-        else
-        {
-            return SeType.ToString();
-        }
-    }
-
     public static AudioManager instance;
 
-    [SerializeField] public List<AudioClip> bgms = new List<AudioClip>();
-    [SerializeField] public List<AudioClip> ses = new List<AudioClip>();
-    [SerializeField] private static float bgmVolume = 1.0f;
-    [SerializeField] private static float seVolume = 1.0f;
-    private static AudioSource bgmSource;
-    private static AudioSource[] seSource = new AudioSource[(int)SEKind.E_SE_KIND_MAX];
+    [SerializeField] private AudioClip[] bgms = new AudioClip[(int)BGMKind.E_BGM_KIND_MAX];
+    [SerializeField] private AudioClip[] ses = new AudioClip[(int)SEKind.E_SE_KIND_MAX];
+    [SerializeField] private float bgmVolume = 1.0f;
+    [SerializeField] private float seVolume = 1.0f;
+    private AudioSource bgmSource;
+    private AudioSource[] seSource = new AudioSource[(int)SEKind.E_SE_KIND_MAX];
 
     private void Awake()
     {
@@ -105,14 +51,13 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
 
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.loop = true;
         bgmSource.volume = bgmVolume;
 
-        for (int i = 0; i < ses.Count; i++)
+        for (int i = 0; i < ses.Length; i++)
         {
             if (ses[i] == null) continue;
             seSource[i] = gameObject.AddComponent<AudioSource>();
@@ -121,32 +66,31 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public static void PlayBGM(BGMKind index)
+    public void PlayBGM(BGMKind index)
     {
-        bgmSource.clip = instance.bgms[(int)index];
+        bgmSource.clip = bgms[(int)index];
         bgmSource.Play();
     }
 
-    public static void StopBGM()
+    public void StopBGM()
     {
         bgmSource.Stop();
     }
 
-    public static void PlaySE(SEKind index)
+    public void PlaySE(SEKind index)
     {
-        Debug.Log((int)index + ":" + seSource[(int)index].name);
         seSource[(int)index].Play();
     }
 
-    public static float BGMvolume
+    public float BGMvolume
     {
         get { return bgmVolume; }
         set { bgmVolume = value; bgmSource.volume = bgmVolume; }
     }
 
-    public static float SEvolume
+    public float SEvolume
     {
         get { return seVolume; }
-        set { seVolume = value; for (int i = 0; i < instance.ses.Count; i++) { seSource[i].volume = seVolume; } }
+        set { seVolume = value; for (int i = 0; i < ses.Length; i++) { seSource[i].volume = seVolume; } }
     }
 }

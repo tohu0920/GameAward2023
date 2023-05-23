@@ -6,13 +6,7 @@ public class SreelFlame : JankBase_iwata
 {
     public int value = 5;   //çUåÇÇµÇΩÇ∆Ç´ÇÃï«Ç…ä|ÇØÇÈî{ó¶
     FixedJoint joint;
-    Rigidbody rb;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
+    
     /// <summary>
     /// ìSçúÇÃìÆÇ´
     /// </summary>
@@ -35,12 +29,19 @@ public class SreelFlame : JankBase_iwata
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name.Contains("Cage"))
+        if (collision.transform.tag == "Wall")
         {
-            Debug.Log("ë¨ìx:" + rb.velocity);
-            Vector3 force = rb.velocity * 150f; // ìKãXí≤êÆ
-            Debug.Log("force:" + force);
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+            joint = collision.transform.GetComponent<FixedJoint>();
+
+            joint.breakForce /= value;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.tag == "Wall")
+        {
+            joint.breakForce *= value;
         }
     }
 }
