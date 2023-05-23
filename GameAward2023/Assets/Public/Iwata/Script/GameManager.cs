@@ -32,17 +32,16 @@ public class GameManager : MonoBehaviour
 
         m_PlayStage = GameObject.Find("PlayStage").transform;
         m_JointStage = GameObject.Find("JointStage").transform;
-        m_Option = GameObject.Find("PoseCanvas").transform;
     }
 
     [SerializeField] private static Transform m_PlayStage;       
     [SerializeField] private static Transform m_JointStage;      
-    [SerializeField] private static Transform m_Option;      
 
-    [SerializeField] private static eGameStatus m_GameStatus;
+    [SerializeField] private static eGameStatus m_GameStatus;  
     [SerializeField] private static eGameStatus m_lastGameStatus;
 
     [SerializeField] private bool m_Debug = false;
+    [SerializeField] private string m_DebugStage;
 
     static string szStage;
 
@@ -53,12 +52,16 @@ public class GameManager : MonoBehaviour
         m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
-        if (m_Debug) return;
-        szStage = (WorldSelect_Ito.worldNum + 1) + "-" + (WorldSelect_Ito.stageNum + 1) + ".STAGE";
+        if (m_Debug)
+        {
+            LoadStageData_araki.SettingStageObjects(m_DebugStage);
+            PlayStage.gameObject.SetActive(false);
+            return;
+        }
+        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + (int)WorldSelect_Ito.stageNum + 1 + ".STAGE";
         Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage);
-        m_PlayStage.gameObject.SetActive(false);
-        m_Option.gameObject.SetActive(false);
+        PlayStage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -152,11 +155,11 @@ public class GameManager : MonoBehaviour
         WorldSelect_Ito.stageNum++;
         if(WorldSelect_Ito.stageNum == WorldSelect_Ito.StageNum.Max)
         {
+            WorldSelect_Ito.worldNum++;
             WorldSelect_Ito.stageNum = WorldSelect_Ito.StageNum.Stage1;
-            WorldSelect_Ito.worldNum--;
             if(WorldSelect_Ito.worldNum == WorldSelect_Ito.WorldNum.World3)
             {
-                Debug.Log("全クリ");
+
             }
         }
         SceneManager.LoadScene("GameScene_v2.0");
