@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private static eGameStatus m_lastGameStatus;
 
     [SerializeField] private bool m_Debug = false;
+    [SerializeField] private string m_DebugStage;
 
     static string szStage;
 
@@ -51,8 +52,13 @@ public class GameManager : MonoBehaviour
         m_lastGameStatus = m_GameStatus;                    //状態が変わったかを検出するために情報を退避させる
         ObjectBase.Start();                                 //オーディオとエフェクトを使えるように設定
         //ここでステージとガラクタをロードする
-        if (m_Debug) return;
-        szStage = "1" + "-" + SelectStage.SelectNum + ".STAGE";
+        if (m_Debug)
+        {
+            LoadStageData_araki.SettingStageObjects(m_DebugStage);
+            PlayStage.gameObject.SetActive(false);
+            return;
+        }
+        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + (int)WorldSelect_Ito.stageNum + 1 + ".STAGE";
         Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage);
         PlayStage.gameObject.SetActive(false);
@@ -146,7 +152,16 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(3); // 3秒待つ
 
-        SelectStage.SelectNum++;
+        WorldSelect_Ito.stageNum++;
+        if(WorldSelect_Ito.stageNum == WorldSelect_Ito.StageNum.Max)
+        {
+            WorldSelect_Ito.worldNum++;
+            WorldSelect_Ito.stageNum = WorldSelect_Ito.StageNum.Stage1;
+            if(WorldSelect_Ito.worldNum == WorldSelect_Ito.WorldNum.World3)
+            {
+
+            }
+        }
         SceneManager.LoadScene("GameScene_v2.0");
     }
 

@@ -27,7 +27,6 @@ public class EffectManager_iwata : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {

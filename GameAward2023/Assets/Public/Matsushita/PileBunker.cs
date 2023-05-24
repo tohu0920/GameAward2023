@@ -13,10 +13,25 @@ public class PileBunker : JankBase_iwata
     private bool isMove = true;
 
     private Transform needleTransform;
+    Rigidbody rb;
 
     public override void work()
     {
+        if (currentDistance >= distance || currentDistance <= 0f)
+        {
+            isMove = !isMove;
+        }
 
+        if (isMove)
+        {
+            currentDistance += speed * Time.deltaTime;
+            needleTransform.Translate(Vector3.right * speed * Time.deltaTime);
+        }
+        else
+        {
+            currentDistance -= speed * Time.deltaTime;
+            needleTransform.Translate(Vector3.left * speed * Time.deltaTime);
+        }
     }
 
     public override List<float> GetParam()
@@ -33,51 +48,45 @@ public class PileBunker : JankBase_iwata
 
     void Start()
     {
+        rb = transform.GetChild(1).GetComponent<Rigidbody>();
         needleTransform = transform.GetChild(0);
-        StartCoroutine(MoveNeedle());
+        //StartCoroutine(MoveNeedle());
     }
 
 
-    IEnumerator MoveNeedle()
-    {
-        while (true)
-        {
-            if (currentDistance >= distance || currentDistance <= 0f)
-            {
-                isMove = !isMove;
-                yield return new WaitForSeconds(interval);
-            }
+    //IEnumerator MoveNeedle()
+    //{
+    //    while (true)
+    //    {
+    //        if (currentDistance >= distance || currentDistance <= 0f)
+    //        {
+    //            isMove = !isMove;
+    //            yield return new WaitForSeconds(interval);
+    //        }
 
-            if (isMove)
-            {
-                currentDistance += speed * Time.deltaTime;
-                needleTransform.Translate(Vector3.right * speed * Time.deltaTime);
-            }
-            else
-            {
-                currentDistance -= speed * Time.deltaTime;
-                needleTransform.Translate(Vector3.left * speed * Time.deltaTime);
-            }
+    //        if (isMove)
+    //        {
+    //            currentDistance += speed * Time.deltaTime;
+    //            needleTransform.Translate(Vector3.right * speed * Time.deltaTime);
+    //        }
+    //        else
+    //        {
+    //            currentDistance -= speed * Time.deltaTime;
+    //            needleTransform.Translate(Vector3.left * speed * Time.deltaTime);
+    //        }
 
-            yield return null;
-        }
-    }
+    //        yield return null;
+    //    }
+    //}
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Wall")
+        if (collision.transform.name.Contains("Cage"))
         {
-            // FixedJointを削除
-            FixedJoint joint = collision.gameObject.GetComponent<FixedJoint>();
-            if (joint != null)
-                Destroy(joint);
-
-            // ベクトルを計算
-            Vector3 vForce = (collision.contacts[0].point - this.transform.position).normalized;
-
-            // ベクトルを適用
-            if (collision.gameObject.GetComponent<Rigidbody>() != null)
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(vForce * m_crashRate, ForceMode.Impulse);
+            Debug.Log("速度:" + rb.velocity);
+            Vector3 force = rb.velocity * 150f; // 適宜調整
+            Debug.Log("force:" + force);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
         }
     }
 

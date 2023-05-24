@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5678356482448459536
+--- !u!1 &4192374217696182322
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5678356482448459540}
-  - component: {fileID: 5678356482448459541}
-  - component: {fileID: 5678356482448459538}
+  - component: {fileID: 4192374217696182321}
+  - component: {fileID: 4192374217696182319}
+  - component: {fileID: 4192374217696182320}
   m_Layer: 0
-  m_Name: WindObject
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5678356482448459540
+--- !u!4 &4192374217696182321
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482448459536}
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
+  m_GameObject: {fileID: 4192374217696182322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 25}
+  m_LocalScale: {x: 25, y: 15, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5678356482678359385}
+  m_Father: {fileID: 4192374219385437292}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5678356482448459541
+--- !u!33 &4192374217696182319
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482448459536}
-  m_Mesh: {fileID: 8421744311104621043, guid: d042294fccc564e468cc1606a99486cf, type: 3}
---- !u!23 &5678356482448459538
+  m_GameObject: {fileID: 4192374217696182322}
+  m_Mesh: {fileID: -1872875234233243087, guid: afadf1f6c970ad64888fc7295976fac4, type: 3}
+--- !u!23 &4192374217696182320
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482448459536}
+  m_GameObject: {fileID: 4192374217696182322}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f84ff0c8cf351634e9e6db47e3508b55, type: 2}
+  - {fileID: 2100000, guid: 5851a18cc4f0bb84fadfc90e4cf79c11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5678356482678359383
+--- !u!1 &4192374219385437295
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,53 +91,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5678356482678359385}
-  - component: {fileID: 7932714803011367141}
-  - component: {fileID: 5984198456984463469}
-  - component: {fileID: 5678356482678359382}
+  - component: {fileID: 4192374219385437292}
+  - component: {fileID: 4192374219385437293}
+  - component: {fileID: 4192374219385437294}
+  - component: {fileID: 6536213823375085811}
   m_Layer: 0
-  m_Name: wind
-  m_TagString: Untagged
+  m_Name: Drum
+  m_TagString: Jank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5678356482678359385
+--- !u!4 &4192374219385437292
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482678359383}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 220}
+  m_GameObject: {fileID: 4192374219385437295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5678356482448459540}
+  - {fileID: 4192374217696182321}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!65 &7932714803011367141
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4192374219385437293
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482678359383}
+  m_GameObject: {fileID: 4192374219385437295}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5984198456984463469
+--- !u!54 &4192374219385437294
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482678359383}
+  m_GameObject: {fileID: 4192374219385437295}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -147,21 +147,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5678356482678359382
+--- !u!114 &6536213823375085811
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5678356482678359383}
+  m_GameObject: {fileID: 4192374219385437295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0064aa0f177ea8449bd69b94df86ac0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f5537dab8b08c547bfb63fc25bae9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WIND_FORCE: 1000
-  WIND_RANGE: 20
-  DISTANCE_ATTENUATION: 1
-  WIDTH: 5
-  HEIGHT: 5
-  windSurface: {fileID: 5678356482678359385}
+  m_colliderFlags:
+    m_plusZ: 0
+    m_minusZ: 0
+    m_plusX: 0
+    m_minusX: 0
+    m_plusY: 0
+    m_minusY: 0
+  m_collisionFlags:
+    m_plusZ: 0
+    m_minusZ: 0
+    m_plusX: 0
+    m_minusX: 0
+    m_plusY: 1
+    m_minusY: 1
+  m_JankTag: 4
+  m_StartPos: {x: 0, y: 0, z: 0}
+  m_StartRot: {x: 0, y: 0, z: 0, w: 0}
+  m_Origin: {fileID: 0}
