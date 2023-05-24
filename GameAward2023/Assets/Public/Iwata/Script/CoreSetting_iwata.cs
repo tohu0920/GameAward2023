@@ -358,13 +358,19 @@ public class CoreSetting_iwata : ObjectBase
     {
         if(m_AttachFaces[m_SelectFaceNum].Trans.GetComponent<JankStatus>().CanColliderFlags(this.transform) && m_AttachJank.GetComponent<JankStatus>().CanCollisionFlags(this.transform))
         {
-            //Debug.Log("できるよー");
-            m_CanAttach = true;
+			//Debug.Log("できるよー");
+#if false
+		jank.GetComponent<Renderer>().material.SetInt("_CraftFlag", 1);
+#endif
+			m_CanAttach = true;
         }
         else
         {
-            //Debug.Log("むりだよー");
-            m_CanAttach = false;
+			//Debug.Log("むりだよー");
+#if false
+		jank.GetComponent<Renderer>().material.SetInt("_CraftFlag", 0);
+#endif
+			m_CanAttach = false;
         }
     }
 
@@ -379,7 +385,11 @@ public class CoreSetting_iwata : ObjectBase
         m_AttachJank = jank;        //仮置きされているガラクタを登録
         m_AttachJank.GetComponent<JankBase_iwata>().SetJank(m_AttachFaces[m_SelectFaceNum].Trans);        //ガラクタの仮置きの処理
         CheckCanAttach();
-    }
+#if false
+		jank.GetComponent<Renderer>().material.SetInt("_ColorFlag", 1);
+		jank.GetComponent<Renderer>().material.SetInt("_CraftFlag", 1);
+#endif
+	}
 
     /// <summary>
     /// 仮置きしているオブジェクトを確定させる
@@ -398,7 +408,11 @@ public class CoreSetting_iwata : ObjectBase
             m_AttachFaces.Clear();
             m_SelectFaceNum = 0;
             Debug.Log("いいね");
-            AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_ASSEMBLE);
+#if false
+		jank.GetComponent<Renderer>().material.SetInt("_ColorFlag", 0);
+		jank.GetComponent<Renderer>().material.SetInt("_CraftFlag", 0);
+#endif
+			AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_ASSEMBLE);
             return true;
         }
         else
