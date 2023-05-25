@@ -138,6 +138,11 @@ public class AudioManager : MonoBehaviour
         seSource[(int)index].Play();
     }
 
+    public static void StopSE(SEKind index)
+    {
+        seSource[(int)index].Stop();
+    }
+
     public static float BGMvolume
     {
         get { return bgmVolume; }
