@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //--- レイの衝突状況の遷移
-enum E_RAY_HIT_STATE
+public enum E_RAY_HIT_STATE
 {
 	ENTER,	//当たった瞬間
 	EXIT,	//離れた瞬間
@@ -16,12 +16,14 @@ public class CursorController_araki : ObjectBase
 {
 	static RectTransform m_rectTransform;   // カーソルの座標情報
     [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
+	GameObject m_selectJunk;
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference] PreviewCamera_araki m_previreCamera;
 	JointStageManager m_jointStageManager;
     float axisX = 0.0f;
     float axisY = 0.0f;
 	bool m_isHighSpeed = false;
+	E_RAY_HIT_STATE m_state;
 
 	// Start is called before the first frame update
 	void Start()
@@ -38,15 +40,19 @@ public class CursorController_araki : ObjectBase
 		if (m_jointStageManager.JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT) return;
 
 		//--- プレビュー用ガラクタを生成
-		switch (CheckRayHitState())
+		m_state = CheckRayHitState();
+		switch (m_state)
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
 				m_previreCamera.StartNoise();	// ノイズ開始	
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
+				m_selectJunk = m_lastPointJunk;
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
                 AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
-                Destroy(m_previewJunk);
+				m_selectJunk = null;
+				if (m_previewJunk == null) break;
+				Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
 			case E_RAY_HIT_STATE.STAY:
@@ -55,7 +61,7 @@ public class CursorController_araki : ObjectBase
                 //--- ノイズが終わったらガラクタを生成
                 AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_MONITORON);
-                m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
+                m_previewJunk = (GameObject)Instantiate((Object)m_selectJunk,
 					new Vector3(), Quaternion.identity);
 				// 動作を固定
 				m_previewJunk.GetComponent<Rigidbody>().constraints
@@ -192,5 +198,10 @@ public class CursorController_araki : ObjectBase
 		//--- スタートしたらプレビュー用ガラクタを削除する
 		Destroy(m_previewJunk);
 		m_previewJunk = null;
+	}
+
+	public E_RAY_HIT_STATE state
+	{
+		get { return m_state; }
 	}
 }
