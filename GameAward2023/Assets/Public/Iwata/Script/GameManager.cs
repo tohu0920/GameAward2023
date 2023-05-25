@@ -54,13 +54,16 @@ public class GameManager : MonoBehaviour
         //ここでステージとガラクタをロードする
         if (m_Debug)
         {
-            LoadStageData_araki.SettingStageObjects(m_DebugStage);
+            Debug.Log(m_DebugStage + "をよみこみます");
+            LoadStageData_araki.SettingStageObjects(m_DebugStage + "Stage");
+            LoadStageData_araki.SettingJunks(m_DebugStage + "Garakuta");
             PlayStage.gameObject.SetActive(false);
             return;
         }
-        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + (int)WorldSelect_Ito.stageNum + 1 + ".STAGE";
+        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + ((int)WorldSelect_Ito.stageNum + 1);
         Debug.Log(szStage + "をよみこみます");
-        LoadStageData_araki.SettingStageObjects(szStage);
+        LoadStageData_araki.SettingStageObjects(szStage + "Stage");
+        LoadStageData_araki.SettingJunks(szStage + "Garakuta");
         PlayStage.gameObject.SetActive(false);
     }
 
@@ -131,7 +134,7 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
-                            LoadStageData_araki.SettingStageObjects(szStage);
+                            LoadStageData_araki.SettingStageObjects(szStage + "Stage");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
