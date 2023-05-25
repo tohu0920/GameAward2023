@@ -68,6 +68,7 @@ public class Pose : MonoBehaviour
         {
             YNChoice.Update();
 
+            //ˆê‚Â–ß‚é
             if(!activetoStage)
             {
                 checkStage.SetActive(false);
