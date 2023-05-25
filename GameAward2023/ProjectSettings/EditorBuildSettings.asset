@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Public/Ito/Ito_Scene/Ito_DemoScene.unity
     guid: bbcd4ccf2a6b9434c802efaff83e3ed6
   - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+    path: Assets/Public/Ito/Ito_Scene/Ito_StageSelectScene.unity
+    guid: 462b27f428e9d554d8d080ae69973c7d
   - enabled: 1
     path: Assets/Public/Iwata/Scene/GameScene_v2.0.unity
     guid: 6c62bcdfe86b111428fd392a8bfc5844

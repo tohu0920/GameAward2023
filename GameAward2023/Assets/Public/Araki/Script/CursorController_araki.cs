@@ -47,13 +47,15 @@ public class CursorController_araki : ObjectBase
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
-				Destroy(m_previewJunk);
+                AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
+                Destroy(m_previewJunk);
 				m_previewJunk = null;
 				break;
 			case E_RAY_HIT_STATE.STAY:
 				if (!m_previreCamera.isEndNoise) break;
 
                 //--- ノイズが終わったらガラクタを生成
+                AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_MONITORON);
                 m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
 					new Vector3(), Quaternion.identity);
