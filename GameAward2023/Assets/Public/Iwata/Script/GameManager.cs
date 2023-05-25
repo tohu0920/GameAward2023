@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
             LoadStageData_araki.SettingStageObjects(m_DebugStage + "Stage");
             LoadStageData_araki.SettingJunks(m_DebugStage + "Garakuta");
             PlayStage.gameObject.SetActive(false);
+            m_Pose.gameObject.SetActive(false);
             return;
         }
         szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + ((int)WorldSelect_Ito.stageNum + 1);
@@ -199,6 +200,7 @@ public class GameManager : MonoBehaviour
     public static eGameStatus LastGameStatus
     {
         get { return m_lastGameStatus; }
+        set { m_lastGameStatus = value; }
     }
 
 }

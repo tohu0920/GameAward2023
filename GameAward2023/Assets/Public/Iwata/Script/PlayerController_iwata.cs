@@ -148,6 +148,7 @@ public class PlayerController_iwata : MonoBehaviour
             else
             {
                 GameManager.GameStatus = GameManager.LastGameStatus;
+                GameManager.LastGameStatus = GameManager.eGameStatus.E_GAME_STATUS_POUSE;
             }
         }
     }
