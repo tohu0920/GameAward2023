@@ -32,10 +32,12 @@ public class GameManager : MonoBehaviour
 
         m_PlayStage = GameObject.Find("PlayStage").transform;
         m_JointStage = GameObject.Find("JointStage").transform;
+        m_Pose = GameObject.Find("PoseCanvas").transform;
     }
 
     [SerializeField] private static Transform m_PlayStage;       
     [SerializeField] private static Transform m_JointStage;      
+    [SerializeField] private static Transform m_Pose;      
 
     [SerializeField] private static eGameStatus m_GameStatus;  
     [SerializeField] private static eGameStatus m_lastGameStatus;
@@ -54,14 +56,19 @@ public class GameManager : MonoBehaviour
         //ここでステージとガラクタをロードする
         if (m_Debug)
         {
-            LoadStageData_araki.SettingStageObjects(m_DebugStage);
+            Debug.Log(m_DebugStage + "をよみこみます");
+            LoadStageData_araki.SettingStageObjects(m_DebugStage + "Stage");
+            LoadStageData_araki.SettingJunks(m_DebugStage + "Garakuta");
             PlayStage.gameObject.SetActive(false);
+            m_Pose.gameObject.SetActive(false);
             return;
         }
-        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + (int)WorldSelect_Ito.stageNum + 1 + ".STAGE";
+        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + ((int)WorldSelect_Ito.stageNum + 1);
         Debug.Log(szStage + "をよみこみます");
-        LoadStageData_araki.SettingStageObjects(szStage);
+        LoadStageData_araki.SettingStageObjects(szStage + "Stage");
+        LoadStageData_araki.SettingJunks(szStage + "Garakuta");
         PlayStage.gameObject.SetActive(false);
+        m_Pose.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -131,7 +138,7 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
-                            LoadStageData_araki.SettingStageObjects(szStage);
+                            LoadStageData_araki.SettingStageObjects(szStage + "Stage");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
@@ -140,7 +147,15 @@ public class GameManager : MonoBehaviour
                             break;
 
                     }
-                    break;                                                                                                                                                                                                                                                                                           
+                    break;
+                case eGameStatus.E_GAME_STATUS_POUSE:
+                    m_Pose.gameObject.SetActive(false);
+                    break;
+            }
+            if(m_GameStatus == eGameStatus.E_GAME_STATUS_POUSE)
+            {
+                m_Pose.gameObject.SetActive(true);
+                return;
             }
 
 
@@ -181,4 +196,11 @@ public class GameManager : MonoBehaviour
         get { return m_GameStatus; }
         set { m_GameStatus = value; }
     }
+
+    public static eGameStatus LastGameStatus
+    {
+        get { return m_lastGameStatus; }
+        set { m_lastGameStatus = value; }
+    }
+
 }

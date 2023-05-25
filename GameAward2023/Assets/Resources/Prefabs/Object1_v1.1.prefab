@@ -113,7 +113,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &5356150267800647493
 MonoBehaviour:
@@ -127,8 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fcf95da10430894fab16c1ed836682a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioMane: {fileID: 0}
-  EffectMane: {fileID: 0}
   m_colliderFlags:
     m_plusZ: 0
     m_minusZ: 0
