@@ -43,6 +43,7 @@ public class CursorController_araki : ObjectBase
 
 		//--- プレビュー用ガラクタを生成
 		m_state = CheckRayHitState();
+		Debug.Log(m_state);
 		switch (m_state)
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
@@ -133,9 +134,23 @@ public class CursorController_araki : ObjectBase
 
 		//--- レイで当たり判定を取る
 		Ray ray = GetCameraToRay(cam);
-		RaycastHit hit;
-		// 入れ子を削減する為に否定で判定
-		if (!Physics.Raycast(ray, out hit)) // カーソルが指す物を取得
+		RaycastHit[] hits = Physics.RaycastAll(ray);
+		float minZ = Mathf.Infinity;
+		GameObject minZJunk = null;
+
+		//--- 取得したオブジェクトから最前にあるガラクタを求める
+		foreach(RaycastHit junk in hits)
+		{
+			//--- 条件外の物は省く
+			if (junk.transform.tag != "Jank") continue;
+			if (junk.transform.position.z >= minZ) continue;
+
+			minZ = junk.transform.position.z;		// Z座標の最小値を更新
+			minZJunk = junk.transform.gameObject;	// 最前のオブジェクトを更新
+		}
+
+		// カーソル(レイ)が何も指していなかったら
+		if (minZJunk == null)
 		{
 			GameObject temp = m_lastPointJunk;
 			m_lastPointJunk = null; // 過去のデータをリセット
@@ -146,10 +161,8 @@ public class CursorController_araki : ObjectBase
 			return E_RAY_HIT_STATE.NOT_HIT;
 		}
 
-		GameObject hitJunk = hit.transform.gameObject;
-
 		// ガラクタに当たっていなければ処理しない
-		if (hitJunk.transform.parent.name != "Jank")
+		if (minZJunk.transform.parent.name != "Jank")
 		{
 			GameObject temp = m_lastPointJunk;
 			m_lastPointJunk = null; // 過去のデータをリセット
@@ -163,12 +176,12 @@ public class CursorController_araki : ObjectBase
 		//--- 前フレームでガラクタを指していなかった場合
 		if (m_lastPointJunk == null)
 		{
-			m_lastPointJunk = hitJunk;  // 過去のデータとして退避
+			m_lastPointJunk = minZJunk;  // 過去のデータとして退避
 			return E_RAY_HIT_STATE.ENTER;
 		}
 
 		// 指し続けている場合
-		if (m_lastPointJunk == hitJunk) return E_RAY_HIT_STATE.STAY;
+		if (m_lastPointJunk == minZJunk) return E_RAY_HIT_STATE.STAY;
 
 		//--- 何も指さなくなった場合
 		m_lastPointJunk = null; // 過去のデータをリセット
