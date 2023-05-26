@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &7602504307330951411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,7 +1304,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9437149dbfac82f41bd284c03c219db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BGM: {fileID: 0}
+  titleScreen: {fileID: 0}
+  OptionScreen: {fileID: 0}
+  titleControle: {fileID: 0}
+  bgmSlider: {fileID: 0}
+  SESlider: {fileID: 0}
+  SelectOptionNum: 0
 --- !u!114 &1526238227469808303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,6 +1322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4c64790d162f749b94222107c8547a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadNextScene: {fileID: 0}
 --- !u!1 &7602504307738640785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,10 +1520,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 7602504306769076675}
   m_HandleRect: {fileID: 7602504306587543245}
   m_Direction: 0
-  m_MinValue: -20
-  m_MaxValue: 5
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1681,10 +1687,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 7602504306300981840}
   m_HandleRect: {fileID: 7602504306282341211}
   m_Direction: 0
-  m_MinValue: -20
-  m_MaxValue: 5
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 5
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

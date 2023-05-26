@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class YNChoice : MonoBehaviour
 {
-    public GameObject LoadNextScene; 
+    [SerializeReference] public GameObject LoadNextScene; 
 
     static public int choiceNum;
 
@@ -16,7 +16,7 @@ public class YNChoice : MonoBehaviour
     }
 
     // Update is called once per frame
-    static public void Update()
+    public void Update()
     {
         choiceNum += AxisInput.GetAxisRawRepeat("Horizontal_PadX");
 
@@ -25,14 +25,13 @@ public class YNChoice : MonoBehaviour
 
         if(choiceNum == 1 && PadInput.GetKeyDown(KeyCode.Joystick1Button0))
         {
-            //SceneManager.LoadScene(LoadNextScene.name);
+            SceneManager.LoadScene(LoadNextScene.name);
         }
 
         if(choiceNum == 0 && PadInput.GetKeyDown(KeyCode.Joystick1Button0) || PadInput.GetKeyDown(KeyCode.Joystick1Button1))
         {
             Pose.activetoStage = false;
             Pose.activetoTitle = false;
-
         }
     }
 }

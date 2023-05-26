@@ -18,12 +18,9 @@ public class OptionSelect : MonoBehaviour
     [SerializeReference] public GameObject titleScreen;
     [SerializeReference] public GameObject OptionScreen;
     [SerializeReference] GameObject titleControle;
-    [SerializeReference] AudioMixerSnapshot BGM;
 
     [SerializeReference] public Slider bgmSlider;         // Sliderを格納する変数
-    [SerializeReference] public Slider SESlider;          // SEを格納する変数
-    public AudioSource BGMSource;    // BGMを再生するAudioSourceを格納する変数
-    public AudioSource SESourse;     // SE再生するAudioSourceを格納する変数    
+    [SerializeReference] public Slider SESlider;          // SEを格納する変数    
 
     public int SelectOptionNum; 
 
@@ -37,8 +34,11 @@ public class OptionSelect : MonoBehaviour
         ReadMeImage1 = GameObject.Find("ReadMeImage1"); //光っていない
         ReadMeImage2 = GameObject.Find("ReadMeImage2"); //光っている               
 
-        //bgmSlider.value = 5.0f;
-        //SESlider.value = 5.0f;
+        //音量スライダーの限界値初期化
+        bgmSlider.maxValue = 1.0f;
+        bgmSlider.minValue = 0.0f;
+        SESlider.maxValue = 1.0f;
+        SESlider.minValue = 0.0f;
 
         activeOption = true;
 
@@ -60,16 +60,16 @@ public class OptionSelect : MonoBehaviour
                 //音量がひかっている
                 ChangeActive();               
 
-                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
-                //AudioManager.BGMVolume();
+                bgmSlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 0.2f;
+                AudioManager.BGMvolume = bgmSlider.value;
                 break;
 
             case 1:
                 //効果音が光っている
                 ChangeActive();
 
-                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 5.0f;
-                //AudioManager.SEVolume();
+                SESlider.value += AxisInput.GetAxisRawRepeat("Horizontal_PadX") * 0.2f;
+                AudioManager.SEvolume = SESlider.value;
                 break;
 
             case 2:
@@ -95,25 +95,6 @@ public class OptionSelect : MonoBehaviour
             titleScreen.SetActive(true);
             OptionScreen.SetActive(false);
         }      
-    }
-
-    /// <summary>
-    /// BGMの音量の設定関数
-    /// </summary>
-    /// <param name="volume"></param>
-    public void SetBGM(float volume)
-    {
-        BGM.audioMixer.SetFloat("BGM", volume);
-        Debug.Log(volume);
-    }
-
-    /// <summary>
-    /// SEの音量設定
-    /// </summary>
-    /// <param name="volume"></param>
-    public void SetSE(float volume)
-    {
-        BGM.audioMixer.SetFloat("SE", volume);
     }
 
     /// <summary>
