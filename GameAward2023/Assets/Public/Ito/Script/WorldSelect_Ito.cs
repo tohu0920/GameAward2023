@@ -46,8 +46,7 @@ public class WorldSelect_Ito : MonoBehaviour
 
     private string Scene;            //シーン先決定(名前をStartで指定)
 
-    private int currentSelectNum;
-    private int oldSelectNum;
+    private int frameCount;          //フレームカウント用
     private bool activeWorld;
     private bool activeStage;
 
@@ -68,6 +67,7 @@ public class WorldSelect_Ito : MonoBehaviour
         worldNum = WorldNum.World3;
         stageNum = StageNum.Stage1;
         oldStageNum = StageNum.Max;
+        frameCount = 0;
         unlockstage1Num = 1;
         activeWorld = true;
         activeStage = false;
@@ -100,7 +100,8 @@ public class WorldSelect_Ito : MonoBehaviour
         {
             SelectStage();
         }
-       
+
+        frameCount++;
     }
 
     private void WorldSelect()
@@ -193,8 +194,8 @@ public class WorldSelect_Ito : MonoBehaviour
         switch (stageNum)
         {
             case StageNum.Stage1:                
-
-                if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+                //一ステージのみ連続入力でステージに入らないように抑制
+                if (frameCount > 100 && PadInput.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     if (unlockstage1Num >= 1)
                     {
@@ -358,6 +359,7 @@ public class WorldSelect_Ito : MonoBehaviour
         {
             ReturnWorld();
             stageNum = StageNum.Stage1;
+            frameCount = 0;
         }
 
         if (oldStageNum == stageNum) return;        
