@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         m_PlayStage = GameObject.Find("PlayStage").transform;
         m_JointStage = GameObject.Find("JointStage").transform;
-        m_Pose = GameObject.Find("PoseCanvas").transform;
+        m_Pose = GameObject.Find("Pose").transform;
     }
 
     [SerializeField] private static Transform m_PlayStage;       
@@ -138,7 +138,8 @@ public class GameManager : MonoBehaviour
                             {
                                 Destroy(stageobject.GetChild(i).gameObject);
                             }
-                            LoadStageData_araki.SettingStageObjects(szStage + "Stage");
+                            if(!m_Debug) LoadStageData_araki.SettingStageObjects(szStage + "Stage");
+                            else LoadStageData_araki.SettingStageObjects(m_DebugStage + "Stage");
                             break;
 
                         case eGameStatus.E_GAME_STATUS_END:
@@ -177,7 +178,8 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        SceneManager.LoadScene("GameScene_v2.0");
+        //SceneManager.LoadScene("GameScene_v2.0");
+        Fade.instance.FadeToScene("GameScene_v2.0");
     }
 
     public static Transform PlayStage
