@@ -1,60 +1,60 @@
 {
-  "m_objects": [
+  "m_prefabs": [
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒKƒ‰ƒNƒ^ƒuƒƒbƒN",
-      "m_categoriz": "Šî‘b",
-      "m_property": "‹à‘®",
-      "m_explnation": "ƒoƒ‰ƒ“ƒX‚ğæƒbƒ^ƒŠBƒRƒA‚ğçƒbƒ^ƒŠƒfƒL‚éB"
+      "m_prefabName": "Object1_v1.1",
+      "m_junkName": "ã‚¬ãƒ©ã‚¯ã‚¿ãƒ–ãƒ­ãƒƒã‚¯",
+      "m_categoriz": "åŸºç¤",
+      "m_property": "é‡‘å±",
+      "m_explnation": "ãƒãƒ©ãƒ³ã‚¹ã‚’å–ãƒƒã‚¿ãƒªã€‚\nã‚³ã‚¢ã‚’å®ˆãƒƒã‚¿ãƒªãƒ‡ã‚­ã‚‹ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "“Sœ",
-      "m_categoriz": "UŒ‚",
-      "m_property": "‹à‘®",
-      "m_explnation": "‘O“ñ•t‚¯‚éƒg”j‰óƒfƒL‚é"
+      "m_prefabName": "SteelFlame",
+      "m_junkName": "é‰„éª¨",
+      "m_categoriz": "æ”»æ’ƒ",
+      "m_property": "é‡‘å±",
+      "m_explnation": "å‰äºŒä»˜ã‘ã‚‹ãƒˆ\nç ´å£Šãƒ‡ã‚­ã‚‹"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒ^ƒCƒ„",
-      "m_categoriz": "ƒXƒvƒŠƒ“ƒO",
-      "m_property": "ƒSƒ€",
-      "m_explnation": "•Ç‚âáŠQ•¨“ñ“–‚½‚é‚Æ’µ‚Ë•Ô‚éB“B‚É“–‚½‚éƒg”j—ô‚µ‚ÄƒVƒ}ƒEB’~“dŠí‚ÍƒL‚©ƒiƒCB"
+      "m_prefabName": "Wheel",
+      "m_junkName": "ã‚¿ã‚¤ãƒ¤",
+      "m_categoriz": "ã‚¹ãƒ—ãƒªãƒ³ã‚°",
+      "m_property": "ã‚´ãƒ ",
+      "m_explnation": "éšœå®³ç‰©äºŒå½“ãŸã‚‹ã¨è·³ã­è¿”ã‚‹ã€‚\né‡˜ã«å½“ãŸã‚‹ãƒˆç ´è£‚ã—ã¦ã‚·ãƒã‚¦ã€‚\nè“„é›»å™¨ã¯ã‚­ã‹ãƒŠã‚¤ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒWƒFƒbƒgƒu[ƒXƒ^[",
-      "m_categoriz": "ƒWƒFƒbƒg",
-      "m_property": "‹à‘®",
-      "m_explnation": "ƒRƒA‚ğ“®‚©‚·ƒ^ƒ‚É•K—vB‚QŒÂ•À‚×‚éƒg^‚ÁƒXƒOi‚ßƒ‹B"
+      "m_prefabName": "Booster_2.0",
+      "m_junkName": "ã‚¸ã‚§ãƒƒãƒˆãƒ–ãƒ¼ã‚¹ã‚¿ãƒ¼",
+      "m_categoriz": "ã‚¸ã‚§ãƒƒãƒˆ",
+      "m_property": "é‡‘å±",
+      "m_explnation": "ã‚³ã‚¢ã‚’å‹•ã‹ã™ã‚¿ãƒ¡ã«å¿…è¦ã€‚\nï¼’å€‹ä¸¦ã¹ã‚‹ãƒˆçœŸã£ã‚¹ã‚°é€²ã‚ãƒ«ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒ~ƒjƒRƒA",
-      "m_categoriz": "ƒRƒA",
-      "m_property": "‹à‘®",
-      "m_explnation": "ƒRƒA‚Æ“¯‚¶ƒfAƒKƒ‰ƒNƒ^‚ª‘g‚İ—§‚Ä‚ç‚êƒ‹B"
+      "m_prefabName": "MiniCore",
+      "m_junkName": "ãƒŸãƒ‹ã‚³ã‚¢",
+      "m_categoriz": "ã‚³ã‚¢",
+      "m_property": "é‡‘å±",
+      "m_explnation": "ã‚³ã‚¢ã¨åŒã˜ãƒ‡ã€\nã‚¬ãƒ©ã‚¯ã‚¿ãŒçµ„ã¿ç«‹ã¦ã‚‰ã‚Œãƒ«ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒhƒ‰ƒ€ŠÊ",
-      "m_categoriz": "“Áê",
-      "m_property": "”š”­",
-      "m_explnation": "”RƒGƒe‚¢‚éƒhƒ‰ƒ€ŠÊ‚ÉG‚ê‚éƒg”š”­‚µ‚Äƒ~ƒX‚Éƒiƒ‹Bƒ\ƒŒˆÈŠO‚ÍŠî‘b‚Æ‚µ‚ÄgƒGƒ‹B"
+      "m_prefabName": "BloacWall_araki",
+      "m_junkName": "ãƒ‰ãƒ©ãƒ ç¼¶",
+      "m_categoriz": "ç‰¹æ®Š",
+      "m_property": "çˆ†ç™º",
+      "m_explnation": "ç‡ƒã‚¨ãƒ†ã„ã‚‹ãƒ‰ãƒ©ãƒ ç¼¶ã«è§¦ã‚Œã‚‹ãƒˆ\nçˆ†ç™ºã—ã¦ãƒŸã‚¹ã«ãƒŠãƒ«ã€‚\nã‚½ãƒ¬ä»¥å¤–ã¯åŸºç¤ã¨ã—ã¦ä½¿ã‚¨ãƒ«ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "ƒpƒCƒ‹ƒpƒ“ƒJ[",
-      "m_categoriz": "‹à‘®",
-      "m_property": "‹à‘®",
-      "m_explnation": "ƒpƒCƒ‹‚ª‘Å‚¿o‚³‚ê‚éƒmƒf”j‰ó—Í”²ŒQB«”\“ñ·‚ªƒAƒ‹B"
+      "m_prefabName": "AutoSpring",
+      "m_junkName": "ãƒ‘ã‚¤ãƒ«ãƒ‘ãƒ³ã‚«ãƒ¼",
+      "m_categoriz": "é‡‘å±",
+      "m_property": "é‡‘å±",
+      "m_explnation": "ãƒ‘ã‚¤ãƒ«ãŒæ‰“ã¡å‡ºã•ã‚Œã‚‹\nãƒãƒ‡ç ´å£ŠåŠ›æŠœç¾¤ã€‚\næ€§èƒ½äºŒå·®ãŒã‚¢ãƒ«ã€‚"
     },
     {
-      "m_prefabName": "prefabName",
-      "m_junkName": "‚Î‚Ë",
-      "m_categoriz": "ƒXƒvƒŠƒ“ƒO",
-      "m_property": "‹à‘®",
-      "m_explnation": "íL‚Ñk‚İƒVƒe‚¢‚éB«”\“ñ·‚ªƒAƒ‹B"
+      "m_prefabName": "Spring",
+      "m_junkName": "ã°ã­",
+      "m_categoriz": "ã‚¹ãƒ—ãƒªãƒ³ã‚°",
+      "m_property": "é‡‘å±",
+      "m_explnation": "å¸¸æ™‚ä¼¸ã³ç¸®ã¿ã‚·ãƒ†ã„ã‚‹ã€‚\næ€§èƒ½äºŒå·®ãŒã‚¢ãƒ«ã€‚"
     }
   ]
 }
