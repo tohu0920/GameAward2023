@@ -16,6 +16,9 @@ public class Pose : MonoBehaviour
     private GameObject Title;
     private GameObject Title2;
 
+    private YNChoice ynStageChoice;
+    private YNChoice ynTitleChoice;
+
     private int poseNum;            //ポーズ画面選択判定用
 
     static public bool activePose;        //ポーズ画面の表示判定用
@@ -31,6 +34,7 @@ public class Pose : MonoBehaviour
         Option2 = GameObject.Find("Option2");
         Title   = GameObject.Find("BackTitle");
         Title2  = GameObject.Find("BackTitle2");
+        ynStageChoice = checkStage.GetComponent<YNChoice>();
 
         optionScreen.SetActive(false);
         checkStage.SetActive(false);
@@ -66,7 +70,7 @@ public class Pose : MonoBehaviour
         //ポーズ画面のみなら全てスルー
         if(activetoStage)
         {
-            YNChoice.Update();
+            ynStageChoice.Update();
 
             //一つ戻る
             if(!activetoStage)
@@ -77,7 +81,7 @@ public class Pose : MonoBehaviour
         }
         if(activetoTitle)
         {
-            YNChoice.Update();
+            ynTitleChoice.Update();
 
             if (!activetoTitle)
             {
