@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -427,6 +427,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackTitle
       objectReference: {fileID: 0}
+    - target: {fileID: 6800447021021488582, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021021488582, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021574940510, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021574940510, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021574940510, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021627135573, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021627135573, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021863363272, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021863363272, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447021863363272, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800447022762329103, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: titleScreen
+      value: 
+      objectReference: {fileID: 8105727082276721093, guid: f1afc16cda58f70498cdc65b9bd0fcc2, type: 3}
+    - target: {fileID: 6800447022762329103, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: OptionScreen
+      value: 
+      objectReference: {fileID: 7602504307330951410, guid: 78e4ca47fbc1cb84fb833a598e270b90, type: 3}
+    - target: {fileID: 6800447022762329103, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
+      propertyPath: titleControle
+      value: 
+      objectReference: {fileID: 2050505819633508840, guid: 337bcbc91bca98f498264b483ad01e8a, type: 3}
     - target: {fileID: 8017889120878307956, guid: 19a9b17c8e032b64a8dc30fad65470f6, type: 3}
       propertyPath: m_Name
       value: StageSelect2
