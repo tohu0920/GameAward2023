@@ -42,7 +42,7 @@ public static class PadInput
 	/// </summary>
 	public static bool GetKey(KeyCode keyCode)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD	// デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true // デバッグ用処理
 
 		// キーボードからも入力を取得
 		if (m_keyCode.ContainsKey(keyCode))
@@ -60,7 +60,7 @@ public static class PadInput
 	/// </summary>
 	public static bool GetKeyDown(KeyCode keyCode)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD  // デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true // デバッグ用処理
 
 		// キーボードからも入力を取得
 		if (m_keyCode.ContainsKey(keyCode))
@@ -78,7 +78,7 @@ public static class PadInput
 	/// </summary>
 	public static bool GetKeyUp(KeyCode keyCode)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD  // デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true // デバッグ用処理
 
 		// キーボードからも入力を取得
 		if (m_keyCode.ContainsKey(keyCode))
@@ -97,7 +97,7 @@ public static class PadInput
 	/// </summary>
 	public static float GetAxis(string axisName)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD  // デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true  // デバッグ用処理
 
 		// ゲームパッドからの入力
 		float axis = Input.GetAxis(axisName);
@@ -122,7 +122,7 @@ public static class PadInput
 	/// </summary>
 	public static int GetAxisRaw(string axisName)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD  // デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true // デバッグ用処理
 
 		// ゲームパッドからの入力
 		int axis = (int)Input.GetAxisRaw(axisName);
@@ -148,7 +148,7 @@ public static class PadInput
 	/// </summary>
 	public static int GetAxisRawRepeat(string axisName)
 	{
-#if UNITY_EDITOR || DEVELOPMENT_BUILD  // デバッグ用処理
+#if UNITY_EDITOR || DEVELOPMENT_BUILD || true // デバッグ用処理
 
 		// ゲームパッドからの入力
 		int axis = AxisInput.GetAxisRawRepeat(axisName);
