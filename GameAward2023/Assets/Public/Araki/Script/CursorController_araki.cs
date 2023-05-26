@@ -46,7 +46,7 @@ public class CursorController_araki : ObjectBase
 		switch (m_state)
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				m_previreCamera.StartNoise();	// ノイズ開始	
+				m_previreCamera.StartNoise();	// ノイズ開始
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
 				m_selectJunk = m_lastPointJunk;
 				break;
@@ -61,6 +61,7 @@ public class CursorController_araki : ObjectBase
 				if (m_previewJunk == null) break;
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
+				m_previreCamera.StartNoise();   // ノイズ開始
 				break;
 			case E_RAY_HIT_STATE.STAY:
 				if (!m_previreCamera.isEndNoise) break;
@@ -84,6 +85,7 @@ public class CursorController_araki : ObjectBase
 				if (m_previewJunk == null) break;
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
+				m_previreCamera.StartNoise();   // ノイズ開始
 				break;
 			default:    // 上記以外の場合は処理しない
 				break;
