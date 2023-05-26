@@ -178,7 +178,8 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        SceneManager.LoadScene("GameScene_v2.0");
+        //SceneManager.LoadScene("GameScene_v2.0");
+        Fade.instance.FadeToScene("GameScene_v2.0");
     }
 
     public static Transform PlayStage

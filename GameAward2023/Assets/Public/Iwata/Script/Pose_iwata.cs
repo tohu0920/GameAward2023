@@ -20,6 +20,7 @@ public class Pose_iwata : MonoBehaviour
 
     [SerializeField] ePoseKind m_PoseKind;
     int m_Input;
+    //bool m_A;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,6 @@ public class Pose_iwata : MonoBehaviour
         StageSelect.Flag = true;
         Option.Flag = false;
         BuckTitle.Flag = false;
-        Debug.Log(m_PoseKind);
     }
 
     // Update is called once per frame
@@ -37,6 +37,21 @@ public class Pose_iwata : MonoBehaviour
     {
         m_Input += AxisInput.GetAxisRawRepeat("Vertical_L");
         m_Input += AxisInput.GetAxisRawRepeat("Vertical_PadX");
+        if (PadInput.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            switch (m_PoseKind)
+            {
+                case ePoseKind.E_POSE_KIND_STAGESELECT:
+                    StageSelect.GoNextCanvas();
+                    break;
+                case ePoseKind.E_POSE_KIND_OPTION:
+                    Option.GoNextCanvas();
+                    break;
+                case ePoseKind.E_POSE_KIND_EXIT:
+                    BuckTitle.GoNextCanvas();
+                    break;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -76,7 +91,6 @@ public class Pose_iwata : MonoBehaviour
                     BuckTitle.Flag = true;
                     break;
             }
-            Debug.Log(m_PoseKind);
         }
 
         m_Input = 0;

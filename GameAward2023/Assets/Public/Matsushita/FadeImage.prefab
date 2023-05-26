@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 962321185233784880}
   - component: {fileID: 962321185233784881}
   - component: {fileID: 962321185233784879}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: FadeImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &962321185233784884
 MonoBehaviour:
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 962321185233784886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe80fc797046bf40a03de569bd51cfe, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cb6d7dc5871d84dbbf4dafdb42ebf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 962321185233784881}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoseSwitch : MonoBehaviour
 {
-    [SerializeField] GameObject Canvas;
+    [SerializeField] GameObject myCanvas;
 
     Transform m_True;
     Transform m_False;
@@ -14,22 +14,27 @@ public class PoseSwitch : MonoBehaviour
     {
         m_True = transform.GetChild(1);
         m_False = transform.GetChild(0);
+        myCanvas.SetActive(false);
     }
 
     private void FixedUpdate()
     {
         if(m_flag)
         {
-            Debug.Log(transform.name + "ê≥");
             m_True.gameObject.SetActive(true);
             m_False.gameObject.SetActive(false);
         }
         else
         {
-            Debug.Log(transform.name + "ãU");
             m_True.gameObject.SetActive(false);
             m_False.gameObject.SetActive(true);
         }
+    }
+
+    public void GoNextCanvas()
+    {
+        transform.parent.gameObject.SetActive(false);
+        myCanvas.SetActive(true);
     }
 
     public bool Flag
