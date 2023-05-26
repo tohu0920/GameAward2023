@@ -17,6 +17,7 @@ public class CursorController_araki : ObjectBase
 	static RectTransform m_rectTransform;   // カーソルの座標情報
     [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
 	GameObject m_selectJunk;
+	CoreSetting_iwata m_coreSetting;
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference] PreviewCamera_araki m_previreCamera;
 	JointStageManager m_jointStageManager;
@@ -32,6 +33,7 @@ public class CursorController_araki : ObjectBase
 		m_rectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
 		m_lastPointJunk = null;
 		m_jointStageManager = transform.root.GetComponent<JointStageManager>();
+		m_coreSetting = GameObject.Find("Core").GetComponent<CoreSetting_iwata>();
 	}
 
     // Update is called once per frame
@@ -50,6 +52,11 @@ public class CursorController_araki : ObjectBase
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
                 AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
+
+				// 仮置きを開始した場合はプレビューを破棄しない
+				if (m_coreSetting.AttachJank != null) break;
+
+				//--- プレビューを破棄
 				m_selectJunk = null;
 				if (m_previewJunk == null) break;
 				Destroy(m_previewJunk);
@@ -67,6 +74,16 @@ public class CursorController_araki : ObjectBase
 				m_previewJunk.GetComponent<Rigidbody>().constraints
 					= RigidbodyConstraints.FreezeAll;
 				m_previewJunk.AddComponent<PreviewJunk_araki>();
+				break;
+			case E_RAY_HIT_STATE.NOT_HIT:
+				// 仮置き中の場合はプレビューを破棄しない
+				if (m_coreSetting.AttachJank != null) break;
+
+				//--- プレビューを破棄
+				if (m_selectJunk != null) m_selectJunk = null;
+				if (m_previewJunk == null) break;
+				Destroy(m_previewJunk);
+				m_previewJunk = null;
 				break;
 			default:    // 上記以外の場合は処理しない
 				break;
