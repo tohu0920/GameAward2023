@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
             m_Pose.gameObject.SetActive(false);
             return;
         }
-        szStage = (int)WorldSelect_Ito.worldNum + 1 + "-" + ((int)WorldSelect_Ito.stageNum + 1);
+        Debug.Log("ゲーム始める準備");
+        szStage = (int)WorldSelect_Ito.worldNum + "-" + (int)WorldSelect_Ito.stageNum;
         Debug.Log(szStage + "をよみこみます");
         LoadStageData_araki.SettingStageObjects(szStage + "Stage");
         LoadStageData_araki.SettingJunks(szStage + "Garakuta");
