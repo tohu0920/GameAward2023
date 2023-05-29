@@ -84,10 +84,10 @@ MonoBehaviour:
     m_plusY: 0
     m_minusY: 0
   m_collisionFlags:
-    m_plusZ: 0
-    m_minusZ: 0
-    m_plusX: 0
-    m_minusX: 0
+    m_plusZ: 1
+    m_minusZ: 1
+    m_plusX: 1
+    m_minusX: 1
     m_plusY: 0
     m_minusY: 0
   m_JankTag: 0
