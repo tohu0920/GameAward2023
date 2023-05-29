@@ -107,9 +107,9 @@ public class StageDataToJson_araki : MonoBehaviour
                 data.m_pos[j * 3 + 2] = child.position.z;
 
                 //--- 回転
-                data.m_rot[j * 3 + 0] = child.localEulerAngles.x;
-                data.m_rot[j * 3 + 1] = child.localEulerAngles.y;
-                data.m_rot[j * 3 + 2] = child.localEulerAngles.z;
+                data.m_rot[j * 3 + 0] = child.rotation.x;
+                data.m_rot[j * 3 + 1] = child.rotation.y;
+                data.m_rot[j * 3 + 2] = child.rotation.z;
 
                 j++;
             }
@@ -122,7 +122,11 @@ public class StageDataToJson_araki : MonoBehaviour
         Debug.Log(m_fileName + "の書き込み開始");
 
         // jsonファイルに書き込み(Resourcesファイルに格納)
+#if true
         string filePath = Application.dataPath + "/Resources/" + m_fileName + ".json";
+#else
+		string filePath = Application.dataPath + "/Resources/StageData/" + m_fileName + ".json";
+#endif
         StreamWriter sw;
         sw = new StreamWriter(filePath, false);
         sw.Write(json);
