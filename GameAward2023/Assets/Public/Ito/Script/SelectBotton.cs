@@ -29,7 +29,7 @@ public class SelectBotton : MonoBehaviour
         UnderLine   = GameObject.Find("UnderLine").GetComponent<Image>();
 
         //アンダーラインの初期化
-        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180);
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -300);
 
         //キャンバスの初期化
         OptionScreen.SetActive(false);
@@ -49,7 +49,7 @@ public class SelectBotton : MonoBehaviour
         SelectNum %= 3;
 
         //ラインのポジションをまとめる(swtich使わずに)改行あり
-        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -180 - SelectNum * 70);
+        UnderLine.rectTransform.anchoredPosition = new Vector2(0, -300 - SelectNum * 91);
         
         if(PadInput.GetKeyDown(KeyCode.JoystickButton0))
         {

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Capacitor_iwata : MonoBehaviour
 {
+    private void Start()
+    {
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_SPARK, transform.position, transform);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.parent.name != "Core(Clone)") return;

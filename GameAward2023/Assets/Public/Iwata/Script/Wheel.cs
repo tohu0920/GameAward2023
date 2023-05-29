@@ -6,17 +6,18 @@ public class Wheel : JankBase_iwata
 {
     public override void work()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override List<float> GetParam()
     {
-        throw new System.NotImplementedException();
+        List<float> list = new List<float>();
+
+        return list;
     }
 
     public override void SetParam(List<float> paramList)
     {
-        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update

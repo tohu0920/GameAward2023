@@ -8,7 +8,7 @@ public class Fade : MonoBehaviour
     public Image fadeImage; // フェードに使用するパネルのイメージコンポーネント
     public float fadeDuration = 1f; // フェードの時間
 
-    private static Fade instance;
+    public static Fade instance;
     private Coroutine fadeCoroutine; // コルーチンの参照を保持する変数
 
     private void Awake()
