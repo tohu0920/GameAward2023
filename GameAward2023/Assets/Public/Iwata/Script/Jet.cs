@@ -29,7 +29,6 @@ public class Jet : JankBase_iwata
         if (currentSpeed < m_maxSpeed)
         {
             rigidbody.AddForce(boostFoce);	// ブースト処理
-            //center.AddForce(boostFoce);	// ブースト処理
         }
 
         Vector3 effectPos = this.transform.position;
@@ -39,8 +38,19 @@ public class Jet : JankBase_iwata
         Vector3 offset = -direction * 1f;
         effectPos += offset;
 
+        Vector3 size = new Vector3(3f, 3f, 3f);
+        float deff = m_boostForceRate - 100f;
+        if(deff < 0)
+        {
+            size *= 0.5f;
+        }
+        else if(deff > 0)
+        {
+            size *= 1.5f;
+        }
+
         //ジェットの炎のエフェクト表示
-        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform);
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_JET, effectPos, this.transform.parent, size);
     }
 
     public override List<float> GetParam()

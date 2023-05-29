@@ -53,7 +53,7 @@ public abstract class JankBase_iwata : JankStatus
 
         PutJank(trans, CoreTrans);
 
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;        //—Í‚ª‰Á‚í‚Á‚Ä‚àˆÚ“®‰ñ“]‚µ‚È‚¢‚æ‚¤‚ÉŒÅ’è
+        //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;        //—Í‚ª‰Á‚í‚Á‚Ä‚àˆÚ“®‰ñ“]‚µ‚È‚¢‚æ‚¤‚ÉŒÅ’è
         
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PrefabData_Json
 {
-    public string m_prevabName;
+    public string m_prefabName;
     public string m_junkName;
     public string m_categoriz;
     public string m_property;
@@ -27,37 +27,36 @@ public class JunkData_Json
     public string m_explnation;
 }
 
-public class Json : MonoBehaviour
+public class ReadJson : MonoBehaviour
 {
     Dictionary<string, JunkData_Json> m_junkData;
     public Text textComponent;
-    public Font font;
-    public int fontSize = 64;
 
     private void Start()
     {
-        textComponent = GetComponent<Text>();
-        textComponent.fontSize = fontSize;
-        if (font != null)
-            textComponent.font = font;
+        m_junkData = new Dictionary<string, JunkData_Json>();
+        SettingPrefab("Prefab");
     }
 
-    public void SettingPrefab(string fileName)
+    void SettingPrefab(string fileName)
     {
         //--- jsonファイルの読み込み
         PrefabList list;
         LoadJsonFile(fileName, out list);
 
+        Debug.Log("RoadList" + list);
+
         //--- 読み込んだデータを基に処理
         foreach (PrefabData_Json prefab in list.m_prefabs)
         {
+            Debug.Log("a" + prefab.m_junkName);
             // ---データ作成
             JunkData_Json junk = new JunkData_Json();
             junk.m_junkName   = prefab.m_junkName;
             junk.m_categoriz  = prefab.m_categoriz;
             junk.m_property   = prefab.m_property;
             junk.m_explnation = prefab.m_explnation;
-            m_junkData.Add(prefab.m_prevabName, junk);
+            m_junkData.Add(prefab.m_prefabName, junk);
         }
     }
 
@@ -66,27 +65,39 @@ public class Json : MonoBehaviour
 	/// </summary>
 	static void LoadJsonFile<T>(string fileName, out T list)
     {
+        Debug.Log("a");
         //--- jsonファイルの読み込み
         string inputText = Resources.Load<TextAsset>(fileName).ToString();
+        Debug.Log(inputText);
         list = JsonUtility.FromJson<T>(inputText);  // 読み込んだデータをリスト化
+        Debug.Log("b");
     }
 
     /// <summary>
-    /// jsonのテキスト表示
+    /// json内のテキスト表示
     /// </summary>
-    /// <param name="prefabName"></param>
     public void DisplayText(string prefabName)
     {
         JunkData_Json junk = new JunkData_Json();
-        junk = m_junkData[prefabName];
+        string matchName = null;
+        List<string> keys = new List<string>(m_junkData.Keys);
+        foreach (string pfname in keys)
+        {
+            Debug.Log(pfname);
+            if (!prefabName.Contains(pfname)) continue;
+            matchName = pfname;
+        }
+
+        junk = m_junkData[matchName];
+
         textComponent.text  = junk.m_junkName   + "\n";
         textComponent.text += junk.m_categoriz  + "\n";
-        textComponent.text += junk.m_property   + "\n";
+        textComponent.text += junk.m_property   + "\n--------------------------\n";
         textComponent.text += junk.m_explnation;
     }
 
-    public void ClearText(string prefabName)
+    public void ClearText()
     {
-        textComponent.text = "";
+       textComponent.text = "";
     }
 }

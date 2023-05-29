@@ -6,6 +6,8 @@ public enum EffectType
 {
     E_EFFECT_KIND_JET = 0,
     E_EFFECT_KIND_EXPLOSION,
+    E_EFFECT_KIND_FIRE,
+    E_EFFECT_KIND_SPARK,
     E_EFFECT_KIND_MAX
 }
 
@@ -56,13 +58,21 @@ public class EffectManager_iwata : MonoBehaviour
         }
     }
 
-    public static void PlayEffect(EffectType type, Vector3 position, Transform parent)
+    public static void PlayEffect(EffectType type, Vector3 position, Transform parent, Vector3 size = default(Vector3))
     {
+        //// 引数が指定されていない場合はデフォルト値を使用
+        //if (size == default(Vector3))
+        //{
+        //    size = new Vector3(3.0f, 3.0f, 3.0f);
+        //}
+
         EffectInfo effectInfo = instance.effectList.Find(effect => effect.type == type);
          
         if (effectInfo != null)
         {
             GameObject effectInstance = Instantiate(effectInfo.effectPrefab, position, Quaternion.identity);
+            Debug.Log(size);
+            if(size != default) effectInstance.transform.localScale = size;
             effectInstance.transform.parent = parent;
         }
         else

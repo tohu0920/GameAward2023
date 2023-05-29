@@ -31,7 +31,7 @@ public class GoalArea : MonoBehaviour
                 }
                 float explosionForce = 20.0f; // ”š”­—Í
                 float explosionRadius = 5.0f; // ”š”­”¼Œa
-                parent.GetChild(i).transform.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, parent.GetChild(i).transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
+                //parent.GetChild(i).transform.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, parent.GetChild(i).transform.position, explosionRadius, 0.0f, ForceMode.Impulse);
             }
             GameManager.GameStatus = GameManager.eGameStatus.E_GAME_STATUS_END;
         }

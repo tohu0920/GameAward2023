@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //--- レイの衝突状況の遷移
-enum E_RAY_HIT_STATE
+public enum E_RAY_HIT_STATE
 {
 	ENTER,	//当たった瞬間
 	EXIT,	//離れた瞬間
@@ -16,12 +16,15 @@ public class CursorController_araki : ObjectBase
 {
 	static RectTransform m_rectTransform;   // カーソルの座標情報
     [SerializeReference] GameObject m_lastPointJunk; // 前フレームで指していたガラクタのデータ
+	GameObject m_selectJunk;
+	CoreSetting_iwata m_coreSetting;
     [SerializeReference] GameObject m_previewJunk;   // プレビュー用ガラクタのデータ
 	[SerializeReference] PreviewCamera_araki m_previreCamera;
 	JointStageManager m_jointStageManager;
     float axisX = 0.0f;
     float axisY = 0.0f;
 	bool m_isHighSpeed = false;
+	E_RAY_HIT_STATE m_state;
 
 	// Start is called before the first frame update
 	void Start()
@@ -30,6 +33,7 @@ public class CursorController_araki : ObjectBase
 		m_rectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
 		m_lastPointJunk = null;
 		m_jointStageManager = transform.root.GetComponent<JointStageManager>();
+		m_coreSetting = GameObject.Find("Core").GetComponent<CoreSetting_iwata>();
 	}
 
     // Update is called once per frame
@@ -38,27 +42,51 @@ public class CursorController_araki : ObjectBase
 		if (m_jointStageManager.JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT) return;
 
 		//--- プレビュー用ガラクタを生成
-		switch (CheckRayHitState())
+		m_state = CheckRayHitState();
+		Debug.Log(m_state);
+		switch (m_state)
 		{
 			case E_RAY_HIT_STATE.ENTER: // 指した瞬間
-				m_previreCamera.StartNoise();	// ノイズ開始	
+				m_previreCamera.StartNoise();	// ノイズ開始
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_NOISE);
+				m_selectJunk = m_lastPointJunk;
 				break;
 			case E_RAY_HIT_STATE.EXIT:  // 離れた瞬間
+                AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
+
+				// 仮置きを開始した場合はプレビューを破棄しない
+				if (m_coreSetting.AttachJank != null) break;
+
+				//--- プレビューを破棄
+				m_selectJunk = null;
+				if (m_previewJunk == null) break;
 				Destroy(m_previewJunk);
 				m_previewJunk = null;
+				m_previreCamera.StartNoise();   // ノイズ開始
 				break;
 			case E_RAY_HIT_STATE.STAY:
 				if (!m_previreCamera.isEndNoise) break;
 
                 //--- ノイズが終わったらガラクタを生成
+                AudioManager.StopSE(AudioManager.SEKind.E_SE_KIND_NOISE);
                 AudioManager.PlaySE(AudioManager.SEKind.E_SE_KIND_MONITORON);
-                m_previewJunk = (GameObject)Instantiate((Object)m_lastPointJunk,
+                m_previewJunk = (GameObject)Instantiate((Object)m_selectJunk,
 					new Vector3(), Quaternion.identity);
 				// 動作を固定
 				m_previewJunk.GetComponent<Rigidbody>().constraints
 					= RigidbodyConstraints.FreezeAll;
 				m_previewJunk.AddComponent<PreviewJunk_araki>();
+				break;
+			case E_RAY_HIT_STATE.NOT_HIT:
+				// 仮置き中の場合はプレビューを破棄しない
+				if (m_coreSetting.AttachJank != null) break;
+
+				//--- プレビューを破棄
+				if (m_selectJunk != null) m_selectJunk = null;
+				if (m_previewJunk == null) break;
+				Destroy(m_previewJunk);
+				m_previewJunk = null;
+				m_previreCamera.StartNoise();   // ノイズ開始
 				break;
 			default:    // 上記以外の場合は処理しない
 				break;
@@ -106,9 +134,23 @@ public class CursorController_araki : ObjectBase
 
 		//--- レイで当たり判定を取る
 		Ray ray = GetCameraToRay(cam);
-		RaycastHit hit;
-		// 入れ子を削減する為に否定で判定
-		if (!Physics.Raycast(ray, out hit)) // カーソルが指す物を取得
+		RaycastHit[] hits = Physics.RaycastAll(ray);
+		float minZ = Mathf.Infinity;
+		GameObject minZJunk = null;
+
+		//--- 取得したオブジェクトから最前にあるガラクタを求める
+		foreach(RaycastHit junk in hits)
+		{
+			//--- 条件外の物は省く
+			if (junk.transform.tag != "Jank") continue;
+			if (junk.transform.position.z >= minZ) continue;
+
+			minZ = junk.transform.position.z;		// Z座標の最小値を更新
+			minZJunk = junk.transform.gameObject;	// 最前のオブジェクトを更新
+		}
+
+		// カーソル(レイ)が何も指していなかったら
+		if (minZJunk == null)
 		{
 			GameObject temp = m_lastPointJunk;
 			m_lastPointJunk = null; // 過去のデータをリセット
@@ -119,10 +161,8 @@ public class CursorController_araki : ObjectBase
 			return E_RAY_HIT_STATE.NOT_HIT;
 		}
 
-		GameObject hitJunk = hit.transform.gameObject;
-
 		// ガラクタに当たっていなければ処理しない
-		if (hitJunk.transform.parent.name != "Jank")
+		if (minZJunk.transform.parent.name != "Jank")
 		{
 			GameObject temp = m_lastPointJunk;
 			m_lastPointJunk = null; // 過去のデータをリセット
@@ -136,12 +176,12 @@ public class CursorController_araki : ObjectBase
 		//--- 前フレームでガラクタを指していなかった場合
 		if (m_lastPointJunk == null)
 		{
-			m_lastPointJunk = hitJunk;  // 過去のデータとして退避
+			m_lastPointJunk = minZJunk;  // 過去のデータとして退避
 			return E_RAY_HIT_STATE.ENTER;
 		}
 
 		// 指し続けている場合
-		if (m_lastPointJunk == hitJunk) return E_RAY_HIT_STATE.STAY;
+		if (m_lastPointJunk == minZJunk) return E_RAY_HIT_STATE.STAY;
 
 		//--- 何も指さなくなった場合
 		m_lastPointJunk = null; // 過去のデータをリセット
@@ -190,5 +230,10 @@ public class CursorController_araki : ObjectBase
 		//--- スタートしたらプレビュー用ガラクタを削除する
 		Destroy(m_previewJunk);
 		m_previewJunk = null;
+	}
+
+	public E_RAY_HIT_STATE state
+	{
+		get { return m_state; }
 	}
 }

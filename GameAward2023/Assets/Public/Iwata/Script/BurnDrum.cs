@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BurnDrum : MonoBehaviour
 {
+    private void Start()
+    {
+        EffectManager_iwata.PlayEffect(EffectType.E_EFFECT_KIND_FIRE, transform.position, this.transform);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("1");
