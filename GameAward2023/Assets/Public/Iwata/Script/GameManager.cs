@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(m_DebugStage + "をよみこみます");
             LoadStageData_araki.SettingStageObjects(m_DebugStage + "Stage");
-            Debug.Log("あをよみこみます");
             LoadStageData_araki.SettingJunks(m_DebugStage + "Garakuta");
             PlayStage.gameObject.SetActive(false);
             m_Pose.gameObject.SetActive(false);
