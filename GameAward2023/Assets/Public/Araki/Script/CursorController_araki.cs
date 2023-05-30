@@ -39,6 +39,7 @@ public class CursorController_araki : ObjectBase
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.GameStatus != GameManager.eGameStatus.E_GAME_STATUS_JOINT) return;
 		if (m_jointStageManager.JSStatus == JointStageManager.eJointStageStatus.E_JOINTSTAGE_STATUS_PUT) return;
 
 		//--- プレビュー用ガラクタを生成
